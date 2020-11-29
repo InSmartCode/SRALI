@@ -13,10 +13,10 @@ namespace SRALI.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class SARAEntities : DbContext
+    public partial class SARADB_Entities : DbContext
     {
-        public SARAEntities()
-            : base("name=SARAEntities")
+        public SARADB_Entities()
+            : base("name=SARADB_Entities")
         {
         }
     
@@ -32,8 +32,8 @@ namespace SRALI.Models
         public virtual DbSet<tblOpcionesxPerfil> tblOpcionesxPerfil { get; set; }
         public virtual DbSet<tblPadredeFamilia> tblPadredeFamilia { get; set; }
         public virtual DbSet<tblPerfil> tblPerfil { get; set; }
+        public virtual DbSet<tblResponsableEstudiante> tblResponsableEstudiante { get; set; }
         public virtual DbSet<tblUsuario> tblUsuario { get; set; }
         public virtual DbSet<V_UsuariosSistema> V_UsuariosSistema { get; set; }
-        public virtual DbSet<tblResponsableEstudiante> tblResponsableEstudiante { get; set; }
     }
 }

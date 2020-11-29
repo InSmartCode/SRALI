@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="SARAModelStoreContainer" CdmEntityContainer="SARAEntities">
+  <EntityContainerMapping StorageEntityContainer="SARAModelStoreContainer" CdmEntityContainer="SARADB_Entities">
     <EntitySetMapping Name="sysdiagrams">
       <EntityTypeMapping TypeName="SARAModel.sysdiagrams">
         <MappingFragment StoreEntitySet="sysdiagrams">
@@ -109,6 +109,27 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="tblResponsableEstudiante">
+      <EntityTypeMapping TypeName="SARAModel.tblResponsableEstudiante">
+        <MappingFragment StoreEntitySet="tblResponsableEstudiante">
+          <ScalarProperty Name="idResponsable" ColumnName="idResponsable" />
+          <ScalarProperty Name="nombres" ColumnName="nombres" />
+          <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+          <ScalarProperty Name="telefonoFijo" ColumnName="telefonoFijo" />
+          <ScalarProperty Name="telefonoMovil" ColumnName="telefonoMovil" />
+          <ScalarProperty Name="dui" ColumnName="dui" />
+          <ScalarProperty Name="microbus" ColumnName="microbus" />
+          <ScalarProperty Name="telefonoFijoMicrobus" ColumnName="telefonoFijoMicrobus" />
+          <ScalarProperty Name="telefonoMovilMicrobus" ColumnName="telefonoMovilMicrobus" />
+          <ScalarProperty Name="numeroPlaca" ColumnName="numeroPlaca" />
+          <ScalarProperty Name="marca" ColumnName="marca" />
+          <ScalarProperty Name="fechaCreacion" ColumnName="fechaCreacion" />
+          <ScalarProperty Name="creadoPor" ColumnName="creadoPor" />
+          <ScalarProperty Name="fechaActualizado" ColumnName="fechaActualizado" />
+          <ScalarProperty Name="actualizadoPor" ColumnName="actualizadoPor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="tblUsuario">
       <EntityTypeMapping TypeName="SARAModel.tblUsuario">
         <MappingFragment StoreEntitySet="tblUsuario">
@@ -134,27 +155,6 @@
           <ScalarProperty Name="correo" ColumnName="correo" />
           <ScalarProperty Name="telefono" ColumnName="telefono" />
           <ScalarProperty Name="nombrePerfil" ColumnName="nombrePerfil" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="tblResponsableEstudiante">
-      <EntityTypeMapping TypeName="SARAModel.tblResponsableEstudiante">
-        <MappingFragment StoreEntitySet="tblResponsableEstudiante">
-          <ScalarProperty Name="actualizadoPor" ColumnName="actualizadoPor" />
-          <ScalarProperty Name="fechaActualizado" ColumnName="fechaActualizado" />
-          <ScalarProperty Name="creadoPor" ColumnName="creadoPor" />
-          <ScalarProperty Name="fechaCreacion" ColumnName="fechaCreacion" />
-          <ScalarProperty Name="marca" ColumnName="marca" />
-          <ScalarProperty Name="numeroPlaca" ColumnName="numeroPlaca" />
-          <ScalarProperty Name="telefonoMovilMicrobus" ColumnName="telefonoMovilMicrobus" />
-          <ScalarProperty Name="telefonoFijoMicrobus" ColumnName="telefonoFijoMicrobus" />
-          <ScalarProperty Name="microbus" ColumnName="microbus" />
-          <ScalarProperty Name="dui" ColumnName="dui" />
-          <ScalarProperty Name="telefonoMovil" ColumnName="telefonoMovil" />
-          <ScalarProperty Name="telefonoFijo" ColumnName="telefonoFijo" />
-          <ScalarProperty Name="apellidos" ColumnName="apellidos" />
-          <ScalarProperty Name="nombres" ColumnName="nombres" />
-          <ScalarProperty Name="idResponsable" ColumnName="idResponsable" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

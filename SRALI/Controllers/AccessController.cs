@@ -14,7 +14,7 @@ namespace SRALI.Controllers
     public class AccessController : Controller
     {
         //private string idRol;
-        private readonly SARAEntities db = new SARAEntities();
+        private readonly SARADB_Entities db = new SARADB_Entities();
 
         // GET: Access
         public ActionResult Login()

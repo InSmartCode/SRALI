@@ -156,7 +156,7 @@ $("#save").on("click", function () {
                 alertify.success("Responsable Agregado.");
                 $('#tblResponsables').DataTable().destroy();
                 $('#tblResponsables tbody').empty();
-                $.each(result.Estudiantes, function (i, item) {
+                $.each(result.Responsables, function (i, item) {
                     /* Vamos agregando a nuestra tabla las filas necesarias */
                     $('#tblResponsables tbody').append("<tr class='even pointer'><td>" + item.idResponsable + "</td><td>"
                         + item.mombres + "</td><td>"
@@ -167,13 +167,14 @@ $("#save").on("click", function () {
                         + item.microbus + "</td><td>"
                         + item.telefonoFijoMicrobus + "</td><td>"
                         + item.telefonoMovilMicrobus + "</td><td>"
-                        + item.numeroPlaca +  "</td></tr>");
+                        + item.numeroPlaca + "</td><td>"
+                        + item.marca + "</td></tr>");
                 });
                 CallBack();
             } else  {
                 $('#tblResponsables').DataTable().destroy();
                 $('#tblResponsables tbody').empty();
-                $.each(result.Estudiantes, function (i, item) {
+                $.each(result.Responsables, function (i, item) {
                     /* Vamos agregando a nuestra tabla las filas necesarias */
                     var fechaNac = moment(item.fechaNacimiento).format('DD/MM/YYYY');
                     $('#tblResponsables tbody').append("<tr class='even pointer'><td>" + item.idResponsable + "</td><td>"
@@ -185,7 +186,8 @@ $("#save").on("click", function () {
                         + item.microbus + "</td><td>"
                         + item.telefonoFijoMicrobus + "</td><td>"
                         + item.telefonoMovilMicrobus + "</td><td>"
-                        + item.numeroPlaca + "</td></tr>");
+                        + item.numeroPlaca + "</td><td>"
+                        + item.marca + "</td></tr>");
                 });
                 CallBack();
                 alertify.error("Ha ocurrido un error al agregar el Responsable");
@@ -224,7 +226,7 @@ $("#update").on("click", function () {
                 alertify.success("Alumno Actualizado.");
                 $('#tblResponsables').DataTable().destroy();
                 $('#tblResponsables tbody').empty();
-                $.each(result.Estudiantes, function (i, item) {
+                $.each(result.Responsables, function (i, item) {
                     /* Vamos agregando a nuestra tabla las filas necesarias */
                     $('#tblResponsables tbody').append("<tr class='even pointer'><td>" + item.idResponsable + "</td><td>"
                         + item.mombres + "</td><td>"
@@ -235,13 +237,14 @@ $("#update").on("click", function () {
                         + item.microbus + "</td><td>"
                         + item.telefonoFijoMicrobus + "</td><td>"
                         + item.telefonoMovilMicrobus + "</td><td>"
-                        + item.numeroPlaca + "</td></tr>");
+                        + item.numeroPlaca + "</td><td>"
+                        + item.marca + "</td></tr>");
                 });
                 CallBack();
             } else {
                 $('#tblResponsables').DataTable().destroy();
                 $('#tblResponsables tbody').empty();
-                $.each(result.Estudiantes, function (i, item) {
+                $.each(result.Responsables, function (i, item) {
                     /* Vamos agregando a nuestra tabla las filas necesarias */
                     $('#tblResponsables tbody').append("<tr class='even pointer'><td>" + item.idResponsable + "</td><td>"
                         + item.mombres + "</td><td>"
@@ -252,7 +255,8 @@ $("#update").on("click", function () {
                         + item.microbus + "</td><td>"
                         + item.telefonoFijoMicrobus + "</td><td>"
                         + item.telefonoMovilMicrobus + "</td><td>"
-                        + item.numeroPlaca + "</td></tr>");
+                        + item.numeroPlaca + "</td><td>"
+                        + item.marca + "</td></tr>");
                 });
                 CallBack();
                 alertify.error("Ha ocurrido un error al agregar el Responsable");

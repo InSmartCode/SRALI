@@ -11,7 +11,7 @@ namespace SRALI.Controllers
 {
     public class EstudiantesController : Controller
     {
-        SARAEntities db = new SARAEntities();
+        SARADB_Entities db = new SARADB_Entities();
         SaveImage SaveImage = new SaveImage();
         // GET: Estudiantes
         public ActionResult Index()
@@ -289,7 +289,16 @@ namespace SRALI.Controllers
             {
                 var OldResponsable = (from p in db.tblResponsableEstudiante where p.idResponsable == Responsable.idResponsable select p).FirstOrDefault();
 
-
+                OldResponsable.nombres = Responsable.nombres;
+                OldResponsable.apellidos = Responsable.apellidos;
+                OldResponsable.telefonoFijo = Responsable.telefonoFijo;
+                OldResponsable.telefonoMovil = Responsable.telefonoMovil;
+                OldResponsable.dui = Responsable.dui;
+                OldResponsable.microbus = Responsable.microbus;
+                OldResponsable.telefonoFijoMicrobus = Responsable.telefonoFijoMicrobus;
+                OldResponsable.telefonoMovilMicrobus = Responsable.telefonoMovilMicrobus;
+                OldResponsable.numeroPlaca = Responsable.numeroPlaca;
+                OldResponsable.marca = Responsable.marca;
                 OldResponsable.actualizadoPor = Session["IdUsurio"].ToString();
                 OldResponsable.fechaActualizado = DateTime.Now;
 

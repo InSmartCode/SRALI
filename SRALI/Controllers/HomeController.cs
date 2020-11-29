@@ -10,7 +10,7 @@ namespace SRALI.Controllers
     public class HomeController : Controller
     {
 
-        private readonly SARAEntities db = new SARAEntities();
+        private readonly SARADB_Entities db = new SARADB_Entities();
 
         public ActionResult Index()
         {

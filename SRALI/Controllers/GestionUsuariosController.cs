@@ -15,7 +15,7 @@ namespace SRALI.Controllers
 {
     public class GestionUsuariosController : Controller
     {
-        private readonly SARAEntities db = new SARAEntities();
+        private readonly SARADB_Entities db = new SARADB_Entities();
 
 
         //private readonly  string UserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
