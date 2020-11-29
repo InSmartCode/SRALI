@@ -1,0 +1,132 @@
+﻿@model  SRALI.Models.tblUsuario
+@{
+    Layout = null;
+}
+
+
+@*
+    <!DOCTYPE html>
+    <html lang="es-sv">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Meta, title, CSS, favicons, etc. -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Login | Sistema de Administracion de Registro Academico - Liceo Integral </title>
+
+        <!-- Bootstrap -->
+        <link href="~/Content/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link href="~/Content/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <!-- NProgress -->
+        <link href="~/Content/vendors/nprogress/nprogress.css" rel="stylesheet">
+        <!-- Animate.css -->
+        <link href="~/Content/vendors/animate.css/animate.min.css" rel="stylesheet">
+
+        <!-- Custom Theme Style -->
+        <link href="~/Content/build/css/custom.min.css" rel="stylesheet">
+    </head>
+
+    <body class="login">
+        <div>
+            <a class="hiddenanchor" id="signup"></a>
+            <a class="hiddenanchor" id="signin"></a>
+
+            <div class="login_wrapper">
+                <div class="animate form login_form">
+                    <div class="row">
+
+                    </div>
+                    <section id="loginForm">
+
+                        <h1>Registro Academico</h1>
+                        <form method="post" action="@Url.Content("/Access/Login")">
+                            <div>
+                                <input type="text" class="form-control" placeholder="Ingrese nombre de usuario " name="Usuario" required="" />
+                            </div>
+                            <div>
+                                <input type="password" class="form-control" placeholder="Ingrese password" name="Password" required="" />
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+
+                            </div>
+                            <div class="danger align-content-center">
+                                @ViewBag.Error
+                            </div>
+                            <div class="clearfix"></div>
+
+                            <div class="separator">
+                                <div class="clearfix"></div>
+                                <br />
+
+                                <div>
+                                    <h1><i class="fa fa-paw"></i> Liceo Integral - Kinder Plaza Sésamo</h1>
+                                    <p>©2020 Todos los derechos reservados. Desarrolado por <a href="http://smartcode.com.sv">Smart{Code}</a></p>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>
+
+*@
+
+<!DOCTYPE html>
+<html lang="es-sv">
+<head>
+    <meta charset="utf-8">
+    <title>Sistema de Registro Académico | Liceo Integral</title>
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/images/li_icon.ico">
+    <link rel="stylesheet" href="~/Content/css/login.css">
+   
+</head>
+<body>
+
+    <div class="login-box">
+        <img src="~/Content/images/login/logo_li_transpa.png" class="avatar" alt="Liceo Integral">
+
+        <h1>Sistema de Registro Académico</h1>
+        <br />
+        @*<form method="post" action="@Url.Content("/Access/Login")">*@
+        @using (Html.BeginForm("Login", "Access", FormMethod.Post, new { @class = "form", @id = "frmLogin" }))
+
+        {
+            @Html.AntiForgeryToken()
+
+            <!-- USERNAME INPUT -->
+            <label for="username">Usuario o Email</label>
+            @*<input type="text" placeholder="Ingrese nombre de usuario o email" name="Usuario" required="">*@
+            @Html.TextBoxFor(m => m.correo, new { placeholder = "Ingrese Email", required = "", @class = "form-control", @id = "Usuario", @type = "text" })
+            <!-- PASSWORD INPUT -->
+            <label for="password">Password</label>
+            @*<input type="password" placeholder="Ingrese su password" name="Password" required="">*@
+
+             @Html.TextBoxFor(m => m.password,  new { placeholder = "Ingrese password", required = "", @class = "form-control", @id = "Password", @type = "password" })
+
+            <input type="submit" value="Ingresar">
+
+            @*<a href="#">Lost your Password?</a><br>
+            <a href="#">Don't have An account?</a>*@
+
+            <br />
+            <div class="danger align-content-center">
+                @ViewBag.Error
+            </div>
+            <br />
+            <br />
+
+            <h2> ©2020 Todos los derechos reservados</h2>
+            <br />
+            <p><a href="http://smartcode.com.sv">Desarrolado por IST Consultig</a></p>
+
+        }
+     </div>
+</body>
+</html>
+

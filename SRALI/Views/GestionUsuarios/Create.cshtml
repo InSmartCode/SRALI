@@ -1,0 +1,189 @@
+﻿@model SRALI.Models.tblUsuario
+
+@using Microsoft.AspNet.Identity;
+@{
+    ViewBag.Title = "Crear Usuario";
+    Layout = null;
+}
+
+
+        <div class="x_content">
+
+
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="portlet light bordered">
+                            <div class="portlet-title">
+                                <div class="caption font-green">
+                                    <i class="icon-pin font-green"></i>
+                                    <span class="caption-subject bold uppercase">Nuevo Usuario</span>
+                                </div>
+                            </div>
+                            <div class="portlet-body form">
+
+                                @*  ********************   Inicia del Formuario ************************* *@
+
+                                @using (Html.BeginForm("Create", "GestionUsuarios", FormMethod.Post, new { @class = "form-horizontal", @role = "form", @Id = "create-user" }))
+                                {
+                                <div class="form-body">
+
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, "", new { @class = "text-error" })
+
+                                    <div class="form-group  margin-top-20">
+
+                                        @*<h4>Nuevo usuario</h4><hr />*@
+
+                                        <hr />
+
+                                        <div class="row form-group form-md-line-input has-info">
+                                            <div class="col-md-4 text-left">
+                                                Nombre de usuario:
+                                            </div>
+                                            <div class="col-md-8">
+                                                @Html.EditorFor(model => model.nombre, new { htmlAttributes = new { @placeholder = "Nombre de usuario", @required = "", @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.nombre, "", new {@class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="row form-group form-md-line-input has-info">
+                                            <div class="col-md-4 text-left">
+                                                Password:
+                                            </div>
+                                            <div class="col-md-8">
+                                                @Html.EditorFor(model => model.password, new { htmlAttributes = new { @placeholder = "Ingrese password", @class = "form-control", @type = "password", required = "", @id = "frmPassword" } })
+                                                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                                            
+                                            </div>
+                                        </div>
+
+                                        <div class="row form-group form-md-line-input has-info">
+                                            <div class="col-md-4 text-left">
+                                                Nombre completo:
+                                            </div>
+                                            <div class="col-md-8">
+                                                @Html.EditorFor(model => model.nombreCompleto, new { htmlAttributes = new { @placeholder = "Nombre completo", @required = "", @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.nombreCompleto, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="row form-group form-md-line-input has-info">
+                                            <div class="col-md-4 text-left">
+                                                Estado:
+                                            </div>
+                                            <div class="col-md-8">
+
+                                                @*Activo @Html.RadioButtonFor(model => model.estado, true)
+                                                    Inactivo @Html.RadioButtonFor(model => model.estado, false)*@
+                                                                                            <!--<div class="radio">
+                                                    <label>-->
+                                                                                            @*<input type="radio" checked="" value="A" id="Actvivo" name="opcionEstado"> Activo
+                                                            Activo @Html.RadioButtonFor(model => model.estado, new { htmlAttributes = new { @type="radio", @checked= "", @value= "A", @id="Activo", @name = "opcionEstado"} })
+
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label>
+                                                           @* <input type="radio" value="I" id="Inactivo" name="opcionEstado"> Inactivo
+                                                            Inactivo @Html.RadioButtonFor(model => model.estado, new { htmlAttributes = new { @type = "radio", @value = "I", @id = "Inactivo", @name = "opcionEstado" } })
+                                                        </label>
+                                                    </div>*@
+
+                                                <div class="row form-group">
+                                                    
+                                                    <div class="col-md-4">
+                                                        Activo @Html.RadioButton("estado", true, true, new { htmlAttributes = new { @type = "radio", @value = "A", @id = "Activo" } })
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        Inactivo @Html.RadioButton("estado", false, new { htmlAttributes = new { @type = "radio", @value = "I", @id = "Inactivo" } })
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="row form-group form-md-line-input has-info">
+                                        <div class="col-md-4 text-left">
+                                            Seleccione un Perfil:
+                                        </div>
+                                        <div class="col-md-8">
+                                            <select name="PerfilSeleccionado" class="bs-select form-control">
+                                                <option></option>
+                                                @foreach (var item in ViewBag.Perfiles)
+                                                {
+                                                    <option value="@item.nombre">@item.nombre</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="row form-group form-md-line-input has-info">
+                                        <div class="col-md-4 text-left">
+                                            Correo:
+                                        </div>
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(model => model.correo, new { htmlAttributes = new { @placeholder = "Email", @class = "form-control", @required = "" } })
+                                            @Html.ValidationMessageFor(model => model.correo, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group form-md-line-input has-info">
+                                        <div class="col-md-4 text-left">
+                                            Telefono:
+                                        </div>
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.telefono, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="row form-group form-md-line-input has-info">
+                                        <div class="col-md-4 text-left">
+                                            Foto de perfil:
+                                        </div>
+                                        <div class="col-md-8">
+                                            @Html.EditorFor(model => model.archivofoto, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.archivofoto, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    @*  ********************   Fin del Formuario ************************* *@
+                                    <hr />
+                                    @*  ********************   Boton Guardar ***************************** *@
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-offset-2 col-md-12">
+
+                                                <input type="button" value="Cancelar" class="btn btn-circle btn-secondary btn-group-lg pull-right" id="btnCerrar" data-dismiss="modal" />
+                                                <input type="submit" value="Guardar" class="btn btn-primary pull-right" id="btnGuardar" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                    <div>
+                                        @* @Html.ActionLink("Back to List", "Index")*@
+                                    </div>
+                                    <div class="danger align-content-center">
+                                        @ViewBag.Error
+                                    </div>
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+  

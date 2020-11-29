@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SARAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="tblConfGeneral">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="nombreCompletoInstitucion" Type="varchar" MaxLength="150" />
+    <Property Name="nombreCortoInstitucion" Type="varchar" MaxLength="50" />
+    <Property Name="direccion" Type="varchar" MaxLength="150" />
+    <Property Name="telefono" Type="varchar" MaxLength="8" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
+    <Property Name="logo" Type="varchar" MaxLength="50" />
+    <Property Name="nit" Type="varchar" MaxLength="16" />
+    <Property Name="rfc" Type="varchar" MaxLength="16" />
+    <Property Name="codigoMined" Type="varchar" MaxLength="150" />
+    <Property Name="web" Type="varchar" MaxLength="150" />
+    <Property Name="facebook" Type="varchar" MaxLength="150" />
+    <Property Name="instagram" Type="varchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="tblEstudiante">
+    <Key>
+      <PropertyRef Name="idAlumno" />
+    </Key>
+    <Property Name="idAlumno" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="codigo" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="nombres" Type="nvarchar" MaxLength="60" Nullable="false" />
+    <Property Name="primerApellido" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="segundoApellido" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="fechaNacimiento" Type="date" />
+    <Property Name="edad" Type="int" />
+    <Property Name="sexo" Type="char" MaxLength="1" />
+    <Property Name="nie" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="lugarNacimiento" Type="nvarchar" MaxLength="100" />
+    <Property Name="numeroPartidaNacimiento" Type="nvarchar" MaxLength="50" />
+    <Property Name="tomo" Type="nvarchar" MaxLength="50" />
+    <Property Name="folio" Type="nvarchar" MaxLength="50" />
+    <Property Name="libro" Type="nvarchar" MaxLength="50" />
+    <Property Name="departamento" Type="nvarchar" MaxLength="50" />
+    <Property Name="municipio" Type="nvarchar" MaxLength="50" />
+    <Property Name="direccion" Type="nvarchar" MaxLength="150" />
+    <Property Name="institucionProcedencia" Type="nvarchar" MaxLength="150" />
+    <Property Name="gradoIngreso" Type="nvarchar" MaxLength="50" />
+    <Property Name="archivofoto" Type="nvarchar" MaxLength="150" />
+    <Property Name="idResponsable" Type="int" />
+    <Property Name="creadoPor" Type="nvarchar" MaxLength="50" />
+    <Property Name="fechaCreacion" Type="datetime" />
+    <Property Name="actualizadoPor" Type="nvarchar" MaxLength="50" />
+    <Property Name="fechaActualizado" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tblOpcionesSistema">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="nombreModulo" Type="nvarchar" MaxLength="50" />
+    <Property Name="descripcionModulo" Type="nvarchar" MaxLength="100" />
+    <Property Name="idPadre" Type="int" />
+    <Property Name="nombreVista" Type="nvarchar" MaxLength="50" />
+    <Property Name="nombreIconoMenu" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblOpcionesxPerfil">
+    <Key>
+      <PropertyRef Name="numreg" />
+    </Key>
+    <Property Name="numreg" Type="int" Nullable="false" />
+    <Property Name="id_perfil" Type="int" Nullable="false" />
+    <Property Name="id_opcion" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblPadredeFamilia">
+    <Key>
+      <PropertyRef Name="idPadredeFamilia" />
+    </Key>
+    <Property Name="idPadredeFamilia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombres" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="apellidos" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="telefonoFijo" Type="varchar" MaxLength="8" />
+    <Property Name="telefonoMovil" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="profesion" Type="varchar" MaxLength="100" />
+    <Property Name="lugardeTrabajo" Type="varchar" MaxLength="100" />
+    <Property Name="dui" Type="varchar" MaxLength="12" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="parentesco" Type="varchar" MaxLength="100" />
+    <Property Name="responsabledeAlumno" Type="varchar" MaxLength="2" />
+    <Property Name="idAlumno" Type="int" />
+  </EntityType>
+  <EntityType Name="tblPerfil">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblResponsableEstudiante">
+    <Key>
+      <PropertyRef Name="idResponsable" />
+    </Key>
+    <Property Name="idResponsable" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombres" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="apellidos" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="telefonoFijo" Type="varchar" MaxLength="8" />
+    <Property Name="telefonoMovil" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="dui" Type="varchar" MaxLength="12" Nullable="false" />
+    <Property Name="microbus" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="telefonoFijoMicrobus" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="telefonoMovilMicrobus" Type="varchar" MaxLength="8" Nullable="false" />
+    <Property Name="numeroPlaca" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="marca" Type="varchar" MaxLength="25" />
+    <Property Name="fechaCreacion" Type="datetime" />
+    <Property Name="creadoPor" Type="nvarchar" MaxLength="50" />
+    <Property Name="fechaActualizado" Type="datetime" />
+    <Property Name="actualizadoPor" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblUsuario">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="password" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="nombreCompleto" Type="nvarchar" MaxLength="100" />
+    <Property Name="estado" Type="char" MaxLength="1" />
+    <Property Name="idPerfil" Type="int" />
+    <Property Name="correo" Type="nvarchar" MaxLength="150" />
+    <Property Name="telefono" Type="nvarchar" MaxLength="8" />
+    <Property Name="archivofoto" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'SARA.dbo.V_UsuariosSistema' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="V_UsuariosSistema">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="nombre" />
+      <PropertyRef Name="estado" />
+      <PropertyRef Name="nombrePerfil" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="nombreCompleto" Type="nvarchar" MaxLength="100" />
+    <Property Name="estado" Type="varchar" MaxLength="11" Nullable="false" />
+    <Property Name="correo" Type="nvarchar" MaxLength="150" />
+    <Property Name="telefono" Type="nvarchar" MaxLength="8" />
+    <Property Name="nombrePerfil" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_ModGen_Usuario_ModGen_Perfil">
+    <End Role="tblPerfil" Type="Self.tblPerfil" Multiplicity="0..1" />
+    <End Role="tblUsuario" Type="Self.tblUsuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblPerfil">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="tblUsuario">
+        <PropertyRef Name="idPerfil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblEstudiante_tblResponsableEstudiante">
+    <End Role="tblResponsableEstudiante" Type="Self.tblResponsableEstudiante" Multiplicity="0..1" />
+    <End Role="tblEstudiante" Type="Self.tblEstudiante" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblResponsableEstudiante">
+        <PropertyRef Name="idResponsable" />
+      </Principal>
+      <Dependent Role="tblEstudiante">
+        <PropertyRef Name="idResponsable" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblOpcionesxPerfil_tblOpcionesSistema">
+    <End Role="tblOpcionesSistema" Type="Self.tblOpcionesSistema" Multiplicity="1" />
+    <End Role="tblOpcionesxPerfil" Type="Self.tblOpcionesxPerfil" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblOpcionesSistema">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="tblOpcionesxPerfil">
+        <PropertyRef Name="id_opcion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblOpcionesxPerfil_tblPerfil">
+    <End Role="tblPerfil" Type="Self.tblPerfil" Multiplicity="1" />
+    <End Role="tblOpcionesxPerfil" Type="Self.tblOpcionesxPerfil" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblPerfil">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="tblOpcionesxPerfil">
+        <PropertyRef Name="id_perfil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblPadredeFamilia_tblEstudiante">
+    <End Role="tblEstudiante" Type="Self.tblEstudiante" Multiplicity="0..1" />
+    <End Role="tblPadredeFamilia" Type="Self.tblPadredeFamilia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblEstudiante">
+        <PropertyRef Name="idAlumno" />
+      </Principal>
+      <Dependent Role="tblPadredeFamilia">
+        <PropertyRef Name="idAlumno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SARAModelStoreContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblConfGeneral" EntityType="Self.tblConfGeneral" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblEstudiante" EntityType="Self.tblEstudiante" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblOpcionesSistema" EntityType="Self.tblOpcionesSistema" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblOpcionesxPerfil" EntityType="Self.tblOpcionesxPerfil" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblPadredeFamilia" EntityType="Self.tblPadredeFamilia" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblPerfil" EntityType="Self.tblPerfil" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblResponsableEstudiante" EntityType="Self.tblResponsableEstudiante" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblUsuario" EntityType="Self.tblUsuario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="V_UsuariosSistema" EntityType="Self.V_UsuariosSistema" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_UsuariosSistema].[id] AS [id], 
+    [V_UsuariosSistema].[nombre] AS [nombre], 
+    [V_UsuariosSistema].[nombreCompleto] AS [nombreCompleto], 
+    [V_UsuariosSistema].[estado] AS [estado], 
+    [V_UsuariosSistema].[correo] AS [correo], 
+    [V_UsuariosSistema].[telefono] AS [telefono], 
+    [V_UsuariosSistema].[nombrePerfil] AS [nombrePerfil]
+    FROM [dbo].[V_UsuariosSistema] AS [V_UsuariosSistema]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_ModGen_Usuario_ModGen_Perfil" Association="Self.FK_ModGen_Usuario_ModGen_Perfil">
+      <End Role="tblPerfil" EntitySet="tblPerfil" />
+      <End Role="tblUsuario" EntitySet="tblUsuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblEstudiante_tblResponsableEstudiante" Association="Self.FK_tblEstudiante_tblResponsableEstudiante">
+      <End Role="tblResponsableEstudiante" EntitySet="tblResponsableEstudiante" />
+      <End Role="tblEstudiante" EntitySet="tblEstudiante" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblOpcionesxPerfil_tblOpcionesSistema" Association="Self.FK_tblOpcionesxPerfil_tblOpcionesSistema">
+      <End Role="tblOpcionesSistema" EntitySet="tblOpcionesSistema" />
+      <End Role="tblOpcionesxPerfil" EntitySet="tblOpcionesxPerfil" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblOpcionesxPerfil_tblPerfil" Association="Self.FK_tblOpcionesxPerfil_tblPerfil">
+      <End Role="tblPerfil" EntitySet="tblPerfil" />
+      <End Role="tblOpcionesxPerfil" EntitySet="tblOpcionesxPerfil" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblPadredeFamilia_tblEstudiante" Association="Self.FK_tblPadredeFamilia_tblEstudiante">
+      <End Role="tblEstudiante" EntitySet="tblEstudiante" />
+      <End Role="tblPadredeFamilia" EntitySet="tblPadredeFamilia" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

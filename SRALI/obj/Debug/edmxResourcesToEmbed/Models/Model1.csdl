@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SARAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tblConfGeneral">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="nombreCompletoInstitucion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="nombreCortoInstitucion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="direccion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="telefono" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="logo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="nit" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+    <Property Name="rfc" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+    <Property Name="codigoMined" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="web" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="facebook" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="instagram" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tblEstudiante">
+    <Key>
+      <PropertyRef Name="idAlumno" />
+    </Key>
+    <Property Name="idAlumno" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="nombres" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="primerApellido" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="segundoApellido" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="fechaNacimiento" Type="DateTime" Precision="0" />
+    <Property Name="edad" Type="Int32" />
+    <Property Name="sexo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="nie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="lugarNacimiento" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="numeroPartidaNacimiento" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="tomo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="folio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="libro" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="departamento" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="municipio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="direccion" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="institucionProcedencia" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="gradoIngreso" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="archivofoto" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="idResponsable" Type="Int32" />
+    <Property Name="creadoPor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="fechaCreacion" Type="DateTime" Precision="3" />
+    <Property Name="actualizadoPor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="fechaActualizado" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="tblPadredeFamilia" Relationship="Self.FK_tblPadredeFamilia_tblEstudiante" FromRole="tblEstudiante" ToRole="tblPadredeFamilia" />
+    <NavigationProperty Name="tblResponsableEstudiante" Relationship="SARAModel.FK_tblEstudiante_tblResponsableEstudiante" FromRole="tblEstudiante" ToRole="tblResponsableEstudiante" />
+  </EntityType>
+  <EntityType Name="tblOpcionesSistema">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="nombreModulo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="descripcionModulo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="idPadre" Type="Int32" />
+    <Property Name="nombreVista" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="nombreIconoMenu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblOpcionesxPerfil" Relationship="Self.FK_tblOpcionesxPerfil_tblOpcionesSistema" FromRole="tblOpcionesSistema" ToRole="tblOpcionesxPerfil" />
+  </EntityType>
+  <EntityType Name="tblOpcionesxPerfil">
+    <Key>
+      <PropertyRef Name="numreg" />
+    </Key>
+    <Property Name="numreg" Type="Int32" Nullable="false" />
+    <Property Name="id_perfil" Type="Int32" Nullable="false" />
+    <Property Name="id_opcion" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="tblOpcionesSistema" Relationship="Self.FK_tblOpcionesxPerfil_tblOpcionesSistema" FromRole="tblOpcionesxPerfil" ToRole="tblOpcionesSistema" />
+    <NavigationProperty Name="tblPerfil" Relationship="Self.FK_tblOpcionesxPerfil_tblPerfil" FromRole="tblOpcionesxPerfil" ToRole="tblPerfil" />
+  </EntityType>
+  <EntityType Name="tblPadredeFamilia">
+    <Key>
+      <PropertyRef Name="idPadredeFamilia" />
+    </Key>
+    <Property Name="idPadredeFamilia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombres" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="apellidos" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="telefonoFijo" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="telefonoMovil" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="profesion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="lugardeTrabajo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="dui" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="parentesco" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="responsabledeAlumno" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="idAlumno" Type="Int32" />
+    <NavigationProperty Name="tblEstudiante" Relationship="Self.FK_tblPadredeFamilia_tblEstudiante" FromRole="tblPadredeFamilia" ToRole="tblEstudiante" />
+  </EntityType>
+  <EntityType Name="tblPerfil">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="tblOpcionesxPerfil" Relationship="Self.FK_tblOpcionesxPerfil_tblPerfil" FromRole="tblPerfil" ToRole="tblOpcionesxPerfil" />
+    <NavigationProperty Name="tblUsuario" Relationship="Self.FK_ModGen_Usuario_ModGen_Perfil" FromRole="tblPerfil" ToRole="tblUsuario" />
+  </EntityType>
+  <EntityType Name="tblUsuario">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="nombreCompleto" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="estado" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="idPerfil" Type="Int32" />
+    <Property Name="correo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="telefono" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="archivofoto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblPerfil" Relationship="Self.FK_ModGen_Usuario_ModGen_Perfil" FromRole="tblUsuario" ToRole="tblPerfil" />
+  </EntityType>
+  <EntityType Name="V_UsuariosSistema">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="nombre" />
+      <PropertyRef Name="estado" />
+      <PropertyRef Name="nombrePerfil" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="nombreCompleto" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="estado" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="correo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="telefono" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="nombrePerfil" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_tblPadredeFamilia_tblEstudiante">
+    <End Role="tblEstudiante" Type="Self.tblEstudiante" Multiplicity="0..1" />
+    <End Role="tblPadredeFamilia" Type="Self.tblPadredeFamilia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblEstudiante">
+        <PropertyRef Name="idAlumno" />
+      </Principal>
+      <Dependent Role="tblPadredeFamilia">
+        <PropertyRef Name="idAlumno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblOpcionesxPerfil_tblOpcionesSistema">
+    <End Role="tblOpcionesSistema" Type="Self.tblOpcionesSistema" Multiplicity="1" />
+    <End Role="tblOpcionesxPerfil" Type="Self.tblOpcionesxPerfil" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblOpcionesSistema">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="tblOpcionesxPerfil">
+        <PropertyRef Name="id_opcion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblOpcionesxPerfil_tblPerfil">
+    <End Role="tblPerfil" Type="Self.tblPerfil" Multiplicity="1" />
+    <End Role="tblOpcionesxPerfil" Type="Self.tblOpcionesxPerfil" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblPerfil">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="tblOpcionesxPerfil">
+        <PropertyRef Name="id_perfil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ModGen_Usuario_ModGen_Perfil">
+    <End Role="tblPerfil" Type="Self.tblPerfil" Multiplicity="0..1" />
+    <End Role="tblUsuario" Type="Self.tblUsuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblPerfil">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="tblUsuario">
+        <PropertyRef Name="idPerfil" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SARAEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="tblConfGeneral" EntityType="Self.tblConfGeneral" />
+    <EntitySet Name="tblEstudiante" EntityType="Self.tblEstudiante" />
+    <EntitySet Name="tblOpcionesSistema" EntityType="Self.tblOpcionesSistema" />
+    <EntitySet Name="tblOpcionesxPerfil" EntityType="Self.tblOpcionesxPerfil" />
+    <EntitySet Name="tblPadredeFamilia" EntityType="Self.tblPadredeFamilia" />
+    <EntitySet Name="tblPerfil" EntityType="Self.tblPerfil" />
+    <EntitySet Name="tblUsuario" EntityType="Self.tblUsuario" />
+    <EntitySet Name="V_UsuariosSistema" EntityType="Self.V_UsuariosSistema" />
+    <AssociationSet Name="FK_tblPadredeFamilia_tblEstudiante" Association="Self.FK_tblPadredeFamilia_tblEstudiante">
+      <End Role="tblEstudiante" EntitySet="tblEstudiante" />
+      <End Role="tblPadredeFamilia" EntitySet="tblPadredeFamilia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblOpcionesxPerfil_tblOpcionesSistema" Association="Self.FK_tblOpcionesxPerfil_tblOpcionesSistema">
+      <End Role="tblOpcionesSistema" EntitySet="tblOpcionesSistema" />
+      <End Role="tblOpcionesxPerfil" EntitySet="tblOpcionesxPerfil" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblOpcionesxPerfil_tblPerfil" Association="Self.FK_tblOpcionesxPerfil_tblPerfil">
+      <End Role="tblPerfil" EntitySet="tblPerfil" />
+      <End Role="tblOpcionesxPerfil" EntitySet="tblOpcionesxPerfil" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ModGen_Usuario_ModGen_Perfil" Association="Self.FK_ModGen_Usuario_ModGen_Perfil">
+      <End Role="tblPerfil" EntitySet="tblPerfil" />
+      <End Role="tblUsuario" EntitySet="tblUsuario" />
+    </AssociationSet>
+    <EntitySet Name="tblResponsableEstudiante" EntityType="SARAModel.tblResponsableEstudiante" />
+    <AssociationSet Name="FK_tblEstudiante_tblResponsableEstudiante" Association="SARAModel.FK_tblEstudiante_tblResponsableEstudiante">
+      <End Role="tblResponsableEstudiante" EntitySet="tblResponsableEstudiante" />
+      <End Role="tblEstudiante" EntitySet="tblEstudiante" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="tblResponsableEstudiante">
+    <Key>
+      <PropertyRef Name="idResponsable" />
+    </Key>
+    <Property Name="idResponsable" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombres" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="apellidos" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="telefonoFijo" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="telefonoMovil" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="dui" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Name="microbus" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="telefonoFijoMicrobus" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="telefonoMovilMicrobus" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="numeroPlaca" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="marca" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="fechaCreacion" Type="DateTime" Precision="3" />
+    <Property Name="creadoPor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="fechaActualizado" Type="DateTime" Precision="3" />
+    <Property Name="actualizadoPor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblEstudiante" Relationship="SARAModel.FK_tblEstudiante_tblResponsableEstudiante" FromRole="tblResponsableEstudiante" ToRole="tblEstudiante" />
+  </EntityType>
+  <Association Name="FK_tblEstudiante_tblResponsableEstudiante">
+    <End Type="SARAModel.tblResponsableEstudiante" Role="tblResponsableEstudiante" Multiplicity="0..1" />
+    <End Type="SARAModel.tblEstudiante" Role="tblEstudiante" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblResponsableEstudiante">
+        <PropertyRef Name="idResponsable" />
+      </Principal>
+      <Dependent Role="tblEstudiante">
+        <PropertyRef Name="idResponsable" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

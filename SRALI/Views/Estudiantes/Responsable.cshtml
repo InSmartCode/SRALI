@@ -1,0 +1,165 @@
+﻿
+@{
+    ViewBag.Title = "Responsable";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/vendors/alertifyjs/css/alertify.css" rel="stylesheet" />
+<link href="~/Content/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+
+<div class="">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2><i class="fa fa-bars"></i> Alumnos <small>Mantenimiento</small></h2>
+                <div class="clearfix">
+                    <div class="actions">
+                        <div class="inputs pull-right">
+                            <button class="btn btn-round btn-danger btn-sm" onclick="Eliminar();"><i class="fa fa-trash"></i> Eliminar</button>
+                        </div>
+
+                        <div class="inputs pull-right">
+                            <button class="btn btn-round btn-warning btn-sm" onclick="Editar();"><i class="fa fa-edit"></i> Modificar</button>
+                        </div>
+
+                        <div class="inputs pull-right">
+                            <button class="btn btn-round btn-primary btn-sm" onclick="Nuevo();"><i class="fa fa-plus-circle"></i> Nuevo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="x_content">
+                <table class="table table-striped table-bordered table-hover table-sm" id="tblResponsables" cellspacing="0">
+                    <thead>
+                        <tr class="headings">
+                            <th class="column-title">#</th>
+                            <th class="column-title">Nombres</th>
+                            <th class="column-title">Apellidos</th>
+                            <th class="column-title">Tel. Fijo</th>
+                            <th class="column-title">Tel. Movil</th>
+                            <th class="column-title">DUI</th>
+                            <th class="column-title">Microbus</th>
+                            <th class="column-title">Tel. Fijo Microbus</th>
+                            <th class="column-title">Tel. Movil Microbus</th>
+                            <th class="column-title">Placa</th>
+                            <th class="column-title">Marca</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.Representantes)
+                        {
+                            <tr class="even pointer">
+                                <td>@item.idResponsable</td>
+                                <td>@item.nombres</td>
+                                <td>@item.apellidos</td>
+                                <td>@item.telefonoFijo</td>
+                                <td>@item.telefonoMovil</td>
+                                <td>@item.dui</td>
+                                <td>@item.microbus</td>
+                                <td>@item.telefonoFijoMicrobus</td>
+                                <td>@item.telefonoMovilMicrobus</td>
+                                <td>@item.numeroPlaca</td>
+                                <td>@item.marca</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="modalResponsable" class="modal fade draggable-modal modalx" tabindex="-1" data-backdrop="static" data-keyboard="false" role="alertdialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div id="modal-content" class="modal-content">
+            <div class="modal-header" id="modalHeader">
+
+            </div>
+            <div class="modal-body" id="modal-body">
+                <div class="row form-group form-md-line-input has-info" hidden>
+                    <div class="col-md-4 text-left">idResponsable:</div>
+                    <div class="col-md-8">
+                        <input id="IdResponsable" class="form-control" placeholder="Código del Alumno"  />
+                    </div>
+                </div>
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-4 text-left">Nombres:</div>
+                    <div class="col-md-8">
+                        <input id="Nombres" class="form-control" placeholder="Nombres"  />
+                    </div>
+                </div>
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-4 text-left">Apellidos:</div>
+                    <div class="col-md-8">
+                        <input id="Apellidos" class="form-control" placeholder="Apellidos"  />
+                    </div>
+                </div>
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-4 text-left">Telefono Fijo:</div>
+                    <div class="col-md-8">
+                        <input id="TelefonoFijo" class="form-control" placeholder="Telefono Fijo"  />
+                    </div>
+                </div>
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-4 text-left">Telefono Movil:</div>
+                    <div class="col-md-8">
+                        <input id="TelefonoMovil" class="form-control" placeholder="Telefono Movil"  />
+                    </div>
+                </div>
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-4 text-left">DUI:</div>
+                    <div class="col-md-8">
+                        <input id="DUI" class="form-control" placeholder="DUI"  />
+                    </div>
+                </div>
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-4 text-left">Microbus:</div>
+                    <div class="col-md-8">
+                        <input id="Microbus" class="form-control" placeholder="Microbus"  />
+                    </div>
+                </div>
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-4 text-left">Telefono Fijo Microbus:</div>
+                    <div class="col-md-8">
+                        <input id="TelefonoFijoMicrobus" class="form-control" placeholder="Telefono Fijo Microbus"  />
+                    </div>
+                </div>
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-4 text-left">Telefono Movil Microbus:</div>
+                    <div class="col-md-8">
+                        <input id="TelefonoMovilMicrobus" class="form-control" placeholder="Telefono Movil Microbus"  />
+                    </div>
+                </div>
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-4 text-left">Numero Placa:</div>
+                    <div class="col-md-8">
+                        <input id="NumeroPlaca" class="form-control" placeholder="Numero Placa"  />
+                    </div>
+                </div>
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-4 text-left">Marca:</div>
+                    <div class="col-md-8">
+                        <input id="Marca" class="form-control" placeholder="Marca"  />
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" id="update">Actualizar</button>
+                <button type="button" class="btn btn-success" id="save">Guardar</button>
+                <button type="button" class="btn btn-primary" id="cancel" data-dismiss="modal">Cancelar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @*@Scripts.Render("~/Scripts/RegistroVisitas")*@
+
+    <script src="~/Content/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/vendors/alertifyjs/alertify.js"></script>
+    <script src="~/Resources/js/Responsable.js"></script>
+}

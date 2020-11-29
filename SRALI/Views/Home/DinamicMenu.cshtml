@@ -1,0 +1,42 @@
+﻿<li class="heading">
+    <h3 class="uppercase text-center">Menú</h3>
+</li>
+<li class="nav-item active  ">
+    <a href="/Home/Index" class="nav-link nav-toggle">
+        <i class="icon-home"></i>
+        <span class="title">Inicio</span>
+        <span class="selected"></span>
+    </a>
+</li>
+@foreach (var menu in Model)
+{
+    if (menu.IdParentMenu == 0)
+    {
+        <li class="nav-item">
+            <a class="nav-link nav-toggle">
+                <i class="@menu.MenuIcon"></i>
+                <span class="title">@menu.Name</span>
+                <span class="arrow"></span>
+            </a>
+            @foreach (var child in Model)
+            {
+                if (child.IdParentMenu == menu.IdParentMenu)
+                {
+                    <ul class="sub-menu">
+                        @foreach (var childx in Model)
+                        {
+                            if (childx.IdParentMenu == menu.Id)
+                            {
+                                <li class="nav-item">
+                                    <a href="@childx.MenuUrl" class="nav-link">
+                                        <span class="title">@childx.Name</span>
+                                    </a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                }
+            }
+        </li>
+    }
+}
