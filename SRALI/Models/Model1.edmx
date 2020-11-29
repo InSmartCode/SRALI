@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SARAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SARAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -111,16 +111,16 @@
             <PropertyRef Name="idResponsable" />
           </Key>
           <Property Name="idResponsable" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nombres" Type="varchar" MaxLength="60" Nullable="false" />
-          <Property Name="apellidos" Type="varchar" MaxLength="60" Nullable="false" />
-          <Property Name="telefonoFijo" Type="varchar" MaxLength="8" />
-          <Property Name="telefonoMovil" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="dui" Type="varchar" MaxLength="12" Nullable="false" />
-          <Property Name="microbus" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="telefonoFijoMicrobus" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="telefonoMovilMicrobus" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="numeroPlaca" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="marca" Type="varchar" MaxLength="25" />
+          <Property Name="nombres" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="apellidos" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="telefonoFijo" Type="nvarchar" MaxLength="50" />
+          <Property Name="telefonoMovil" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="dui" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="microbus" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="telefonoFijoMicrobus" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="telefonoMovilMicrobus" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="numeroPlaca" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="marca" Type="nvarchar" MaxLength="50" />
           <Property Name="fechaCreacion" Type="datetime" />
           <Property Name="creadoPor" Type="nvarchar" MaxLength="50" />
           <Property Name="fechaActualizado" Type="datetime" />
@@ -259,8 +259,7 @@ advertencia 6002: La tabla o vista 'SARA.dbo.V_UsuariosSistema' no tiene definid
             <End Role="tblPadredeFamilia" EntitySet="tblPadredeFamilia" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SARAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -321,8 +320,8 @@ advertencia 6002: La tabla o vista 'SARA.dbo.V_UsuariosSistema' no tiene definid
           <Property Name="fechaCreacion" Type="DateTime" Precision="3" />
           <Property Name="actualizadoPor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="fechaActualizado" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tblResponsableEstudiante" Relationship="Self.FK_tblEstudiante_tblResponsableEstudiante" FromRole="tblEstudiante" ToRole="tblResponsableEstudiante" />
           <NavigationProperty Name="tblPadredeFamilia" Relationship="Self.FK_tblPadredeFamilia_tblEstudiante" FromRole="tblEstudiante" ToRole="tblPadredeFamilia" />
+          <NavigationProperty Name="tblResponsableEstudiante" Relationship="SARAModel.FK_tblEstudiante_tblResponsableEstudiante" FromRole="tblEstudiante" ToRole="tblResponsableEstudiante" />
         </EntityType>
         <EntityType Name="tblOpcionesSistema">
           <Key>
@@ -373,27 +372,6 @@ advertencia 6002: La tabla o vista 'SARA.dbo.V_UsuariosSistema' no tiene definid
           <NavigationProperty Name="tblOpcionesxPerfil" Relationship="Self.FK_tblOpcionesxPerfil_tblPerfil" FromRole="tblPerfil" ToRole="tblOpcionesxPerfil" />
           <NavigationProperty Name="tblUsuario" Relationship="Self.FK_ModGen_Usuario_ModGen_Perfil" FromRole="tblPerfil" ToRole="tblUsuario" />
         </EntityType>
-        <EntityType Name="tblResponsableEstudiante">
-          <Key>
-            <PropertyRef Name="idResponsable" />
-          </Key>
-          <Property Name="idResponsable" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombres" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="apellidos" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="telefonoFijo" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="telefonoMovil" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="dui" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="microbus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="telefonoFijoMicrobus" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="telefonoMovilMicrobus" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="numeroPlaca" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="marca" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="fechaCreacion" Type="DateTime" Precision="3" />
-          <Property Name="creadoPor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="fechaActualizado" Type="DateTime" Precision="3" />
-          <Property Name="actualizadoPor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="tblEstudiante" Relationship="Self.FK_tblEstudiante_tblResponsableEstudiante" FromRole="tblResponsableEstudiante" ToRole="tblEstudiante" />
-        </EntityType>
         <EntityType Name="tblUsuario">
           <Key>
             <PropertyRef Name="id" />
@@ -424,18 +402,6 @@ advertencia 6002: La tabla o vista 'SARA.dbo.V_UsuariosSistema' no tiene definid
           <Property Name="telefono" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
           <Property Name="nombrePerfil" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <Association Name="FK_tblEstudiante_tblResponsableEstudiante">
-          <End Role="tblResponsableEstudiante" Type="Self.tblResponsableEstudiante" Multiplicity="0..1" />
-          <End Role="tblEstudiante" Type="Self.tblEstudiante" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblResponsableEstudiante">
-              <PropertyRef Name="idResponsable" />
-            </Principal>
-            <Dependent Role="tblEstudiante">
-              <PropertyRef Name="idResponsable" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tblPadredeFamilia_tblEstudiante">
           <End Role="tblEstudiante" Type="Self.tblEstudiante" Multiplicity="0..1" />
           <End Role="tblPadredeFamilia" Type="Self.tblPadredeFamilia" Multiplicity="*" />
@@ -492,13 +458,8 @@ advertencia 6002: La tabla o vista 'SARA.dbo.V_UsuariosSistema' no tiene definid
           <EntitySet Name="tblOpcionesxPerfil" EntityType="Self.tblOpcionesxPerfil" />
           <EntitySet Name="tblPadredeFamilia" EntityType="Self.tblPadredeFamilia" />
           <EntitySet Name="tblPerfil" EntityType="Self.tblPerfil" />
-          <EntitySet Name="tblResponsableEstudiante" EntityType="Self.tblResponsableEstudiante" />
           <EntitySet Name="tblUsuario" EntityType="Self.tblUsuario" />
           <EntitySet Name="V_UsuariosSistema" EntityType="Self.V_UsuariosSistema" />
-          <AssociationSet Name="FK_tblEstudiante_tblResponsableEstudiante" Association="Self.FK_tblEstudiante_tblResponsableEstudiante">
-            <End Role="tblResponsableEstudiante" EntitySet="tblResponsableEstudiante" />
-            <End Role="tblEstudiante" EntitySet="tblEstudiante" />
-          </AssociationSet>
           <AssociationSet Name="FK_tblPadredeFamilia_tblEstudiante" Association="Self.FK_tblPadredeFamilia_tblEstudiante">
             <End Role="tblEstudiante" EntitySet="tblEstudiante" />
             <End Role="tblPadredeFamilia" EntitySet="tblPadredeFamilia" />
@@ -515,7 +476,45 @@ advertencia 6002: La tabla o vista 'SARA.dbo.V_UsuariosSistema' no tiene definid
             <End Role="tblPerfil" EntitySet="tblPerfil" />
             <End Role="tblUsuario" EntitySet="tblUsuario" />
           </AssociationSet>
+          <EntitySet Name="tblResponsableEstudiante" EntityType="SARAModel.tblResponsableEstudiante" />
+          <AssociationSet Name="FK_tblEstudiante_tblResponsableEstudiante" Association="SARAModel.FK_tblEstudiante_tblResponsableEstudiante">
+            <End Role="tblResponsableEstudiante" EntitySet="tblResponsableEstudiante" />
+            <End Role="tblEstudiante" EntitySet="tblEstudiante" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="tblResponsableEstudiante">
+          <Key>
+            <PropertyRef Name="idResponsable" />
+          </Key>
+          <Property Name="idResponsable" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombres" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="apellidos" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="telefonoFijo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="telefonoMovil" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="dui" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="microbus" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="telefonoFijoMicrobus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="telefonoMovilMicrobus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="numeroPlaca" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="marca" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaCreacion" Type="DateTime" Precision="3" />
+          <Property Name="creadoPor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaActualizado" Type="DateTime" Precision="3" />
+          <Property Name="actualizadoPor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblEstudiante" Relationship="SARAModel.FK_tblEstudiante_tblResponsableEstudiante" FromRole="tblResponsableEstudiante" ToRole="tblEstudiante" />
+        </EntityType>
+        <Association Name="FK_tblEstudiante_tblResponsableEstudiante">
+          <End Type="SARAModel.tblResponsableEstudiante" Role="tblResponsableEstudiante" Multiplicity="0..1" />
+          <End Type="SARAModel.tblEstudiante" Role="tblEstudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblResponsableEstudiante">
+              <PropertyRef Name="idResponsable" />
+            </Principal>
+            <Dependent Role="tblEstudiante">
+              <PropertyRef Name="idResponsable" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -630,27 +629,6 @@ advertencia 6002: La tabla o vista 'SARA.dbo.V_UsuariosSistema' no tiene definid
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblResponsableEstudiante">
-            <EntityTypeMapping TypeName="SARAModel.tblResponsableEstudiante">
-              <MappingFragment StoreEntitySet="tblResponsableEstudiante">
-                <ScalarProperty Name="idResponsable" ColumnName="idResponsable" />
-                <ScalarProperty Name="nombres" ColumnName="nombres" />
-                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
-                <ScalarProperty Name="telefonoFijo" ColumnName="telefonoFijo" />
-                <ScalarProperty Name="telefonoMovil" ColumnName="telefonoMovil" />
-                <ScalarProperty Name="dui" ColumnName="dui" />
-                <ScalarProperty Name="microbus" ColumnName="microbus" />
-                <ScalarProperty Name="telefonoFijoMicrobus" ColumnName="telefonoFijoMicrobus" />
-                <ScalarProperty Name="telefonoMovilMicrobus" ColumnName="telefonoMovilMicrobus" />
-                <ScalarProperty Name="numeroPlaca" ColumnName="numeroPlaca" />
-                <ScalarProperty Name="marca" ColumnName="marca" />
-                <ScalarProperty Name="fechaCreacion" ColumnName="fechaCreacion" />
-                <ScalarProperty Name="creadoPor" ColumnName="creadoPor" />
-                <ScalarProperty Name="fechaActualizado" ColumnName="fechaActualizado" />
-                <ScalarProperty Name="actualizadoPor" ColumnName="actualizadoPor" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblUsuario">
             <EntityTypeMapping TypeName="SARAModel.tblUsuario">
               <MappingFragment StoreEntitySet="tblUsuario">
@@ -676,6 +654,27 @@ advertencia 6002: La tabla o vista 'SARA.dbo.V_UsuariosSistema' no tiene definid
                 <ScalarProperty Name="correo" ColumnName="correo" />
                 <ScalarProperty Name="telefono" ColumnName="telefono" />
                 <ScalarProperty Name="nombrePerfil" ColumnName="nombrePerfil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblResponsableEstudiante">
+            <EntityTypeMapping TypeName="SARAModel.tblResponsableEstudiante">
+              <MappingFragment StoreEntitySet="tblResponsableEstudiante">
+                <ScalarProperty Name="actualizadoPor" ColumnName="actualizadoPor" />
+                <ScalarProperty Name="fechaActualizado" ColumnName="fechaActualizado" />
+                <ScalarProperty Name="creadoPor" ColumnName="creadoPor" />
+                <ScalarProperty Name="fechaCreacion" ColumnName="fechaCreacion" />
+                <ScalarProperty Name="marca" ColumnName="marca" />
+                <ScalarProperty Name="numeroPlaca" ColumnName="numeroPlaca" />
+                <ScalarProperty Name="telefonoMovilMicrobus" ColumnName="telefonoMovilMicrobus" />
+                <ScalarProperty Name="telefonoFijoMicrobus" ColumnName="telefonoFijoMicrobus" />
+                <ScalarProperty Name="microbus" ColumnName="microbus" />
+                <ScalarProperty Name="dui" ColumnName="dui" />
+                <ScalarProperty Name="telefonoMovil" ColumnName="telefonoMovil" />
+                <ScalarProperty Name="telefonoFijo" ColumnName="telefonoFijo" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="nombres" ColumnName="nombres" />
+                <ScalarProperty Name="idResponsable" ColumnName="idResponsable" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

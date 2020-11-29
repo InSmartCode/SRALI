@@ -106,16 +106,16 @@
       <PropertyRef Name="idResponsable" />
     </Key>
     <Property Name="idResponsable" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="nombres" Type="varchar" MaxLength="60" Nullable="false" />
-    <Property Name="apellidos" Type="varchar" MaxLength="60" Nullable="false" />
-    <Property Name="telefonoFijo" Type="varchar" MaxLength="8" />
-    <Property Name="telefonoMovil" Type="varchar" MaxLength="8" Nullable="false" />
-    <Property Name="dui" Type="varchar" MaxLength="12" Nullable="false" />
-    <Property Name="microbus" Type="varchar" MaxLength="100" Nullable="false" />
-    <Property Name="telefonoFijoMicrobus" Type="varchar" MaxLength="8" Nullable="false" />
-    <Property Name="telefonoMovilMicrobus" Type="varchar" MaxLength="8" Nullable="false" />
-    <Property Name="numeroPlaca" Type="varchar" MaxLength="10" Nullable="false" />
-    <Property Name="marca" Type="varchar" MaxLength="25" />
+    <Property Name="nombres" Type="nvarchar" MaxLength="60" Nullable="false" />
+    <Property Name="apellidos" Type="nvarchar" MaxLength="60" Nullable="false" />
+    <Property Name="telefonoFijo" Type="nvarchar" MaxLength="50" />
+    <Property Name="telefonoMovil" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="dui" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="microbus" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="telefonoFijoMicrobus" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="telefonoMovilMicrobus" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="numeroPlaca" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="marca" Type="nvarchar" MaxLength="50" />
     <Property Name="fechaCreacion" Type="datetime" />
     <Property Name="creadoPor" Type="nvarchar" MaxLength="50" />
     <Property Name="fechaActualizado" Type="datetime" />

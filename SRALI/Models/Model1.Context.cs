@@ -32,8 +32,8 @@ namespace SRALI.Models
         public virtual DbSet<tblOpcionesxPerfil> tblOpcionesxPerfil { get; set; }
         public virtual DbSet<tblPadredeFamilia> tblPadredeFamilia { get; set; }
         public virtual DbSet<tblPerfil> tblPerfil { get; set; }
-        public virtual DbSet<tblResponsableEstudiante> tblResponsableEstudiante { get; set; }
         public virtual DbSet<tblUsuario> tblUsuario { get; set; }
         public virtual DbSet<V_UsuariosSistema> V_UsuariosSistema { get; set; }
+        public virtual DbSet<tblResponsableEstudiante> tblResponsableEstudiante { get; set; }
     }
 }

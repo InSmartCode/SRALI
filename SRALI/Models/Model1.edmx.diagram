@@ -12,14 +12,14 @@
         <EntityTypeShape EntityType="SARAModel.tblOpcionesxPerfil" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
         <EntityTypeShape EntityType="SARAModel.tblPadredeFamilia" Width="1.5" PointX="10.25" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="SARAModel.tblPerfil" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="SARAModel.tblResponsableEstudiante" Width="1.5" PointX="5.75" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="SARAModel.tblUsuario" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
         <EntityTypeShape EntityType="SARAModel.V_UsuariosSistema" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
-        <AssociationConnector Association="SARAModel.FK_tblEstudiante_tblResponsableEstudiante" ManuallyRouted="false" />
         <AssociationConnector Association="SARAModel.FK_tblPadredeFamilia_tblEstudiante" ManuallyRouted="false" />
         <AssociationConnector Association="SARAModel.FK_tblOpcionesxPerfil_tblOpcionesSistema" ManuallyRouted="false" />
         <AssociationConnector Association="SARAModel.FK_tblOpcionesxPerfil_tblPerfil" ManuallyRouted="false" />
         <AssociationConnector Association="SARAModel.FK_ModGen_Usuario_ModGen_Perfil" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SARAModel.tblResponsableEstudiante" Width="1.5" PointX="5.75" PointY="3.125" />
+        <AssociationConnector Association="SARAModel.FK_tblEstudiante_tblResponsableEstudiante" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

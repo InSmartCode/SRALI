@@ -46,8 +46,8 @@ namespace SRALI.Models
         public string actualizadoPor { get; set; }
         public Nullable<System.DateTime> fechaActualizado { get; set; }
     
-        public virtual tblResponsableEstudiante tblResponsableEstudiante { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblPadredeFamilia> tblPadredeFamilia { get; set; }
+        public virtual tblResponsableEstudiante tblResponsableEstudiante { get; set; }
     }
 }

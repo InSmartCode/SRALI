@@ -57,8 +57,8 @@
     <Property Name="fechaCreacion" Type="DateTime" Precision="3" />
     <Property Name="actualizadoPor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="fechaActualizado" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="tblResponsableEstudiante" Relationship="Self.FK_tblEstudiante_tblResponsableEstudiante" FromRole="tblEstudiante" ToRole="tblResponsableEstudiante" />
     <NavigationProperty Name="tblPadredeFamilia" Relationship="Self.FK_tblPadredeFamilia_tblEstudiante" FromRole="tblEstudiante" ToRole="tblPadredeFamilia" />
+    <NavigationProperty Name="tblResponsableEstudiante" Relationship="SARAModel.FK_tblEstudiante_tblResponsableEstudiante" FromRole="tblEstudiante" ToRole="tblResponsableEstudiante" />
   </EntityType>
   <EntityType Name="tblOpcionesSistema">
     <Key>
@@ -109,27 +109,6 @@
     <NavigationProperty Name="tblOpcionesxPerfil" Relationship="Self.FK_tblOpcionesxPerfil_tblPerfil" FromRole="tblPerfil" ToRole="tblOpcionesxPerfil" />
     <NavigationProperty Name="tblUsuario" Relationship="Self.FK_ModGen_Usuario_ModGen_Perfil" FromRole="tblPerfil" ToRole="tblUsuario" />
   </EntityType>
-  <EntityType Name="tblResponsableEstudiante">
-    <Key>
-      <PropertyRef Name="idResponsable" />
-    </Key>
-    <Property Name="idResponsable" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="nombres" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="apellidos" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="telefonoFijo" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-    <Property Name="telefonoMovil" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="dui" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="microbus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="telefonoFijoMicrobus" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="telefonoMovilMicrobus" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="numeroPlaca" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="marca" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-    <Property Name="fechaCreacion" Type="DateTime" Precision="3" />
-    <Property Name="creadoPor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="fechaActualizado" Type="DateTime" Precision="3" />
-    <Property Name="actualizadoPor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="tblEstudiante" Relationship="Self.FK_tblEstudiante_tblResponsableEstudiante" FromRole="tblResponsableEstudiante" ToRole="tblEstudiante" />
-  </EntityType>
   <EntityType Name="tblUsuario">
     <Key>
       <PropertyRef Name="id" />
@@ -160,18 +139,6 @@
     <Property Name="telefono" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
     <Property Name="nombrePerfil" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
   </EntityType>
-  <Association Name="FK_tblEstudiante_tblResponsableEstudiante">
-    <End Role="tblResponsableEstudiante" Type="Self.tblResponsableEstudiante" Multiplicity="0..1" />
-    <End Role="tblEstudiante" Type="Self.tblEstudiante" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tblResponsableEstudiante">
-        <PropertyRef Name="idResponsable" />
-      </Principal>
-      <Dependent Role="tblEstudiante">
-        <PropertyRef Name="idResponsable" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_tblPadredeFamilia_tblEstudiante">
     <End Role="tblEstudiante" Type="Self.tblEstudiante" Multiplicity="0..1" />
     <End Role="tblPadredeFamilia" Type="Self.tblPadredeFamilia" Multiplicity="*" />
@@ -228,13 +195,8 @@
     <EntitySet Name="tblOpcionesxPerfil" EntityType="Self.tblOpcionesxPerfil" />
     <EntitySet Name="tblPadredeFamilia" EntityType="Self.tblPadredeFamilia" />
     <EntitySet Name="tblPerfil" EntityType="Self.tblPerfil" />
-    <EntitySet Name="tblResponsableEstudiante" EntityType="Self.tblResponsableEstudiante" />
     <EntitySet Name="tblUsuario" EntityType="Self.tblUsuario" />
     <EntitySet Name="V_UsuariosSistema" EntityType="Self.V_UsuariosSistema" />
-    <AssociationSet Name="FK_tblEstudiante_tblResponsableEstudiante" Association="Self.FK_tblEstudiante_tblResponsableEstudiante">
-      <End Role="tblResponsableEstudiante" EntitySet="tblResponsableEstudiante" />
-      <End Role="tblEstudiante" EntitySet="tblEstudiante" />
-    </AssociationSet>
     <AssociationSet Name="FK_tblPadredeFamilia_tblEstudiante" Association="Self.FK_tblPadredeFamilia_tblEstudiante">
       <End Role="tblEstudiante" EntitySet="tblEstudiante" />
       <End Role="tblPadredeFamilia" EntitySet="tblPadredeFamilia" />
@@ -251,5 +213,43 @@
       <End Role="tblPerfil" EntitySet="tblPerfil" />
       <End Role="tblUsuario" EntitySet="tblUsuario" />
     </AssociationSet>
+    <EntitySet Name="tblResponsableEstudiante" EntityType="SARAModel.tblResponsableEstudiante" />
+    <AssociationSet Name="FK_tblEstudiante_tblResponsableEstudiante" Association="SARAModel.FK_tblEstudiante_tblResponsableEstudiante">
+      <End Role="tblResponsableEstudiante" EntitySet="tblResponsableEstudiante" />
+      <End Role="tblEstudiante" EntitySet="tblEstudiante" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="tblResponsableEstudiante">
+    <Key>
+      <PropertyRef Name="idResponsable" />
+    </Key>
+    <Property Name="idResponsable" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombres" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+    <Property Name="apellidos" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+    <Property Name="telefonoFijo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="telefonoMovil" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="dui" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="microbus" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="telefonoFijoMicrobus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="telefonoMovilMicrobus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="numeroPlaca" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="marca" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="fechaCreacion" Type="DateTime" Precision="3" />
+    <Property Name="creadoPor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="fechaActualizado" Type="DateTime" Precision="3" />
+    <Property Name="actualizadoPor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblEstudiante" Relationship="SARAModel.FK_tblEstudiante_tblResponsableEstudiante" FromRole="tblResponsableEstudiante" ToRole="tblEstudiante" />
+  </EntityType>
+  <Association Name="FK_tblEstudiante_tblResponsableEstudiante">
+    <End Type="SARAModel.tblResponsableEstudiante" Role="tblResponsableEstudiante" Multiplicity="0..1" />
+    <End Type="SARAModel.tblEstudiante" Role="tblEstudiante" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblResponsableEstudiante">
+        <PropertyRef Name="idResponsable" />
+      </Principal>
+      <Dependent Role="tblEstudiante">
+        <PropertyRef Name="idResponsable" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>
