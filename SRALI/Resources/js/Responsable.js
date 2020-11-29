@@ -4,7 +4,7 @@
 $(document).ready(function () {
     $('#tblResponsables').DataTable();
 
-    //
+    //pureba desde el repositorio
     limpiarDatos();
 });
 
