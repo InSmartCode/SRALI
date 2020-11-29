@@ -6,3 +6,6 @@
 .vs/SRALI/v16/Server/sqlite3/storage.ide-wal
 SRALI/obj/Debug/SRALI.csprojAssemblyReference.cache
 SRALI/obj/Debug/SRALI.csprojAssemblyReference.cache
+SRALI/obj/Debug/SRALI.csprojAssemblyReference.cache
+*.cache
+SRALI/obj/Debug/SRALI.csprojAssemblyReference.cache
