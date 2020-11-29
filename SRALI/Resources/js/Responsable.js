@@ -89,7 +89,60 @@ function Eliminar() {
     } else {
         alertify.confirm("Advertencia", "¿Desea continuar en Elimnar el Responsable?",
             function () {
-                //eliminar
+                
+                $.ajax({
+                    type: "POST",
+                    traditional: true,//con el formDate este se comenta
+                    url: "/Estudiantes/DeleteResponsable",
+                    contentType: "application/json; charset=utf-8",//con el formDate este se comenta
+                    data: JSON.stringify({ idResponsable: IdResponsable}),
+                    success: function (result) {
+                        if (result.Res) {
+                            alertify.success("Responsable Eliminado.");
+                            $('#tblResponsables').DataTable().destroy();
+                            $('#tblResponsables tbody').empty();
+                            $.each(result.Responsables, function (i, item) {
+                                /* Vamos agregando a nuestra tabla las filas necesarias */
+                                $('#tblResponsables tbody').append("<tr class='even pointer'><td>" + item.idResponsable + "</td><td>"
+                                    + item.nombres + "</td><td>"
+                                    + item.apellidos + "</td><td>"
+                                    + item.telefonoFijo + "</td><td>"
+                                    + item.telefonoMovil + "</td><td>"
+                                    + item.dui + "</td><td>"
+                                    + item.microbus + "</td><td>"
+                                    + item.telefonoFijoMicrobus + "</td><td>"
+                                    + item.telefonoMovilMicrobus + "</td><td>"
+                                    + item.numeroPlaca + "</td><td>"
+                                    + item.marca + "</td></tr>");
+                            });
+                            CallBack();
+                        } else {
+                            $('#tblResponsables').DataTable().destroy();
+                            $('#tblResponsables tbody').empty();
+                            $.each(result.Responsables, function (i, item) {
+                                /* Vamos agregando a nuestra tabla las filas necesarias */
+                                $('#tblResponsables tbody').append("<tr class='even pointer'><td>" + item.idResponsable + "</td><td>"
+                                    + item.nombres + "</td><td>"
+                                    + item.apellidos + "</td><td>"
+                                    + item.telefonoFijo + "</td><td>"
+                                    + item.telefonoMovil + "</td><td>"
+                                    + item.dui + "</td><td>"
+                                    + item.microbus + "</td><td>"
+                                    + item.telefonoFijoMicrobus + "</td><td>"
+                                    + item.telefonoMovilMicrobus + "</td><td>"
+                                    + item.numeroPlaca + "</td><td>"
+                                    + item.marca + "</td></tr>");
+                            });
+                            CallBack();
+                            alertify.error("Ha ocurrido un error al Eliminar el Responsable, es posible que este asignado a un Estudiante");
+                        }
+                        $('#modalResponsable').modal('hide');
+                    },
+                    error: function () {
+                        alertify.error("Ha ocurrido un error");
+                        $('#modalResponsable').modal('hide');
+                    }
+                });
             },
             function () {
                 //alertify.error('Cancel');
@@ -133,7 +186,7 @@ $("#save").on("click", function () {
 
     datos = {
         //idResponsable: $("#IdResponsable").val(),
-         mombres: $("#Nombres").val()
+         nombres: $("#Nombres").val()
         , apellidos: $("#Apellidos").val()
         , telefonoFijo: $("#TelefonoFijo").val()
         , telefonoMovil: $("#TelefonoMovil").val()
@@ -150,7 +203,6 @@ $("#save").on("click", function () {
        url: "/Estudiantes/AddResponsable",
        contentType: "application/json; charset=utf-8",//con el formDate este se comenta
        data: JSON.stringify(datos),
-        data: formData,
         success: function (result) {
             if (result.Res) {
                 alertify.success("Responsable Agregado.");
@@ -159,7 +211,7 @@ $("#save").on("click", function () {
                 $.each(result.Responsables, function (i, item) {
                     /* Vamos agregando a nuestra tabla las filas necesarias */
                     $('#tblResponsables tbody').append("<tr class='even pointer'><td>" + item.idResponsable + "</td><td>"
-                        + item.mombres + "</td><td>"
+                        + item.nombres + "</td><td>"
                         + item.apellidos + "</td><td>"
                         + item.telefonoFijo + "</td><td>"
                         + item.telefonoMovil + "</td><td>"
@@ -178,7 +230,7 @@ $("#save").on("click", function () {
                     /* Vamos agregando a nuestra tabla las filas necesarias */
                     var fechaNac = moment(item.fechaNacimiento).format('DD/MM/YYYY');
                     $('#tblResponsables tbody').append("<tr class='even pointer'><td>" + item.idResponsable + "</td><td>"
-                        + item.mombres + "</td><td>"
+                        + item.nombres + "</td><td>"
                         + item.apellidos + "</td><td>"
                         + item.telefonoFijo + "</td><td>"
                         + item.telefonoMovil + "</td><td>"
@@ -203,8 +255,8 @@ $("#save").on("click", function () {
 
 $("#update").on("click", function () {
     datos = {
-          idResponsable: $("#IdResponsable").val()
-        , mombres: $("#Nombres").val()
+        idResponsable: $("#IdResponsable").val()
+        , nombres: $("#Nombres").val()
         , apellidos: $("#Apellidos").val()
         , telefonoFijo: $("#TelefonoFijo").val()
         , telefonoMovil: $("#TelefonoMovil").val()
@@ -223,13 +275,13 @@ $("#update").on("click", function () {
         data: JSON.stringify(datos),
         success: function (result) {
             if (result.Res) {
-                alertify.success("Alumno Actualizado.");
+                alertify.success("Responsable Actualizado.");
                 $('#tblResponsables').DataTable().destroy();
                 $('#tblResponsables tbody').empty();
                 $.each(result.Responsables, function (i, item) {
                     /* Vamos agregando a nuestra tabla las filas necesarias */
                     $('#tblResponsables tbody').append("<tr class='even pointer'><td>" + item.idResponsable + "</td><td>"
-                        + item.mombres + "</td><td>"
+                        + item.nombres + "</td><td>"
                         + item.apellidos + "</td><td>"
                         + item.telefonoFijo + "</td><td>"
                         + item.telefonoMovil + "</td><td>"
@@ -247,7 +299,7 @@ $("#update").on("click", function () {
                 $.each(result.Responsables, function (i, item) {
                     /* Vamos agregando a nuestra tabla las filas necesarias */
                     $('#tblResponsables tbody').append("<tr class='even pointer'><td>" + item.idResponsable + "</td><td>"
-                        + item.mombres + "</td><td>"
+                        + item.nombres + "</td><td>"
                         + item.apellidos + "</td><td>"
                         + item.telefonoFijo + "</td><td>"
                         + item.telefonoMovil + "</td><td>"
@@ -270,6 +322,7 @@ $("#update").on("click", function () {
     });
 
 });
+
 
 
 

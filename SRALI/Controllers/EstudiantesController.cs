@@ -237,10 +237,16 @@ namespace SRALI.Controllers
             try
             {
 
-                Responsable.fechaCreacion = DateTime.Now;
-                Responsable.creadoPor = Session["IdUsurio"].ToString();
-                db.tblResponsableEstudiante.Add(Responsable);
-                db.SaveChanges();
+                var OldResponsable = (from p in db.tblResponsableEstudiante where p.dui == Responsable.dui select p).FirstOrDefault();
+
+                if (OldResponsable==null)
+                {
+                    Responsable.fechaCreacion = DateTime.Now;
+                    Responsable.creadoPor = Session["IdUsurio"].ToString();
+                    db.tblResponsableEstudiante.Add(Responsable);
+                    db.SaveChanges();
+                }
+                
                 var Responsables = (from b in db.tblResponsableEstudiante
                                     select new
                                    {
@@ -256,6 +262,7 @@ namespace SRALI.Controllers
                                        b.numeroPlaca,
                                        b.marca
                                    }).ToList();
+              
                 jr.Data = new { Responsables = Responsables, Res = true };
                 return jr;
             }
@@ -343,6 +350,55 @@ namespace SRALI.Controllers
             }
         }
 
+        public JsonResult DeleteResponsable(int idResponsable)
+        {
+            JsonResult jr = new JsonResult();
+            try
+            {
+                var OldResponsable = (from p in db.tblResponsableEstudiante where p.idResponsable == idResponsable select p).FirstOrDefault();
+
+
+                db.tblResponsableEstudiante.Remove(OldResponsable);
+                db.SaveChanges();
+                var Responsables = (from b in db.tblResponsableEstudiante
+                                    select new
+                                    {
+                                        b.idResponsable,
+                                        b.nombres,
+                                        b.apellidos,
+                                        b.telefonoFijo,
+                                        b.telefonoMovil,
+                                        b.dui,
+                                        b.microbus,
+                                        b.telefonoFijoMicrobus,
+                                        b.telefonoMovilMicrobus,
+                                        b.numeroPlaca,
+                                        b.marca
+                                    }).ToList();
+                jr.Data = new { Responsables = Responsables, Res = true };
+                return jr;
+            }
+            catch (Exception ex)
+            {
+                var Responsables = (from b in db.tblResponsableEstudiante
+                                    select new
+                                    {
+                                        b.idResponsable,
+                                        b.nombres,
+                                        b.apellidos,
+                                        b.telefonoFijo,
+                                        b.telefonoMovil,
+                                        b.dui,
+                                        b.microbus,
+                                        b.telefonoFijoMicrobus,
+                                        b.telefonoMovilMicrobus,
+                                        b.numeroPlaca,
+                                        b.marca
+                                    }).ToList();
+                jr.Data = new { Responsables = Responsables, Res = false };
+                return jr;
+            }
+        }
 
     }
 }
