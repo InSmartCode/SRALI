@@ -7,9 +7,9 @@
 
 
 @*@section styles{
-    @Styles.Render("~/Content/RegistroVisitas")
+        @Styles.Render("~/Content/RegistroVisitas")
 
-}*@
+    }*@
 <link href="~/Content/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
 <link href="~/Content/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
 <link href="~/Content/vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
@@ -40,7 +40,6 @@
         font-family: monospace;
         font-weight: normal;
     }
-
 </style>
 
 
@@ -120,29 +119,29 @@
                                             <tbody>
                                                 @foreach (var item in ViewBag.Estudiantes)
                                                 {
-                                                <tr class="even pointer">
-                                                    <td>@item.idAlumno</td>
-                                                    <td>@item.codigo</td>
-                                                    <td>@item.nombres</td>
-                                                    <td>@item.primerApellido</td>
-                                                    <td>@item.segundoApellido</td>
-                                                    <td>@item.fechaNacimiento</td>
-                                                    <td hidden>@item.edad</td>
-                                                    <td hidden>@item.sexo</td>
-                                                    <td>@item.nie</td>
-                                                    <td hidden>@item.lugarNacimiento</td>
-                                                    <td hidden>@item.numeroPartidaNacimiento</td>
-                                                    <td hidden>@item.tomo</td>
-                                                    <td hidden>@item.folio</td>
-                                                    <td hidden>@item.libro</td>
-                                                    <td hidden>@item.departamento</td>
-                                                    <td hidden>@item.municipio</td>
-                                                    <td hidden>@item.direccion</td>
-                                                    <td hidden>@item.institucionProcedencia</td>
-                                                    <td>@item.gradoIngreso</td>
-                                                    <td hidden>@item.archivofoto</td>
-                                                    <td hidden>@item.idResponsable</td>
-                                                </tr>
+                                                    <tr class="even pointer">
+                                                        <td>@item.idAlumno</td>
+                                                        <td>@item.codigo</td>
+                                                        <td>@item.nombres</td>
+                                                        <td>@item.primerApellido</td>
+                                                        <td>@item.segundoApellido</td>
+                                                        <td>@item.fechaNacimiento</td>
+                                                        <td hidden>@item.edad</td>
+                                                        <td hidden>@item.sexo</td>
+                                                        <td>@item.nie</td>
+                                                        <td hidden>@item.lugarNacimiento</td>
+                                                        <td hidden>@item.numeroPartidaNacimiento</td>
+                                                        <td hidden>@item.tomo</td>
+                                                        <td hidden>@item.folio</td>
+                                                        <td hidden>@item.libro</td>
+                                                        <td hidden>@item.departamento</td>
+                                                        <td hidden>@item.municipio</td>
+                                                        <td hidden>@item.direccion</td>
+                                                        <td hidden>@item.institucionProcedencia</td>
+                                                        <td>@item.gradoIngreso</td>
+                                                        <td hidden>@item.archivofoto</td>
+                                                        <td hidden>@item.idResponsable</td>
+                                                    </tr>
                                                 }
                                             </tbody>
                                         </table>
@@ -175,28 +174,28 @@
                                                     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                                                 </div>
                                                 <div class="col-md-12 col-sm-6 col-xs-12 form-group has-feedback">
-                                                    <input type="text" class="form-control has-feedback-left" id="inputNombres" placeholder="Nombres"  />
+                                                    <input type="text" class="form-control has-feedback-left" id="inputNombres" placeholder="Nombres" />
                                                     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                                                 </div>
                                                 <div class="col-md-12 col-sm-6 col-xs-12 form-group has-feedback">
-                                                    <input type="text" class="form-control has-feedback-left" id="inputPrimerApellido" placeholder="Primer Apellido"  />
+                                                    <input type="text" class="form-control has-feedback-left" id="inputPrimerApellido" placeholder="Primer Apellido" />
                                                     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                                                 </div>
                                                 <div class="col-md-12 col-sm-6 col-xs-12 form-group has-feedback">
-                                                    <input type="text" class="form-control has-feedback-left " id="inputSegundoApellido" placeholder="Segundo Apellido"  />
+                                                    <input type="text" class="form-control has-feedback-left " id="inputSegundoApellido" placeholder="Segundo Apellido" />
                                                     <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                                                 </div>
                                                 <div class="col-md-12 col-sm-6 col-xs-12 xdisplay_inputx form-group has-feedback">
-                                                    <input type="text" class="form-control has-feedback-left" id="fechaNacimiento" placeholder="Fecha de Nacimiento" aria-describedby="inputSuccess2Status4"  />
+                                                    <input type="text" class="form-control has-feedback-left" id="fechaNacimiento" placeholder="Fecha de Nacimiento" aria-describedby="inputSuccess2Status4" />
                                                     <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
                                                     <span id="inputSuccess2Status4" class="sr-only">(success)</span>
                                                 </div>
                                                 <div class="col-md-12 col-sm-6 col-xs-12 form-group has-feedback">
-                                                    <input type="text" class="form-control has-feedback-left" id="inputEdad" placeholder="Edad"  />
+                                                    <input type="text" class="form-control has-feedback-left" id="inputEdad" placeholder="Edad" />
                                                     <span class="fa fa-life-saver form-control-feedback left" aria-hidden="true"></span>
                                                 </div>
                                                 <div class="col-md-12 col-sm-6 col-xs-12 form-group has-feedback">
-                                                    <input type="text" class="form-control has-feedback-left" id="inputNIE" placeholder="NIE"  />
+                                                    <input type="text" class="form-control has-feedback-left" id="inputNIE" placeholder="NIE" />
                                                     <span class="fa fa-info-circle form-control-feedback left" aria-hidden="true"></span>
                                                 </div>
                                                 <div class="col-md-12 col-sm-6 col-xs-12 form-group has-feedback">
@@ -215,13 +214,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                            <input type="text" class="form-control has-feedback-left" id="inputLugarNacimiento" placeholder="Lugar de Nacimiento"  />
+                                            <input type="text" class="form-control has-feedback-left" id="inputLugarNacimiento" placeholder="Lugar de Nacimiento" />
                                             <span class="fa fa-info form-control-feedback left" aria-hidden="true"></span>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                            <input type="text" class="form-control has-feedback-right" id="inputPartidaNacimiento" placeholder="Número Partida de Nacimiento"  />
+                                            <input type="text" class="form-control has-feedback-right" id="inputPartidaNacimiento" placeholder="Número Partida de Nacimiento" />
                                             <span class="fa fa-life-bouy form-control-feedback right" aria-hidden="true"></span>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
@@ -229,11 +228,11 @@
                                             <span class="fa fa-info form-control-feedback left" aria-hidden="true"></span>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                            <input type="text" class="form-control has-feedback-right" id="inputFolio" placeholder="Folio"  />
+                                            <input type="text" class="form-control has-feedback-right" id="inputFolio" placeholder="Folio" />
                                             <span class="fa fa-life-bouy form-control-feedback right" aria-hidden="true"></span>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                            <input type="text" class="form-control has-feedback-left" id="inputLibro" placeholder="Libro"  />
+                                            <input type="text" class="form-control has-feedback-left" id="inputLibro" placeholder="Libro" />
                                             <span class="fa fa-info form-control-feedback left" aria-hidden="true"></span>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
@@ -251,24 +250,24 @@
                                             </select>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                            <input type="text" class="form-control has-feedback-right" id="inputDireccion" placeholder="Dirección"  />
+                                            <input type="text" class="form-control has-feedback-right" id="inputDireccion" placeholder="Dirección" />
                                             <span class="fa fa-info-circle form-control-feedback right" aria-hidden="true"></span>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                            <input type="text" class="form-control has-feedback-left" id="inputLugarInstitucionProcedencia" placeholder="Institución de Procedencia"  />
+                                            <input type="text" class="form-control has-feedback-left" id="inputLugarInstitucionProcedencia" placeholder="Institución de Procedencia" />
                                             <span class="fa fa-info form-control-feedback left" aria-hidden="true"></span>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                            <input type="text" class="form-control has-feedback-right" id="inputGradoIngreso" placeholder="Grado al que Ingresa"  />
+                                            <input type="text" class="form-control has-feedback-right" id="inputGradoIngreso" placeholder="Grado al que Ingresa" />
                                             <span class="fa fa-info-circle form-control-feedback right" aria-hidden="true"></span>
                                         </div>
                                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                                             <select class="form-control" id="sltResponsable">
                                                 <option value="0">Seleccione Responsable</option>
-                                                
+
                                                 @foreach (var item in ViewBag.Representantes)
                                                 {
-                                            <option value="@item.idResponsable">@item.nombres @item.apellidos </option>
+                                                    <option value="@item.idResponsable">@item.nombres @item.apellidos </option>
                                                 }
                                             </select>
                                         </div>
@@ -352,5 +351,5 @@
 
     <script src="~/Content/vendors/bootstrap-fileinput-master/js/fileinput.js"></script>
     <script src="~/Content/vendors/bootstrap-fileinput-master/js/locales/es.js"></script>
-    <script src="~/Resources/js/Estudiantes.js"></script>
+    <script src="~/Resources/js/Estudiantes/Estudiantes.js"></script>
 }
