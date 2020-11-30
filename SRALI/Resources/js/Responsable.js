@@ -82,6 +82,11 @@ function Editar() {
     $('#modalResponsable').modal('show');
 }
 
+
+
+
+
+
 function Eliminar() {
 
     if (IdResponsable == 0 || IdResponsable == "") {
