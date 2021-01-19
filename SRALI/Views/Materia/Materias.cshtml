@@ -1,0 +1,122 @@
+﻿
+@{
+    ViewBag.Title = "Materias";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<link href="~/Content/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="~/Content/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+<link href="~/Content/vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
+<link href="~/Content/vendors/alertifyjs/css/alertify.css" rel="stylesheet" />
+
+
+<div class="">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2><i class="fa fa-bars"></i> Materias <small>Mantenimiento</small></h2>
+                <div class="clearfix">
+                    <div class="actions">
+                        <div class="inputs pull-right">
+                            <button class="btn btn-round btn-danger btn-sm" onclick="Eliminar();"><i class="fa fa-trash"></i> Eliminar</button>
+                        </div>
+
+                        <div class="inputs pull-right">
+                            <button class="btn btn-round btn-warning btn-sm" onclick="Editar();"><i class="fa fa-edit"></i> Modificar</button>
+                        </div>
+
+                        <div class="inputs pull-right">
+                            <button class="btn btn-round btn-primary btn-sm" onclick="Nuevo();"><i class="fa fa-plus-circle"></i> Nuevo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="x_content">
+                <table class="table table-striped table-bordered table-hover table-sm" id="tblMaterias" cellspacing="0">
+                    <thead>
+                        <tr class="headings">
+                            <th class="column-title">#</th>
+                            <th class="column-title" hidden>idGrado</th>
+                            <th class="column-title">Grado</th>
+                            <th class="column-title">Materia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.Materias)
+                        {
+                            <tr class="even pointer">
+                                <td>@item.idAsignatura</td>
+                                <td hidden>@item.idGrado</td>
+                                <td>@item.descripcion</td>
+                                <td>@item.nombreAsignatura</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="modalMateria" class="modal fade draggable-modal modalx" tabindex="-1" data-backdrop="static" data-keyboard="false" role="alertdialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div id="modal-content" class="modal-content">
+            <div class="modal-header">
+                <h4 id="modalHeader" class="text-center" style="margin-bottom: 0px;"></h4>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <div class="row form-group form-md-line-input has-info" hidden>
+                    <div class="col-md-4 text-left">idAsignatura:</div>
+                    <div class="col-md-8">
+                        <input id="IdAsignatura" class="form-control" placeholder="Código del Alumno" />
+                    </div>
+                </div>
+
+                <div class="row form-group form-md-line-input has-inf">
+                    <div class="col-md-4 text-left">Grado:</div>
+                    <div class="col-md-8">
+                        <select class="form-control" id="sltGrado">
+                            <option value="0">Seleccione Grado</option>
+                            @foreach (var item in ViewBag.Grados)
+                            {
+                                <option value="@item.idGrado">@item.descripcion - @item.nivelEscolar </option>
+                            }
+                        </select>
+                    </div>                    
+                </div>
+                <div class="row form-group form-md-line-input has-info" hidden>
+                    <div class="col-md-4 text-left">Descripcion:</div>
+                    <div class="col-md-8">
+                        <input id="Descripcion" class="form-control" placeholder="Descripcion" />
+                    </div>
+                </div>
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-4 text-left">Nombre Asignatura:</div>
+                    <div class="col-md-8">
+                        <input id="NombreAsignatura" class="form-control" placeholder="Nombre Asignatura" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" id="update">Actualizar</button>
+                <button type="button" class="btn btn-success" id="save">Guardar</button>
+                <button type="button" class="btn btn-primary" id="cancel" data-dismiss="modal">Cancelar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @*@Scripts.Render("~/Scripts/RegistroVisitas")*@
+
+    <script src="~/Content/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/vendors/alertifyjs/alertify.js"></script>
+    <script src="~/Resources/js/Materias/Materias.js"></script>
+}
+

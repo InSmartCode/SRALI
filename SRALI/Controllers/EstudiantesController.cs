@@ -13,6 +13,27 @@ namespace SRALI.Controllers
     {
         SARADB_Entities db = new SARADB_Entities();
         SaveImage SaveImage = new SaveImage();
+
+        public bool CheckSession()
+        {
+            try
+            {
+                if (String.IsNullOrEmpty(Session["IdUsurio"].ToString()))
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+        }
+
         // GET: Estudiantes
         public ActionResult Index()
         {
