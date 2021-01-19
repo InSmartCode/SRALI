@@ -6,6 +6,10 @@ $(document).ready(function () {
 
     //pureba desde el repositorio fdf
     limpiarDatos();
+
+
+    $('#btnDel').prop("disabled", true);
+    $('#btnEdit').prop("disabled", true);
 });
 
 
@@ -33,6 +37,7 @@ function CallBack() {
         $(this).css('background-color', '#ffe35c');
         ultimaFila = $(this);
 
+        $('#btnDel').prop("disabled", false);
         $('#btnEdit').prop("disabled", false);
     });
 }
@@ -59,27 +64,33 @@ function Nuevo() {
 
     limpiarDatos();
 
+    $('#modalHeader').html('Nuevo Responsable');
     $('#modalResponsable').modal('show');
 }
 
 function Editar() {
+    if (IdResponsable == 0 || IdResponsable == "" || IdResponsable == "undefined") {
+        alertify.error("Debe de seleccionar un Materia");
+    } else {
+        $('#save').prop("hidden", true);
+        $('#update').prop("hidden", false);
 
-    $('#save').prop("hidden", true);
-    $('#update').prop("hidden", false);
+        $("#IdResponsable").val(IdResponsable);
+        $("#Nombres").val(Nombres);
+        $("#Apellidos").val(Apellidos);
+        $("#TelefonoFijo").val(TelefonoFijo);
+        $("#TelefonoMovil").val(TelefonoMovil);
+        $("#DUI").val(DUI);
+        $("#Microbus").val(Microbus);
+        $("#TelefonoFijoMicrobus").val(TelefonoFijoMicrobus);
+        $("#TelefonoMovilMicrobus").val(TelefonoMovilMicrobus);
+        $("#NumeroPlaca").val(NumeroPlaca);
+        $("#Marca").val(Marca);
 
-    $("#IdResponsable").val(IdResponsable);
-    $("#Nombres").val(Nombres);
-    $("#Apellidos").val(Apellidos);
-    $("#TelefonoFijo").val(TelefonoFijo);
-    $("#TelefonoMovil").val(TelefonoMovil);
-    $("#DUI").val(DUI);
-    $("#Microbus").val(Microbus);
-    $("#TelefonoFijoMicrobus").val(TelefonoFijoMicrobus);
-    $("#TelefonoMovilMicrobus").val(TelefonoMovilMicrobus);
-    $("#NumeroPlaca").val(NumeroPlaca);
-    $("#Marca").val(Marca);
-
-    $('#modalResponsable').modal('show');
+        $('#modalHeader').html('Modificar Responsable');
+        $('#modalResponsable').modal('show');
+    }
+   
 }
 
 
@@ -183,6 +194,7 @@ $('#tblResponsables tbody').on('click', 'tr', function () {
     $(this).css('background-color', '#ffe35c');
     ultimaFila = $(this);
 
+    $('#btnDel').prop("disabled", false);
     $('#btnEdit').prop("disabled", false);
 });
 
