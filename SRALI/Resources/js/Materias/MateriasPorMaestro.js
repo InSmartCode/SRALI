@@ -1,5 +1,6 @@
 ﻿
 $(document).ready(function () {
+    $('#tblMaestros').DataTable();
     $('#tblMateriasPorMaestro').DataTable();
 
     $('#anio').datetimepicker({
@@ -60,14 +61,57 @@ $('#tblMateriasPorMaestro tbody').on('click', 'tr', function () {
     $(this).css('background-color', '#ffe35c');
     ultimaFila = $(this);
 
-    $('#btnDel').prop("disabled", false);
-    $('#btnEdit').prop("disabled", false);
-    $('#btnNew').prop("disabled", false);
+    if (IdMateriaPorMaestro == "" || IdMateriaPorMaestro == null || IdMateriaPorMaestro == "No data available in table") {
+        alertify.error("No existen Materias para continuar");
+    } else {
+        $('#btnDel').prop("disabled", false);
+        $('#btnEdit').prop("disabled", false);
+        $('#btnNew').prop("disabled", false);
+    }
 });
 
+$('#tblMatriculas tbody').on('click', 'tr', function () {
 
-$("#sltMaestros").on("change", function () {
-    IdMaestro = $("#sltMaestros").val();
+    IdExpediente = $(this).find('td:first').html();
+    IdAlumno = $(this).find('td:nth-child(2)').html();
+    IdGrado = $(this).find('td:nth-child(4)').html();
+    AnioEscolar = $(this).find('td:nth-child(6)').html();
+    TipoIngreso = $(this).find('td:nth-child(7)').html();
+    Turno = $(this).find('td:nth-child(9)').html();
+    Monto = $(this).find('td:nth-child(11)').html();
+    Colegiaturas = $(this).find('td:nth-child(12)').html();
+
+
+    if (ultimaFila != null) {
+        ultimaFila.css('background-color', colorOriginalPAR);
+    }
+
+    $(this).css('background-color', '#ffe35c');
+    ultimaFila = $(this);
+
+    $('#btnEdit').prop("disabled", false);
+});
+
+$('#tblMaestros tbody').on('click', 'tr', function () {
+
+    IdMaestro = $(this).find('td:first').html();
+
+    if (ultimaFila != null) {
+        ultimaFila.css('background-color', colorOriginalPAR);
+    }
+
+    $(this).css('background-color', '#ffe35c');
+    ultimaFila = $(this);
+
+    if (IdMaestro == "" || IdMaestro == null || IdMaestro == "No data available in table") {
+        alertify.error("No existen Maestros para continuar");
+    } else {
+        getMaterias();
+    }
+});
+
+function getMaterias() {
+    //IdMaestro = $("#sltMaestros").val();
     $('#btnNew').prop("disabled", false);
 
     $.ajax({
@@ -115,7 +159,7 @@ $("#sltMaestros").on("change", function () {
         }
     });
 
-});
+}
 
 
 function Nuevo() {
@@ -132,7 +176,7 @@ function Nuevo() {
 
 
 function Editar() {
-    if (IdAsignatura == 0 || IdAsignatura == "" || IdAsignatura == "undefined") {
+    if (IdAsignatura == 0 || IdAsignatura == "" || IdAsignatura == "undefined" || IdAsignatura == "No data available in table") {
         alertify.error("Debe de seleccionar un Materia");
     } else {
         $('#save').prop("hidden", true);

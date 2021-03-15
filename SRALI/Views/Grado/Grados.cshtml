@@ -38,6 +38,8 @@
                             <th class="column-title">#</th>
                             <th class="column-title">Descripción</th>
                             <th class="column-title">Nivel Escolar</th>
+                            <th class="column-title">Capacidad</th>
+                            <th class="column-title">Vacantes</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,6 +49,8 @@
                                 <td>@item.idGrado</td>
                                 <td>@item.descripcion</td>
                                 <td>@item.nivelEscolar</td>
+                                <td>@item.Capacidad</td>
+                                <td>@item.Vacantes</td>
                             </tr>
                         }
                     </tbody>
@@ -83,7 +87,20 @@
                         <input id="NivelEscolar" class="form-control" placeholder="Nivel Escolar" />
                     </div>
                 </div>
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-4 text-left">Capacidad:</div>
+                    <div class="col-md-8">
+                        <input id="Capacidad" type="number" class="form-control" placeholder="Capacidad" />
+                    </div>
+                </div>
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-4 text-left">Vacantes:</div>
+                    <div class="col-md-8">
+                        <input id="Vacantes" type="number" class="form-control" placeholder="Vacantes" />
+                    </div>
+                </div>
 
+              
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-warning" id="update">Actualizar</button>

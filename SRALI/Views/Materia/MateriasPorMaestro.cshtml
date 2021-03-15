@@ -14,62 +14,68 @@
 <div class="">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
-            <div class="x_title">
-                <h2><i class="fa fa-bars"></i> MateriasPorMaestro <small>Mantenimiento</small></h2>
-                <div class="clearfix">
-                    <div class="actions">
-
-                        <div class="inputs pull-right">
-                            <select class="form-control" id="sltMaestros">
-                                <option value="0">Seleccione Maestro</option>
+            <h2><i class="fa fa-bars"></i> MateriasPorMaestro <small>Mantenimiento</small></h2>
+            
+            <div class="x_content">
+                <div class="row table-responsive">
+                    <div class="well col-md-3">
+                        <h2><i class="fa fa-list-alt"></i> Maestros</h2>
+                        <br /><br /><br />
+                        <table class="table table-striped table-bordered table-hover table-sm" id="tblMaestros" cellspacing="0">
+                            <thead>
+                                <tr class="headings">
+                                    <th class="column-title">#</th>
+                                    <th class="column-title">Nombre</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                                 @foreach (var item in ViewBag.Maestros)
                                 {
-                                    <option value="@item.idMaestro">@item.nombres  @item.apellidos </option>
+                                    <tr>
+                                        <td>@item.idMaestro</td>
+                                        <td>@item.nombres @item.apellidos</td>
+                                    </tr>
                                 }
-                            </select>
-                        </div>
-
-                        <div class="inputs pull-right">
-                            <button class="btn btn-round btn-danger btn-sm" onclick="Eliminar();" id="btnDel" disabled><i class="fa fa-trash"></i> Eliminar</button>
-                        </div>
-
-                        <div class="inputs pull-right">
-                            <button class="btn btn-round btn-warning btn-sm" onclick="Editar();" id="btnEdit" disabled><i class="fa fa-edit"></i> Modificar</button>
-                        </div>
-
-                        <div class="inputs pull-right">
-                            <button class="btn btn-round btn-primary btn-sm" onclick="Nuevo();" id="btnNew" disabled><i class="fa fa-plus-circle"></i> Nuevo</button>
-                        </div>
-
-
-                        
+                            </tbody>
+                        </table>
                     </div>
+                    <div class="well col-md-9">
+                        <div class="x_title">
+                            <h2><i class="fa fa-list-alt"></i> Matriculas</h2>
+                            <div class="clearfix">
+                                <div class="actions">
+                                    <div class="inputs pull-right">
+                                        <button class="btn btn-round btn-danger btn-sm" onclick="Eliminar();" id="btnDel" disabled><i class="fa fa-trash"></i> Eliminar</button>
+                                    </div>
+
+                                    <div class="inputs pull-right">
+                                        <button class="btn btn-round btn-warning btn-sm" onclick="Editar();" id="btnEdit" disabled><i class="fa fa-edit"></i> Modificar</button>
+                                    </div>
+
+                                    <div class="inputs pull-right">
+                                        <button class="btn btn-round btn-primary btn-sm" onclick="Nuevo();" id="btnNew" disabled><i class="fa fa-plus-circle"></i> Nuevo</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br /><br />
+                        <table class="table table-striped table-bordered table-hover table-sm" id="tblMateriasPorMaestro" cellspacing="0">
+                            <thead>
+                                <tr class="headings">
+                                    <th class="column-title">#</th>
+                                    <th class="column-title" hidden>idGrado</th>
+                                    <th class="column-title">Grado</th>
+                                    <th class="column-title" hidden>idMateria</th>
+                                    <th class="column-title">Materia</th>
+                                    <th class="column-title">Año</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
                 </div>
-            </div>
-            <div class="x_content">
-                <table class="table table-striped table-bordered table-hover table-sm" id="tblMateriasPorMaestro" cellspacing="0">
-                    <thead>
-                        <tr class="headings">
-                            <th class="column-title">#</th>
-                            <th class="column-title" hidden>idGrado</th>
-                            <th class="column-title">Grado</th>
-                            <th class="column-title" hidden>idMateria</th>
-                            <th class="column-title">Materia</th>
-                            <th class="column-title">Año</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @*@foreach (var item in ViewBag.Materias)
-                        {
-                            <tr class="even pointer">
-                                <td>@item.idAsignatura</td>
-                                <td hidden>@item.idGrado</td>
-                                <td>@item.descripcion</td>
-                                <td>@item.nombreAsignatura</td>
-                            </tr>
-                        }*@
-                    </tbody>
-                </table>
+              
 
             </div>
         </div>

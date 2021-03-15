@@ -41,6 +41,7 @@
                             <th class="column-title" hidden>idGrado</th>
                             <th class="column-title">Grado</th>
                             <th class="column-title">Materia</th>
+                            <th class="column-title">Horario</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,6 +52,7 @@
                                 <td hidden>@item.idGrado</td>
                                 <td>@item.descripcion</td>
                                 <td>@item.nombreAsignatura</td>
+                                <td>@item.hora</td>
                             </tr>
                         }
                     </tbody>
@@ -98,6 +100,23 @@
                     <div class="col-md-4 text-left">Nombre Asignatura:</div>
                     <div class="col-md-8">
                         <input id="NombreAsignatura" class="form-control" placeholder="Nombre Asignatura" />
+                    </div>
+                </div>
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-4 text-left">Horario:</div>
+                    <div class="col-md-8">
+                        <select class="form-control" id="sltHora">
+                            <option value="0">Seleccione Hora</option>
+                            <option value="1">8:00am - 9:00am</option>
+                            <option value="2">9:00am - 10:00am</option>
+                            <option value="3">10:00am - 11:00am</option>
+                            <option value="4">11:00am - 12:00m</option>
+                            <option value="5">12:00m - 1:00pm</option>
+                            <option value="6">1:00pm - 2:00pm</option>
+                            <option value="7">2:00pm - 3:00pm</option>
+                            <option value="8">3:00pm - 4:00pm</option>
+                            <option value="9">4:00pm - 5:00pm</option>
+                        </select>
                     </div>
                 </div>
 

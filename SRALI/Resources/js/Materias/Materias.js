@@ -16,6 +16,7 @@ function CallBack() {
         IdGrado = $(this).find('td:nth-child(2)').html();
         Descripcion = $(this).find('td:nth-child(3)').html();
         NombreAsignatura = $(this).find('td:nth-child(4)').html();
+        Hora = $(this).find('td:nth-child(5)').html();
 
         if (ultimaFila != null) {
             ultimaFila.css('background-color', colorOriginalPAR);
@@ -34,6 +35,7 @@ function limpiarDatos() {
     $("#sltGrado").val("0");
     $("#Descripcion").val("");
     $("#NombreAsignatura").val("");
+    $("#sltHora").val("0");
 }
 
 function Nuevo() {
@@ -57,7 +59,8 @@ function Editar() {
         $("#IdAsignatura").val(IdAsignatura);
         $("#sltGrado").val(IdGrado);
         $("#Descripcion").val(Descripcion);
-        $("#NombreAsignatura").val(NombreAsignatura);
+        $("#NombreAsignatura").val(NombreAsignatura); 
+        $("sltHora").val(Hora);
 
         $('#modalHeader').html('Actualizar Materia');
         $('#modalMateria').modal('show');
@@ -94,7 +97,8 @@ function Eliminar() {
                                 $('#tblMaterias tbody').append("<tr class='even pointer'><td>" + item.idAsignatura + "</td><td hidden>"
                                     + item.idGrado + "</td><td>"
                                     + item.descripcion + "</td><td>"
-                                    + item.nombreAsignatura + "</td></tr>");
+                                    + item.nombreAsignatura + "</td><td>"
+                                    + item.hora + "</td></tr>");
                             });
                             CallBack();
                         } else {
@@ -105,7 +109,8 @@ function Eliminar() {
                                 $('#tblMaterias tbody').append("<tr class='even pointer'><td>" + item.idAsignatura + "</td><td hidden>"
                                     + item.idGrado + "</td><td>"
                                     + item.descripcion + "</td><td>"
-                                    + item.nombreAsignatura + "</td></tr>");
+                                    + item.nombreAsignatura + "</td><td>"
+                                    + item.hora + "</td></tr>");
                             });
                             CallBack();
                             alertify.error("Ha ocurrido un error al Eliminar el Materia, es posible que este asignado a un Materia");
@@ -137,6 +142,7 @@ $('#tblMaterias tbody').on('click', 'tr', function () {
     IdGrado = $(this).find('td:nth-child(2)').html();
     Descripcion = $(this).find('td:nth-child(3)').html();
     NombreAsignatura = $(this).find('td:nth-child(4)').html();
+    Hora = $(this).find('td:nth-child(5)').html();
 
 
     if (ultimaFila != null) {
@@ -155,7 +161,8 @@ $("#save").on("click", function () {
     datos = {
         //IdAsignatura: $("#IdAsignatura").val(),
         idGrado: $("#sltGrado").val()
-        , nombreAsignatura: $("#NombreAsignatura").val()
+        , nombreAsignatura: $("#NombreAsignatura").val(),
+        hora: $("#sltHora").val()
     }
     $.ajax({
         type: "POST",
@@ -173,7 +180,8 @@ $("#save").on("click", function () {
                     $('#tblMaterias tbody').append("<tr class='even pointer'><td>" + item.idAsignatura + "</td><td hidden>"
                         + item.idGrado + "</td><td>"
                         + item.descripcion + "</td><td>"
-                        + item.nombreAsignatura + "</td></tr>");
+                        + item.nombreAsignatura + "</td><td>"
+                        + item.hora + "</td></tr>");
                 });
                 CallBack();
             } else {
@@ -184,7 +192,8 @@ $("#save").on("click", function () {
                     $('#tblMaterias tbody').append("<tr class='even pointer'><td>" + item.idAsignatura + "</td><td hidden>"
                         + item.idGrado + "</td><td>"
                         + item.descripcion + "</td><td>"
-                        + item.nombreAsignatura + "</td></tr>");
+                        + item.nombreAsignatura + "</td><td>"
+                        + item.hora + "</td></tr>");
                 });
                 CallBack();
                 alertify.error("Ha ocurrido un error al agregar el Materia");
@@ -203,7 +212,8 @@ $("#update").on("click", function () {
     datos = {
         idAsignatura: $("#IdAsignatura").val()
         , idGrado: $("#sltGrado").val()
-        , nombreAsignatura: $("#NombreAsignatura").val()
+        , nombreAsignatura: $("#NombreAsignatura").val(),
+        hora: $("#sltHora").val()
     }
     $.ajax({
         type: "POST",
@@ -221,7 +231,8 @@ $("#update").on("click", function () {
                     $('#tblMaterias tbody').append("<tr class='even pointer'><td>" + item.idAsignatura + "</td><td hidden>"
                         + item.idGrado + "</td><td>"
                         + item.descripcion + "</td><td>"
-                        + item.nombreAsignatura + "</td></tr>");
+                        + item.nombreAsignatura + "</td><td>"
+                        + item.hora + "</td></tr>");
                 });
                 CallBack();
             } else {
@@ -232,7 +243,8 @@ $("#update").on("click", function () {
                     $('#tblMaterias tbody').append("<tr class='even pointer'><td>" + item.idAsignatura + "</td><td hidden>"
                         + item.idGrado + "</td><td>"
                         + item.descripcion + "</td><td>"
-                        + item.nombreAsignatura + "</td></tr>");
+                        + item.nombreAsignatura + "</td><td>"
+                        + item.hora + "</td></tr>");
                 });
                 CallBack();
                 alertify.error("Ha ocurrido un error al agregar el Materia");

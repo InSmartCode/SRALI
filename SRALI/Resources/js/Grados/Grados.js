@@ -15,6 +15,8 @@ function CallBack() {
         IdGrado = $(this).find('td:first').html();
         Descripcion = $(this).find('td:nth-child(2)').html();
         NivelEscolar = $(this).find('td:nth-child(3)').html();
+        Capacidad = $(this).find('td:nth-child(4)').html();
+        Vacantes = $(this).find('td:nth-child(5)').html();
 
         if (ultimaFila != null) {
             ultimaFila.css('background-color', colorOriginalPAR);
@@ -32,6 +34,8 @@ function limpiarDatos() {
     $("#IdGrado").val("");
     $("#Descripcion").val("");
     $("#NivelEscolar").val("");
+    $("#Capacidad").val("");
+    $("#Vacantes").val("");
 }
 
 function Nuevo() {
@@ -53,6 +57,8 @@ function Editar() {
     $("#IdGrado").val(IdGrado);
     $("#Descripcion").val(Descripcion);
     $("#NivelEscolar").val(NivelEscolar);
+    $("#Capacidad").val(Capacidad)
+    $("#Vacantes").val(Vacantes)
 
     $('#modalHeader').html('Actualizar Grado');
     $('#modalGrado').modal('show');
@@ -86,7 +92,9 @@ function Eliminar() {
                                 /* Vamos agregando a nuestra tabla las filas necesarias */
                                 $('#tblGrados tbody').append("<tr class='even pointer'><td>" + item.idGrado + "</td><td>"
                                     + item.descripcion + "</td><td>"
-                                    + item.nivelEscolar + "</td></tr>");
+                                    + item.nivelEscolar + "</td><td>"
+                                    + item.Capacidad + "</td><td>"
+                                    + item.Vacantes + "</td></tr>");
                             });
                             CallBack();
                         } else {
@@ -96,7 +104,9 @@ function Eliminar() {
                                 /* Vamos agregando a nuestra tabla las filas necesarias */
                                 $('#tblGrados tbody').append("<tr class='even pointer'><td>" + item.idGrado + "</td><td>"
                                     + item.descripcion + "</td><td>"
-                                    + item.nivelEscolar + "</td></tr>");
+                                    + item.nivelEscolar + "</td><td>"
+                                    + item.Capacidad + "</td><td>"
+                                    + item.Vacantes + "</td></tr>");
                             });
                             CallBack();
                             alertify.error("Ha ocurrido un error al Eliminar el Grado, es posible que este asignado a un Grado");
@@ -126,6 +136,8 @@ $('#tblGrados tbody').on('click', 'tr', function () {
     IdGrado = $(this).find('td:first').html();
     Descripcion = $(this).find('td:nth-child(2)').html();
     NivelEscolar = $(this).find('td:nth-child(3)').html();
+    Capacidad = $(this).find('td:nth-child(4)').html();
+    Vacantes = $(this).find('td:nth-child(5)').html();
 
 
     if (ultimaFila != null) {
@@ -145,6 +157,8 @@ $("#save").on("click", function () {
         //idGrado: $("#IdGrado").val(),
         descripcion: $("#Descripcion").val()
         , nivelEscolar: $("#NivelEscolar").val()
+        , Capacidad: $("#Capacidad").val()
+        , Vacantes: $("#Vacantes").val()
     }
     $.ajax({
         type: "POST",
@@ -161,7 +175,9 @@ $("#save").on("click", function () {
                     /* Vamos agregando a nuestra tabla las filas necesarias */
                     $('#tblGrados tbody').append("<tr class='even pointer'><td>" + item.idGrado + "</td><td>"
                         + item.descripcion + "</td><td>"
-                        + item.nivelEscolar + "</td></tr>");
+                        + item.nivelEscolar + "</td><td>"
+                        + item.Capacidad + "</td><td>"
+                        + item.Vacantes + "</td></tr>");
                 });
                 CallBack();
             } else {
@@ -171,7 +187,9 @@ $("#save").on("click", function () {
                     /* Vamos agregando a nuestra tabla las filas necesarias */
                     $('#tblGrados tbody').append("<tr class='even pointer'><td>" + item.idGrado + "</td><td>"
                         + item.descripcion + "</td><td>"
-                        + item.nivelEscolar + "</td></tr>");
+                        + item.nivelEscolar + "</td><td>"
+                        + item.Capacidad + "</td><td>"
+                        + item.Vacantes + "</td></tr>");
                 });
                 CallBack();
                 alertify.error("Ha ocurrido un error al agregar el Grado");
@@ -190,6 +208,8 @@ $("#update").on("click", function () {
         idGrado: $("#IdGrado").val()
         , descripcion: $("#Descripcion").val()
         , nivelEscolar: $("#NivelEscolar").val()
+        , Capacidad: $("#Capacidad").val()
+        , Vacantes: $("#Vacantes").val()
     }
     $.ajax({
         type: "POST",
@@ -206,7 +226,9 @@ $("#update").on("click", function () {
                     /* Vamos agregando a nuestra tabla las filas necesarias */
                     $('#tblGrados tbody').append("<tr class='even pointer'><td>" + item.idGrado + "</td><td>"
                         + item.descripcion + "</td><td>"
-                        + item.nivelEscolar + "</td></tr>");
+                        + item.nivelEscolar + "</td><td>"
+                        + item.Capacidad + "</td><td>"
+                        + item.Vacantes + "</td></tr>");
                 });
                 CallBack();
             } else {
@@ -216,7 +238,9 @@ $("#update").on("click", function () {
                     /* Vamos agregando a nuestra tabla las filas necesarias */
                     $('#tblGrados tbody').append("<tr class='even pointer'><td>" + item.idGrado + "</td><td>"
                         + item.descripcion + "</td><td>"
-                        + item.nivelEscolar + "</td></tr>");
+                        + item.nivelEscolar + "</td><td>"
+                        + item.Capacidad + "</td><td>"
+                        + item.Vacantes + "</td></tr>");
                 });
                 CallBack();
                 alertify.error("Ha ocurrido un error al agregar el Grado");

@@ -88,6 +88,7 @@ namespace SRALI.Controllers
 
                 OldMateria.idGrado = Materia.idGrado;
                 OldMateria.nombreAsignatura = Materia.nombreAsignatura;
+                OldMateria.hora = Materia.hora;
                 OldMateria.actualizadoPor = Session["IdUsurio"].ToString();
                 OldMateria.fechaActualizado = DateTime.Now;
 

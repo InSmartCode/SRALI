@@ -70,7 +70,9 @@ namespace SRALI.Controllers
                                 {
                                     b.idGrado,
                                     b.descripcion,
-                                    b.nivelEscolar
+                                    b.nivelEscolar,
+                                    b.Capacidad,
+                                    b.Vacantes
                                 }).ToList();
 
                 jr.Data = new { Grados = Grados, Res = true };
@@ -83,7 +85,9 @@ namespace SRALI.Controllers
                                 {
                                     b.idGrado,
                                     b.descripcion,
-                                    b.nivelEscolar
+                                    b.nivelEscolar,
+                                    b.Capacidad,
+                                    b.Vacantes
                                 }).ToList();
                 jr.Data = new { Grados = Grados, Res = false };
                 return jr;
@@ -97,9 +101,24 @@ namespace SRALI.Controllers
             try
             {
                 var OldGrado = (from p in db.tblGrado where p.idGrado == Grado.idGrado select p).FirstOrDefault();
-
                 OldGrado.descripcion = Grado.descripcion;
                 OldGrado.nivelEscolar = Grado.nivelEscolar;
+
+                var DifVacante = 0;
+                if (OldGrado.Capacidad > Grado.Capacidad)
+                {
+                    DifVacante = (int)OldGrado.Capacidad - (int)Grado.Capacidad;
+
+                    OldGrado.Capacidad = Grado.Capacidad;
+                    OldGrado.Vacantes = OldGrado.Vacantes - DifVacante;
+                }
+                else
+                {
+                    DifVacante = (int)Grado.Capacidad - (int)OldGrado.Capacidad;
+
+                    OldGrado.Capacidad = Grado.Capacidad;
+                    OldGrado.Vacantes = OldGrado.Vacantes + DifVacante;
+                }
                 OldGrado.actualizadoPor = Session["IdUsurio"].ToString();
                 OldGrado.fechaActualizado = DateTime.Now;
 
@@ -109,7 +128,9 @@ namespace SRALI.Controllers
                                 {
                                     b.idGrado,
                                     b.descripcion,
-                                    b.nivelEscolar
+                                    b.nivelEscolar,
+                                    b.Capacidad,
+                                    b.Vacantes
                                 }).ToList();
                 jr.Data = new { Grados = Grados, Res = true };
                 return jr;
@@ -121,7 +142,9 @@ namespace SRALI.Controllers
                                 {
                                     b.idGrado,
                                     b.descripcion,
-                                    b.nivelEscolar
+                                    b.nivelEscolar,
+                                    b.Capacidad,
+                                    b.Vacantes
                                 }).ToList();
                 jr.Data = new { Grados = Grados, Res = false };
                 return jr;
@@ -143,7 +166,9 @@ namespace SRALI.Controllers
                                 {
                                     b.idGrado,
                                     b.descripcion,
-                                    b.nivelEscolar
+                                    b.nivelEscolar,
+                                    b.Capacidad,
+                                    b.Vacantes
                                 }).ToList();
                 jr.Data = new { Grados = Grados, Res = true };
                 return jr;
@@ -155,7 +180,9 @@ namespace SRALI.Controllers
                                 {
                                     b.idGrado,
                                     b.descripcion,
-                                    b.nivelEscolar
+                                    b.nivelEscolar,
+                                    b.Capacidad,
+                                    b.Vacantes
                                 }).ToList();
                 jr.Data = new { Grados = Grados, Res = false };
                 return jr;

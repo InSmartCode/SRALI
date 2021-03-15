@@ -94,10 +94,6 @@ function Editar() {
 }
 
 
-
-
-
-
 function Eliminar() {
 
     if (IdResponsable == 0 || IdResponsable == "") {
