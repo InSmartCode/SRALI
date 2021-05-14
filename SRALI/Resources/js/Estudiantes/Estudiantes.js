@@ -192,6 +192,10 @@ function Eliminar() {
     }
 }
 
+function Import() {
+    $('#modalHeaderImp').html('Importar Estudiantes');
+    $('#modalImportData').modal('show');
+}
 
 var IdEstudiante = "";
 var ultimaFila = null;
@@ -486,3 +490,84 @@ $("#cancel").on("click", function () {
     $('.nav-tabs a[href="#home"]').tab('show');
 });
 
+function Sync() {
+    $.ajax({
+        type: "POST",
+        traditional: true,//con el formDate este se comenta
+        url: "/Estudiantes/SyncEstudiantes",
+        contentType: "application/json; charset=utf-8",//con el formDate este se comenta
+        //data: JSON.stringify(datos),
+
+        //contentType: false, //importante enviar este parametro en false
+        //processData: false,
+        //data: formData,
+        success: function (result) {
+            if (result.Res) {
+                alertify.success("Alumno Agregado.");
+                $('#tblEstudiantes').DataTable().destroy();
+                $('#tblEstudiantes tbody').empty();
+                $.each(result.Estudiantes, function (i, item) {
+                    /* Vamos agregando a nuestra tabla las filas necesarias */
+                    var fechaNac = moment(item.fechaNacimiento).format('DD/MM/YYYY');
+                    $('#tblEstudiantes tbody').append("<tr class='even pointer'><td>" + item.idAlumno + "</td><td>"
+                        + item.codigo + "</td><td>"
+                        + item.nombres + "</td><td>"
+                        + item.primerApellido + "</td><td>"
+                        + item.segundoApellido + "</td><td>"
+                        + fechaNac + "</td><td hidden>"
+                        + item.edad + "</td><td hidden>"
+                        + item.sexo + "</td><td>"
+                        + item.nie + "</td><td hidden>"
+                        + item.lugarNacimiento + "</td><td hidden>"
+                        + item.numeroPartidaNacimiento + "</td><td hidden>"
+                        + item.tomo + "</td><td hidden>"
+                        + item.folio + "</td><td hidden>"
+                        + item.libro + "</td><td hidden>"
+                        + item.departamento + "</td><td hidden>"
+                        + item.municipio + "</td><td hidden>"
+                        + item.direccion + "</td><td hidden>"
+                        + item.institucionProcedencia + "</td><td>"
+                        + item.gradoIngreso + "</td><td hidden>"
+                        + item.archivofoto + "</td><td hidden>"
+                        + item.idTransporteResponsable + "</td></tr>");
+                });
+                CallBack();
+            } else {
+                $('#tblEstudiantes').DataTable().destroy();
+                $('#tblEstudiantes tbody').empty();
+                $.each(result.Estudiantes, function (i, item) {
+                    /* Vamos agregando a nuestra tabla las filas necesarias */
+                    var fechaNac = moment(item.fechaNacimiento).format('DD/MM/YYYY');
+                    $('#tblEstudiantes tbody').append("<tr class='even pointer'><td>" + item.idAlumno + "</td><td>"
+                        + item.codigo + "</td><td>"
+                        + item.nombres + "</td><td>"
+                        + item.primerApellido + "</td><td>"
+                        + item.segundoApellido + "</td><td>"
+                        + fechaNac + "</td><td hidden>"
+                        + item.edad + "</td><td hidden>"
+                        + item.sexo + "</td><td>"
+                        + item.nie + "</td><td hidden>"
+                        + item.lugarNacimiento + "</td><td hidden>"
+                        + item.numeroPartidaNacimiento + "</td><td hidden>"
+                        + item.tomo + "</td><td hidden>"
+                        + item.folio + "</td><td hidden>"
+                        + item.libro + "</td><td hidden>"
+                        + item.departamento + "</td><td hidden>"
+                        + item.municipio + "</td><td hidden>"
+                        + item.direccion + "</td><td hidden>"
+                        + item.institucionProcedencia + "</td><td>"
+                        + item.gradoIngreso + "</td><td hidden>"
+                        + item.archivofoto + "</td><td hidden>"
+                        + item.idTransporteResponsable + "</td></tr>");
+                });
+                CallBack();
+                alertify.error("Ha ocurrido un error al agregar el Doctor");
+            }
+            $('.nav-tabs a[href="#home"]').tab('show');
+        },
+        error: function () {
+            alertify.error("Ha ocurrido un error");
+            $('.nav-tabs a[href="#home"]').tab('show');
+        }
+    });
+}

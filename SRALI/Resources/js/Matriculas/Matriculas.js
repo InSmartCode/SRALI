@@ -40,9 +40,29 @@ function limpiarDatos() {
     $("#Colegiaturas").val("");
 }
 
+var CodAlumno = "";
+$('#tblAlumnos tbody').on('click', 'tr', function () {
+
+    CodAlumno = $(this).find('td:first').html();
+
+    if (ultimaFila != null) {
+        ultimaFila.css('background-color', colorOriginalPAR);
+    }
+
+    $(this).css('background-color', '#ffe35c');
+    ultimaFila = $(this);
+
+    if (CodAlumno == "" || CodAlumno == null || CodAlumno == "No data available in table") {
+        alertify.error("No existen Alumnos para continuar");
+    } else {
+        getExpediente();
+    }
+});
 
 function Nuevo() {
-    if ($("#Estudiante").val()!="0") {
+    if (CodAlumno == "0" || CodAlumno == "" || CodAlumno == null) {
+        alertify.error("Debe de seleccionar un Estuduante");
+    } else {
         $('#save').prop("hidden", false);
         $('#update').prop("hidden", true);
 
@@ -50,8 +70,6 @@ function Nuevo() {
 
         $('#modalHeader').html('Nueva Matricula');
         $('#modalMatricula').modal('show');
-    } else {
-        alertify.error("Debe de seleccionar un Estuduante");
     }
    
 }
@@ -176,23 +194,6 @@ $('#tblMatriculas tbody').on('click', 'tr', function () {
     $('#btnEdit').prop("disabled", false);
 });
 
-$('#tblAlumnos tbody').on('click', 'tr', function () {
-
-    CodAlumno = $(this).find('td:first').html();
-
-    if (ultimaFila != null) {
-        ultimaFila.css('background-color', colorOriginalPAR);
-    }
-
-    $(this).css('background-color', '#ffe35c');
-    ultimaFila = $(this);
-
-    if (CodAlumno == "" || CodAlumno == null || CodAlumno == "No data available in table") {
-        alertify.error("No existen Alumnos para continuar");
-    } else {
-        getExpediente();
-    }
-});
 
 function getExpediente(){
     if (CodAlumno == "" || CodAlumno == null) {

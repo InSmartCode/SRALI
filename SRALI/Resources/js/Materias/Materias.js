@@ -69,7 +69,53 @@ function Editar() {
 }
 
 
+function Sync() {
+    $.ajax({
+        type: "POST",
+        traditional: true,//con el formDate este se comenta
+        url: "/Materia/Syncmaterias",
+        contentType: "application/json; charset=utf-8",//con el formDate este se comenta
+        //data: JSON.stringify(datos),
 
+        //contentType: false, //importante enviar este parametro en false
+        //processData: false,
+        //data: formData,
+        success: function (result) {
+            if (result.Res) {
+                alertify.success("Sincronización Realizada con Éxito");
+                $('#tblGrados').DataTable().destroy();
+                $('#tblGrados tbody').empty();
+                $.each(result.Grados, function (i, item) {
+                    /* Vamos agregando a nuestra tabla las filas necesarias */
+                    $('#tblGrados tbody').append("<tr class='even pointer'><td>" + item.idGrado + "</td><td>"
+                        + item.descripcion + "</td><td>"
+                        + item.nivelEscolar + "</td><td>"
+                        + item.Capacidad + "</td><td>"
+                        + item.Vacantes + "</td></tr>");
+                });
+                CallBack();
+            } else {
+                $('#tblGrados').DataTable().destroy();
+                $('#tblGrados tbody').empty();
+                $.each(result.Grados, function (i, item) {
+                    /* Vamos agregando a nuestra tabla las filas necesarias */
+                    $('#tblGrados tbody').append("<tr class='even pointer'><td>" + item.idGrado + "</td><td>"
+                        + item.descripcion + "</td><td>"
+                        + item.nivelEscolar + "</td><td>"
+                        + item.Capacidad + "</td><td>"
+                        + item.Vacantes + "</td></tr>");
+                });
+                CallBack();
+                alertify.error("Ha ocurrido un error al sincronizar");
+            }
+            $('.nav-tabs a[href="#home"]').tab('show');
+        },
+        error: function () {
+            alertify.error("Ha ocurrido un error");
+            $('.nav-tabs a[href="#home"]').tab('show');
+        }
+    });
+}
 
 
 
@@ -263,3 +309,8 @@ $("#update").on("click", function () {
 
 
 
+
+function Import() {
+    $('#modalHeaderImp').html('Importar Materias');
+    $('#modalImportData').modal('show');
+}

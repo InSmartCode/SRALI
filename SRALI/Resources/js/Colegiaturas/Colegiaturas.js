@@ -105,10 +105,12 @@ function getExpediente() {
                 });
                 CallBack();
                 alertify.success("Colegiaturas Obtenidas.");
+
+                $('#tblColegiaturas tbody').empty();
             } else {
                 alertify.error("Ha ocurrido un error al obtener las Matriculas");
             }
-            $('#modalMatricula').modal('hide');
+            //$('#modalMatricula').modal('hide');
         },
         error: function () {
             alertify.error("Ha ocurrido un error");

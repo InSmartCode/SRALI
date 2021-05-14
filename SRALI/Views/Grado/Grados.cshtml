@@ -18,6 +18,14 @@
                 <div class="clearfix">
                     <div class="actions">
                         <div class="inputs pull-right">
+                            <button class="btn btn-round btn-info btn-sm" onclick="Import()"><i class="fa fa-upload"></i> Importar</button>
+                        </div>
+
+                        <div class="inputs pull-right">
+                            <button class="btn btn-round btn-danger btn-sm" onclick="Sync();"><i class="fa fa-refresh"></i> Sincronizar de Moodle</button>
+                        </div>
+
+                        <div class="inputs pull-right">
                             <button class="btn btn-round btn-danger btn-sm" onclick="Eliminar();"><i class="fa fa-trash"></i> Eliminar</button>
                         </div>
 
@@ -100,13 +108,45 @@
                     </div>
                 </div>
 
-              
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-warning" id="update">Actualizar</button>
                 <button type="button" class="btn btn-success" id="save">Guardar</button>
                 <button type="button" class="btn btn-primary" id="cancel" data-dismiss="modal">Cancelar</button>
 
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Ventana modal para mantenimiento de los usuarios -->
+<div class="modal fade" id="modalImportData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content" id="modalContent">
+            <div class="modal-header">
+                <h4 id="modalHeaderImp" class="text-center" style="margin-bottom: 0px;"></h4>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            @using (Html.BeginForm("ImportData", "Grado", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmImportData" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary()
+
+                                <div class="form-group form-control">
+                                    <input type="file" name="file" />
+                                </div>
+
+                                <div class="form-actions">
+                                    <button class="btn btn-success btn-block" id="btnSubmitImport" type="submit">Cargar</button>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

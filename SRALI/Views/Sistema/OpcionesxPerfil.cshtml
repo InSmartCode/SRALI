@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "OpcionesxPerfil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="~/Content/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+<link href="~/Content/vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
+<link href="~/Content/vendors/alertifyjs/css/alertify.css" rel="stylesheet" />
+
+
+<div class="">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2><i class="fa fa-bars"></i> Accesos por Perfil <small>Mantenimiento</small></h2>
+                <div class="clearfix">
+                    <div class="actions">
+
+                    </div>
+                </div>
+            </div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-md-1 text-left">Perfil:</div>
+                    <div class="col-md-4">
+                        <select class="form-control" id="sltPerfil" onchange="cargarInfoPerfil()">
+                            <option value="0">Seleccione Perfil</option>
+                            @foreach (var item in ViewBag.Perfiles)
+                            {
+                                <option value="@item.id">@item.nombre</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-4">
+                        <table class="table table-striped table-bordered table-hover table-sm " id="tblMenus" cellspacing="0">
+                            <thead>
+                                <tr class="headings">
+                                    <th class="column-title">#</th>
+                                    <th class="column-title">Descripción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <button type="button" class="btn btn-success" id="addMenu"><i class="fa fa-arrow-right"></i> Agregar</button>
+                        <br />
+                        <button type="button" class="btn btn-warning" id="deleteMenu"><i class="fa fa-arrow-left"></i> Eliminar</button>
+                    </div>
+                    <div class="col-md-4">
+                        <table class="table table-striped table-bordered table-hover table-sm" id="tblPerfiles" cellspacing="0">
+                            <thead>
+                                <tr class="headings">
+                                    <th class="column-title">#</th>
+                                    <th class="column-title">Descripción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    @*@Scripts.Render("~/Scripts/RegistroVisitas")*@
+
+    <script src="~/Content/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/vendors/alertifyjs/alertify.js"></script>
+    <script src="~/Resources/js/Sistema/OpcionesxPerfil.js"></script>
+}

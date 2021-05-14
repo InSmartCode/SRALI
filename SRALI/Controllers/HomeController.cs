@@ -4,17 +4,17 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SRALI.Models;
+using SRALI.Services;
 
 namespace SRALI.Controllers
 {
     public class HomeController : Controller
     {
-
+        ConsultasMoodle sm = new ConsultasMoodle();
         private readonly SARADB_Entities db = new SARADB_Entities();
 
         public ActionResult Index()
         {
-
             
             if (Session["Usuario"] == null)
             {
@@ -22,7 +22,8 @@ namespace SRALI.Controllers
             }
             else
             {
-                              
+
+                //sm.ObtenerAlumnos();
                 return View();
             }
            

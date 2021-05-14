@@ -509,4 +509,4 @@ declare namespace moment {
   export var defaultFormat: string;
 }
 
-export = moment;
+//export = moment;

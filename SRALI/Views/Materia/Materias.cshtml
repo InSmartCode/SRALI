@@ -19,123 +19,164 @@
                 <h2><i class="fa fa-bars"></i> Materias <small>Mantenimiento</small></h2>
                 <div class="clearfix">
                     <div class="actions">
-                        <div class="inputs pull-right">
-                            <button class="btn btn-round btn-danger btn-sm" onclick="Eliminar();"><i class="fa fa-trash"></i> Eliminar</button>
-                        </div>
+                        <div class="actions">
+                            <div class="inputs pull-right">
+                                <button class="btn btn-round btn-info btn-sm" onclick="Import()"><i class="fa fa-upload"></i> Importar</button>
+                            </div>
 
-                        <div class="inputs pull-right">
-                            <button class="btn btn-round btn-warning btn-sm" onclick="Editar();"><i class="fa fa-edit"></i> Modificar</button>
-                        </div>
+                            <div class="inputs pull-right">
+                                <button class="btn btn-round btn-danger btn-sm" onclick="Sync();"><i class="fa fa-refresh"></i> Sincronizar de Moodle</button>
+                            </div>
 
-                        <div class="inputs pull-right">
-                            <button class="btn btn-round btn-primary btn-sm" onclick="Nuevo();"><i class="fa fa-plus-circle"></i> Nuevo</button>
+                            <div class="inputs pull-right">
+                                <button class="btn btn-round btn-danger btn-sm" onclick="Eliminar();"><i class="fa fa-trash"></i> Eliminar</button>
+                            </div>
+
+                            <div class="inputs pull-right">
+                                <button class="btn btn-round btn-warning btn-sm" onclick="Editar();"><i class="fa fa-edit"></i> Modificar</button>
+                            </div>
+
+                            <div class="inputs pull-right">
+                                <button class="btn btn-round btn-primary btn-sm" onclick="Nuevo();"><i class="fa fa-plus-circle"></i> Nuevo</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="x_content">
-                <table class="table table-striped table-bordered table-hover table-sm" id="tblMaterias" cellspacing="0">
-                    <thead>
-                        <tr class="headings">
-                            <th class="column-title">#</th>
-                            <th class="column-title" hidden>idGrado</th>
-                            <th class="column-title">Grado</th>
-                            <th class="column-title">Materia</th>
-                            <th class="column-title">Horario</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in ViewBag.Materias)
-                        {
-                            <tr class="even pointer">
-                                <td>@item.idAsignatura</td>
-                                <td hidden>@item.idGrado</td>
-                                <td>@item.descripcion</td>
-                                <td>@item.nombreAsignatura</td>
-                                <td>@item.hora</td>
+                <div class="x_content">
+                    <table class="table table-striped table-bordered table-hover table-sm" id="tblMaterias" cellspacing="0">
+                        <thead>
+                            <tr class="headings">
+                                <th class="column-title">#</th>
+                                <th class="column-title" hidden>idGrado</th>
+                                <th class="column-title">Grado</th>
+                                <th class="column-title">Materia</th>
+                                <th class="column-title">Horario</th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div id="modalMateria" class="modal fade draggable-modal modalx" tabindex="-1" data-backdrop="static" data-keyboard="false" role="alertdialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div id="modal-content" class="modal-content">
-            <div class="modal-header">
-                <h4 id="modalHeader" class="text-center" style="margin-bottom: 0px;"></h4>
-            </div>
-            <div class="modal-body" id="modal-body">
-                <div class="row form-group form-md-line-input has-info" hidden>
-                    <div class="col-md-4 text-left">idAsignatura:</div>
-                    <div class="col-md-8">
-                        <input id="IdAsignatura" class="form-control" placeholder="Código del Alumno" />
-                    </div>
-                </div>
-
-                <div class="row form-group form-md-line-input has-inf">
-                    <div class="col-md-4 text-left">Grado:</div>
-                    <div class="col-md-8">
-                        <select class="form-control" id="sltGrado">
-                            <option value="0">Seleccione Grado</option>
-                            @foreach (var item in ViewBag.Grados)
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.Materias)
                             {
-                                <option value="@item.idGrado">@item.descripcion - @item.nivelEscolar </option>
+                                <tr class="even pointer">
+                                    <td>@item.idAsignatura</td>
+                                    <td hidden>@item.idGrado</td>
+                                    <td>@item.descripcion</td>
+                                    <td>@item.nombreAsignatura</td>
+                                    <td>@item.hora</td>
+                                </tr>
                             }
-                        </select>
-                    </div>                    
-                </div>
-                <div class="row form-group form-md-line-input has-info" hidden>
-                    <div class="col-md-4 text-left">Descripcion:</div>
-                    <div class="col-md-8">
-                        <input id="Descripcion" class="form-control" placeholder="Descripcion" />
-                    </div>
-                </div>
-                <div class="row form-group form-md-line-input has-info">
-                    <div class="col-md-4 text-left">Nombre Asignatura:</div>
-                    <div class="col-md-8">
-                        <input id="NombreAsignatura" class="form-control" placeholder="Nombre Asignatura" />
-                    </div>
-                </div>
-                <div class="row form-group form-md-line-input has-info">
-                    <div class="col-md-4 text-left">Horario:</div>
-                    <div class="col-md-8">
-                        <select class="form-control" id="sltHora">
-                            <option value="0">Seleccione Hora</option>
-                            <option value="1">8:00am - 9:00am</option>
-                            <option value="2">9:00am - 10:00am</option>
-                            <option value="3">10:00am - 11:00am</option>
-                            <option value="4">11:00am - 12:00m</option>
-                            <option value="5">12:00m - 1:00pm</option>
-                            <option value="6">1:00pm - 2:00pm</option>
-                            <option value="7">2:00pm - 3:00pm</option>
-                            <option value="8">3:00pm - 4:00pm</option>
-                            <option value="9">4:00pm - 5:00pm</option>
-                        </select>
-                    </div>
-                </div>
+                        </tbody>
+                    </table>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-warning" id="update">Actualizar</button>
-                <button type="button" class="btn btn-success" id="save">Guardar</button>
-                <button type="button" class="btn btn-primary" id="cancel" data-dismiss="modal">Cancelar</button>
-
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-@section Scripts{
-    @*@Scripts.Render("~/Scripts/RegistroVisitas")*@
 
-    <script src="~/Content/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="~/Content/vendors/alertifyjs/alertify.js"></script>
-    <script src="~/Resources/js/Materias/Materias.js"></script>
-}
+    <div id="modalMateria" class="modal fade draggable-modal modalx" tabindex="-1" data-backdrop="static" data-keyboard="false" role="alertdialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div id="modal-content" class="modal-content">
+                <div class="modal-header">
+                    <h4 id="modalHeader" class="text-center" style="margin-bottom: 0px;"></h4>
+                </div>
+                <div class="modal-body" id="modal-body">
+                    <div class="row form-group form-md-line-input has-info" hidden>
+                        <div class="col-md-4 text-left">idAsignatura:</div>
+                        <div class="col-md-8">
+                            <input id="IdAsignatura" class="form-control" placeholder="Código del Alumno" />
+                        </div>
+                    </div>
+
+                    <div class="row form-group form-md-line-input has-inf">
+                        <div class="col-md-4 text-left">Grado:</div>
+                        <div class="col-md-8">
+                            <select class="form-control" id="sltGrado">
+                                <option value="0">Seleccione Grado</option>
+                                @foreach (var item in ViewBag.Grados)
+                                {
+                                    <option value="@item.idGrado">@item.descripcion - @item.nivelEscolar </option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row form-group form-md-line-input has-info" hidden>
+                        <div class="col-md-4 text-left">Descripcion:</div>
+                        <div class="col-md-8">
+                            <input id="Descripcion" class="form-control" placeholder="Descripcion" />
+                        </div>
+                    </div>
+                    <div class="row form-group form-md-line-input has-info">
+                        <div class="col-md-4 text-left">Nombre Asignatura:</div>
+                        <div class="col-md-8">
+                            <input id="NombreAsignatura" class="form-control" placeholder="Nombre Asignatura" />
+                        </div>
+                    </div>
+                    <div class="row form-group form-md-line-input has-info">
+                        <div class="col-md-4 text-left">Horario:</div>
+                        <div class="col-md-8">
+                            <select class="form-control" id="sltHora">
+                                <option value="0">Seleccione Hora</option>
+                                <option value="1">8:00am - 9:00am</option>
+                                <option value="2">9:00am - 10:00am</option>
+                                <option value="3">10:00am - 11:00am</option>
+                                <option value="4">11:00am - 12:00m</option>
+                                <option value="5">12:00m - 1:00pm</option>
+                                <option value="6">1:00pm - 2:00pm</option>
+                                <option value="7">2:00pm - 3:00pm</option>
+                                <option value="8">3:00pm - 4:00pm</option>
+                                <option value="9">4:00pm - 5:00pm</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" id="update">Actualizar</button>
+                    <button type="button" class="btn btn-success" id="save">Guardar</button>
+                    <button type="button" class="btn btn-primary" id="cancel" data-dismiss="modal">Cancelar</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ventana modal para mantenimiento de los usuarios -->
+    <div class="modal fade" id="modalImportData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content" id="modalContent">
+                <div class="modal-header">
+                    <h4 id="modalHeaderImp" class="text-center" style="margin-bottom: 0px;"></h4>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @using (Html.BeginForm("ImportData", "Materia", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmImportData" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary()
+
+                                    <div class="form-group form-control">
+                                        <input type="file" name="file" />
+                                    </div>
+
+                                    <div class="form-actions">
+                                        <button class="btn btn-success btn-block" id="btnSubmitImport" type="submit">Cargar</button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts{
+        @*@Scripts.Render("~/Scripts/RegistroVisitas")*@
+
+        <script src="~/Content/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+        <script src="~/Content/vendors/alertifyjs/alertify.js"></script>
+        <script src="~/Resources/js/Materias/Materias.js"></script>
+    }
 

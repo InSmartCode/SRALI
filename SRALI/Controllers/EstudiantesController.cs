@@ -6,11 +6,14 @@ using System.Web;
 using System.Web.Mvc;
 using SRALI.Models;
 using SRALI.Utilities;
+using SRALI.Services;
+using SpreadsheetLight;
 
 namespace SRALI.Controllers
 {
     public class EstudiantesController : Controller
     {
+        ConsultasMoodle sm = new ConsultasMoodle();
         SARADB_Entities db = new SARADB_Entities();
         SaveImage SaveImage = new SaveImage();
 
@@ -37,9 +40,16 @@ namespace SRALI.Controllers
         // GET: Estudiantes
         public ActionResult Index()
         {
-            ViewBag.Estudiantes = (from b in db.tblEstudiante select b).ToList();
-            ViewBag.Representantes = (from b in db.tblResponsableEstudiante select b).ToList();
-            return View();
+            if (CheckSession())
+            {
+                ViewBag.Estudiantes = (from b in db.tblEstudiante select b).ToList();
+                ViewBag.Representantes = (from b in db.tblResponsableEstudiante select b).ToList();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LogOut", "Access");
+            }
         }
 
         public JsonResult AddEstudiante(string codigo, string nombres, string primerApellido, string segundoApellido, string fechaNacimiento, int edad, string sexo, string nie,
@@ -418,6 +428,159 @@ namespace SRALI.Controllers
                                     }).ToList();
                 jr.Data = new { Responsables = Responsables, Res = false };
                 return jr;
+            }
+        }
+
+        public JsonResult SyncEstudiantes()
+        {
+            JsonResult jr = new JsonResult();
+            try
+            {
+                sm.ObtenerAlumnos();
+
+                var Estudiantes = (from b in db.tblEstudiante
+                                   select new
+                                   {
+                                       b.idAlumno,
+                                       b.codigo,
+                                       b.nombres,
+                                       b.primerApellido,
+                                       b.segundoApellido,
+                                       b.fechaNacimiento,
+                                       b.edad,
+                                       b.sexo,
+                                       b.nie,
+                                       b.lugarNacimiento,
+                                       b.numeroPartidaNacimiento,
+                                       b.tomo,
+                                       b.folio,
+                                       b.libro,
+                                       b.departamento,
+                                       b.municipio,
+                                       b.direccion,
+                                       b.institucionProcedencia,
+                                       b.archivofoto,
+                                       b.gradoIngreso,
+                                       b.idResponsable
+                                   }).ToList();
+                jr.Data = new { Estudiantes = Estudiantes, Res = true };
+                return jr;
+            }
+            catch (Exception ex)
+            {
+                var Estudiantes = (from b in db.tblEstudiante
+                                   select new
+                                   {
+                                       b.idAlumno,
+                                       b.codigo,
+                                       b.nombres,
+                                       b.primerApellido,
+                                       b.segundoApellido,
+                                       b.fechaNacimiento,
+                                       b.edad,
+                                       b.sexo,
+                                       b.nie,
+                                       b.lugarNacimiento,
+                                       b.numeroPartidaNacimiento,
+                                       b.tomo,
+                                       b.folio,
+                                       b.libro,
+                                       b.departamento,
+                                       b.municipio,
+                                       b.direccion,
+                                       b.institucionProcedencia,
+                                       b.archivofoto,
+                                       b.gradoIngreso,
+                                       b.idResponsable
+                                   }).ToList();
+                jr.Data = new { Estudiantes = Estudiantes, Res = false };
+                return jr;
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ImportData(HttpPostedFileBase file) // El nombre del parámetro debe ser el mismo al del elemento que lo envía (<input />)
+        {
+
+            string filePath = string.Empty;
+            Random rnd = new Random();
+
+            if (file != null && file.ContentLength > 0)
+            {
+                string path = Server.MapPath("~/Uploads/");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                filePath = path + "PP" + rnd.Next(100000).ToString() + ".xlsx"; // Le generamos un nombre en base a un número aleatorio entre 0 y 100,000
+                file.SaveAs(filePath);
+
+                SLDocument sheet = new SLDocument(filePath);
+
+                int idRow = 2;
+
+                while (!string.IsNullOrEmpty(sheet.GetCellValueAsString(idRow, 1)))
+                {
+                    try
+                    {
+                        tblEstudiante registro = new tblEstudiante();
+                        registro.codigo = sheet.GetCellValueAsString(idRow, 1);
+                        registro.nombres = sheet.GetCellValueAsString(idRow, 2);
+                        registro.primerApellido = sheet.GetCellValueAsString(idRow, 3);
+                        registro.segundoApellido = sheet.GetCellValueAsString(idRow, 4);
+                        registro.fechaNacimiento = Convert.ToDateTime(sheet.GetCellValueAsString(idRow, 5));
+                        registro.edad = Convert.ToInt32(sheet.GetCellValueAsString(idRow, 6));
+                        registro.sexo = sheet.GetCellValueAsString(idRow, 7);
+                        registro.nie = sheet.GetCellValueAsString(idRow, 8);
+                        registro.lugarNacimiento = sheet.GetCellValueAsString(idRow, 9);
+                        registro.numeroPartidaNacimiento = sheet.GetCellValueAsString(idRow, 10);
+                        registro.tomo = sheet.GetCellValueAsString(idRow, 11);
+                        registro.folio = sheet.GetCellValueAsString(idRow, 12);
+                        registro.libro = sheet.GetCellValueAsString(idRow, 13);
+                        registro.departamento = sheet.GetCellValueAsString(idRow, 14);
+                        registro.municipio = sheet.GetCellValueAsString(idRow, 14);
+                        registro.direccion = sheet.GetCellValueAsString(idRow, 15);
+                        registro.institucionProcedencia = sheet.GetCellValueAsString(idRow, 16);
+                        registro.gradoIngreso = sheet.GetCellValueAsString(idRow, 17);
+                        registro.correo = sheet.GetCellValueAsString(idRow, 18);
+
+
+                        var OldItem = (from p in db.tblEstudiante where p.codigo == registro.codigo select p).FirstOrDefault();
+                        if (OldItem == null)
+                        {
+                            db.tblEstudiante.Add(registro);
+                            db.SaveChanges();
+                        }
+                    }
+                    catch (Exception e)
+                    {
+
+                        return RedirectToAction("Index");
+                    }
+
+                    idRow++;
+                }
+
+                try
+                {
+                    if (System.IO.File.Exists(filePath))
+                    {
+                        System.IO.File.Delete(filePath); // Eliminamos el archivo
+                    }
+                }
+                catch (Exception e)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                //return View();
+                return RedirectToAction("Index");
             }
         }
 
