@@ -12,6 +12,7 @@ namespace SRALI.Services
         SARADB_Entities db = new SARADB_Entities();
         MySqlConnection databaseConnection;
 
+
         public void CrearConexionMoodle()
         {
             var datasource = (from p in db.tbl_Parametros where p.IdParametro == 1 select p.Parametro).FirstOrDefault();
