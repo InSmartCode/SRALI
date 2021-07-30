@@ -188,7 +188,181 @@ namespace SRALI.Controllers
             }
         }
 
+        public ActionResult Parametros()
+        {
+            if (CheckSession())
+            {
+                ViewBag.Parametros = (from b in db.tbl_Parametros select b).ToList();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LogOut", "Access");
+            }
+        }
 
+        public JsonResult CargarParametros()
+        {
+            JsonResult json = new JsonResult();
+            try
+            {
+                var Parametros = (from b in db.tbl_Parametros select b).ToList();
+                json.Data = new { Parametros = Parametros, Status = 0, Msj = "Data cargada.", JsonRequestBehavior.AllowGet };
+                return json;
+            }
+            catch (Exception ex)
+            {
+                json.Data = new { Status = 1, Msj = ex.Message, JsonRequestBehavior.AllowGet };
+                return json;
+            }
+        }
+
+        public JsonResult InsertarParametros(string parametro, string valor)
+        {
+            JsonResult json = new JsonResult();
+            try
+            {
+                tbl_Parametros p = new tbl_Parametros();
+                p.Descripcion = parametro;
+                p.Parametro = valor;
+                db.tbl_Parametros.Add(p);
+                db.SaveChanges();
+
+                var Parametros = (from b in db.tbl_Parametros select b).ToList();
+                json.Data = new { Parametros = Parametros, Status = 0, Msj = "Parámetro agregado.", JsonRequestBehavior.AllowGet };
+                return json;
+            }
+            catch (Exception ex)
+            {
+                json.Data = new { Status = 1, Msj = ex.Message, JsonRequestBehavior.AllowGet };
+                return json;
+            }
+        }
+
+        public JsonResult ActualizarParametros(string id, string valor)
+        {
+            JsonResult json = new JsonResult();
+            try
+            {
+                var realid = Convert.ToInt32(id);
+                var p = (from par in db.tbl_Parametros where par.IdParametro == realid select par).FirstOrDefault();
+                //p.Descripcion = parametro;
+                p.Parametro = valor;
+                db.SaveChanges();
+
+                var Parametros = (from b in db.tbl_Parametros select b).ToList();
+                json.Data = new { Parametros = Parametros, Status = 0, Msj = "Parámetro modificado.", JsonRequestBehavior.AllowGet };
+                return json;
+            }
+            catch (Exception ex)
+            {
+                json.Data = new { Status = 1, Msj = ex.Message, JsonRequestBehavior.AllowGet };
+                return json;
+            }
+        }
+
+        public ActionResult OpcionesSistema()
+        {
+            if (CheckSession())
+            {
+                ViewBag.Opciones = db.SP_OpcionesSistema().ToList();
+                ViewBag.OpcionesPadres = (from b in db.tblOpcionesSistema where b.idPadre == 0 select b).ToList();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LogOut", "Access");
+            }
+        }
+
+        public JsonResult CargarOpciones()
+        {
+            JsonResult json = new JsonResult();
+            try
+            {
+                var opciones = db.SP_OpcionesSistema().ToList();
+
+                json.Data = new { Opciones = opciones, Status = 0, Msj = "Mostrando Módulos del sistema.", JsonRequestBehavior.AllowGet };
+                return json;
+            }
+            catch (Exception ex)
+            {
+                json.Data = new { Status = 1, Msj = ex.Message, JsonRequestBehavior.AllowGet };
+                return json;
+            }
+        }
+
+        public JsonResult InsertarOpcion(string nombre, string descripcion, string idpadre, string url)
+        {
+            JsonResult json = new JsonResult();
+            try
+            {
+                var opcion = new tblOpcionesSistema();
+                opcion.nombreModulo = nombre;
+                opcion.descripcionModulo = descripcion;
+                opcion.idPadre = Convert.ToInt32(idpadre);
+                opcion.nombreVista = url;
+                db.tblOpcionesSistema.Add(opcion);
+                db.SaveChanges();
+
+                var opciones = db.SP_OpcionesSistema().ToList();
+
+                json.Data = new { Opciones = opciones, Status = 0, Msj = "Módulo agregado al sistema.", JsonRequestBehavior.AllowGet };
+                return json;
+            }
+            catch (Exception ex)
+            {
+                json.Data = new { Status = 1, Msj = ex.Message, JsonRequestBehavior.AllowGet };
+                return json;
+            }
+        }
+
+        public JsonResult ActualizarOpcion(string idopcion, string nombre, string descripcion, string idpadre, string url)
+        {
+            JsonResult json = new JsonResult();
+            try
+            {
+                var realid = Convert.ToInt32(idopcion);
+                var opcion = (from o in db.tblOpcionesSistema where o.id == realid select o).FirstOrDefault();
+                opcion.nombreModulo = nombre;
+                opcion.descripcionModulo = descripcion;
+                opcion.idPadre = Convert.ToInt32(idpadre);
+                opcion.nombreVista = url;
+                db.SaveChanges();
+
+                var opciones = db.SP_OpcionesSistema().ToList();
+
+                json.Data = new { Opciones = opciones, Status = 0, Msj = "Módulo actualizado.", JsonRequestBehavior.AllowGet };
+                return json;
+            }
+            catch (Exception ex)
+            {
+                json.Data = new { Status = 1, Msj = ex.Message, JsonRequestBehavior.AllowGet };
+                return json;
+            }
+        }
+
+        public JsonResult EliminarOpcion(string idopcion)
+        {
+            JsonResult json = new JsonResult();
+            try
+            {
+                var realid = Convert.ToInt32(idopcion);
+                var opcion = (from o in db.tblOpcionesSistema where o.id == realid select o).FirstOrDefault();
+                db.tblOpcionesSistema.Remove(opcion);
+                db.SaveChanges();
+
+                var opciones = db.SP_OpcionesSistema().ToList();
+
+                json.Data = new { Opciones = opciones, Status = 0, Msj = "Módulo eliminado.", JsonRequestBehavior.AllowGet };
+                return json;
+            }
+            catch (Exception ex)
+            {
+                json.Data = new { Status = 1, Msj = ex.Message, JsonRequestBehavior.AllowGet };
+                return json;
+            }
+        }
 
     }
 }

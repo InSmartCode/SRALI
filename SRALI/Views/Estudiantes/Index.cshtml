@@ -76,17 +76,11 @@
                                 <div class="clearfix">
                                     <div class="actions">
                                         <div class="inputs pull-right">
-                                            <button class="btn btn-round btn-info btn-sm" onclick="Import()"><i class="fa fa-upload"></i> Importar</button>
+                                            <button class="btn btn-round btn-info btn-sm" onclick="CambiarEstadoMd()"><i class="fa fa-upload"></i> Suspender / Eliminar</button>
                                         </div>
-
-                                        <div class="inputs pull-right">
-                                            <button class="btn btn-round btn-danger btn-sm" onclick="Sync();"><i class="fa fa-refresh"></i> Sincronizar de Moodle</button>
-                                        </div>
-
                                         <div class="inputs pull-right">
                                             <button class="btn btn-round btn-warning btn-sm" onclick="Editar();"><i class="fa fa-edit"></i> Modificar</button>
                                         </div>
-
                                         <div class="inputs pull-right">
                                             <button class="btn btn-round btn-primary btn-sm" onclick="Nuevo();"><i class="fa fa-plus-circle"></i> Nuevo</button>
                                         </div>
@@ -94,7 +88,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <table class="table table-striped table-bordered table-hover " id="tblEstudiantes" cellspacing="0">
+                                        <table class="table table-striped table-bordered table-hover" id="tblEstudiantes" width="100%" cellspacing="0">
                                             <thead>
                                                 <tr class="headings">
                                                     <th class="column-title">#</th>
@@ -115,9 +109,13 @@
                                                     <th class="column-title" hidden>municipio</th>
                                                     <th class="column-title" hidden>direccion</th>
                                                     <th class="column-title" hidden>institucionProcedencia</th>
+                                                    <th class="column-title" hidden>IdGrado</th>
                                                     <th class="column-title">Grado Ingreso</th>
                                                     <th class="column-title" hidden>archivofoto</th>
                                                     <th class="column-title" hidden>idTransporteResponsable</th>
+                                                    <th class="column-title">Correo</th>
+                                                    <th class="column-title" hidden>Estado</th>
+                                                    <th class="column-title">Estado</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -142,9 +140,13 @@
                                                         <td hidden>@item.municipio</td>
                                                         <td hidden>@item.direccion</td>
                                                         <td hidden>@item.institucionProcedencia</td>
-                                                        <td>@item.gradoIngreso</td>
+                                                        <td hidden>@item.gradoIngreso</td>
+                                                        <td>@item.descripcion</td>
                                                         <td hidden>@item.archivofoto</td>
                                                         <td hidden>@item.idResponsable</td>
+                                                        <td>@item.correo</td>
+                                                        <td hidden>@item.Status</td>
+                                                        <td>@item.estado</td>
                                                     </tr>
                                                 }
                                             </tbody>
@@ -210,13 +212,6 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12 col-sm-6 col-xs-12 form-group has-feedback">
-                                                    <div class="col-md-12 text-left" for="inputEdad">Edad</div>
-                                                    <div class="col-md-12">
-                                                        <input type="text" class="form-control has-feedback-left" id="inputEdad" placeholder="Edad" />
-                                                        <span class="fa fa-life-saver form-control-feedback left" aria-hidden="true"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12 col-sm-6 col-xs-12 form-group has-feedback">
                                                     <div class="col-md-12 text-left" for="inputNIE">NIE</div>
                                                     <div class="col-md-12">
                                                         <input type="text" class="form-control has-feedback-left" id="inputNIE" placeholder="NIE" />
@@ -241,95 +236,116 @@
                                             </div>
                                         </div>
 
-                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                        <div class="col-md-12 text-left" for="inputLugarNacimiento">Lugar de Nacimiento</div>
-                                        <div class="col-md-12">
-                                            <input type="text" class="form-control has-feedback-left" id="inputLugarNacimiento" placeholder="Lugar de Nacimiento" />
-                                            <span class="fa fa-info form-control-feedback left" aria-hidden="true"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                        <div class="col-md-12 text-left" for="inputPartidaNacimiento">Número Partida de Nacimiento</div>
-                                        <div class="col-md-12">
-                                            <input type="text" class="form-control has-feedback-right" id="inputPartidaNacimiento" placeholder="Número Partida de Nacimiento" />
-                                            <span class="fa fa-life-bouy form-control-feedback right" aria-hidden="true"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                        <div class="col-md-12 text-left" for="inputTomo">Tomo</div>
-                                        <div class="col-md-12">
-                                            <input type="text" class="form-control has-feedback-left" id="inputTomo" placeholder="Tomo" />
-                                            <span class="fa fa-info form-control-feedback left" aria-hidden="true"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                        <div class="col-md-12 text-left" for="Address">Folio</div>
-                                        <div class="col-md-12">
-                                            <input type="text" class="form-control has-feedback-right" id="inputFolio" placeholder="Folio" />
-                                            <span class="fa fa-life-bouy form-control-feedback right" aria-hidden="true"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                        <div class="col-md-12 text-left" for="inputLibro">Libro</div>
-                                        <div class="col-md-12">
-                                            <input type="text" class="form-control has-feedback-left" id="inputLibro" placeholder="Libro" />
-                                            <span class="fa fa-info form-control-feedback left" aria-hidden="true"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                        <div class="col-md-12 text-left" for="sltDepartamento">Departamento</div>
-                                        <div class="col-md-12">
-                                            <select class="form-control" id="sltDepartamento">
-                                                <option value="0">Seleccione Departamento</option>
-                                                <option value="1">Santa Ana</option>
-                                                <option value="2">Metapan</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                        <div class="col-md-12 text-left" for="sltMunicipio">Municipio</div>
-                                        <div class="col-md-12">
-                                            <select class="form-control" id="sltMunicipio">
-                                                <option value="0">Seleccione Municipio</option>
-                                                <option value="1">Santa Ana</option>
-                                                <option value="2">Candelaria de la Frontera</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                        <div class="col-md-12 text-left" for="inputDireccion">Dirección</div>
-                                        <div class="col-md-12">
-                                            <input type="text" class="form-control has-feedback-right" id="inputDireccion" placeholder="Dirección" />
-                                            <span class="fa fa-info-circle form-control-feedback right" aria-hidden="true"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                        <div class="col-md-12 text-left" for="inputLugarInstitucionProcedencia">Institución de Procedencia</div>
-                                        <div class="col-md-12">
-                                            <input type="text" class="form-control has-feedback-left" id="inputLugarInstitucionProcedencia" placeholder="Institución de Procedencia" />
-                                            <span class="fa fa-info form-control-feedback left" aria-hidden="true"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                        <div class="col-md-12 text-left" for="inputGradoIngreso">Grado al que Ingresa</div>
-                                        <div class="col-md-12">
-                                            <input type="text" class="form-control has-feedback-right" id="inputGradoIngreso" placeholder="Grado al que Ingresa" />
-                                            <span class="fa fa-info-circle form-control-feedback right" aria-hidden="true"></span>
-                                        </div>
-                                    </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                                <div class="col-md-12 text-left" for="sltResponsable">Responsable</div>
-                                                <div class="col-md-12">
-                                                    <select class="form-control" id="sltResponsable">
-                                                        <option value="0">Seleccione Responsable</option>
-
-                                                        @foreach (var item in ViewBag.Representantes)
-                                                        {
-                                                            <option value="@item.idResponsable">@item.nombres @item.apellidos </option>
-                                                        }
-                                                    </select>
-                                                </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                            <div class="col-md-12 text-left" for="inputLugarNacimiento">Lugar de Nacimiento</div>
+                                            <div class="col-md-12">
+                                                <input type="text" class="form-control has-feedback-left" id="inputLugarNacimiento" placeholder="Lugar de Nacimiento" />
+                                                <span class="fa fa-info form-control-feedback left" aria-hidden="true"></span>
                                             </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                            <div class="col-md-12 text-left" for="inputPartidaNacimiento">Número Partida de Nacimiento</div>
+                                            <div class="col-md-12">
+                                                <input type="text" class="form-control has-feedback-right" id="inputPartidaNacimiento" placeholder="Número Partida de Nacimiento" />
+                                                <span class="fa fa-life-bouy form-control-feedback right" aria-hidden="true"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                            <div class="col-md-12 text-left" for="inputTomo">Tomo</div>
+                                            <div class="col-md-12">
+                                                <input type="text" class="form-control has-feedback-left" id="inputTomo" placeholder="Tomo" />
+                                                <span class="fa fa-info form-control-feedback left" aria-hidden="true"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                            <div class="col-md-12 text-left" for="Address">Folio</div>
+                                            <div class="col-md-12">
+                                                <input type="text" class="form-control has-feedback-right" id="inputFolio" placeholder="Folio" />
+                                                <span class="fa fa-life-bouy form-control-feedback right" aria-hidden="true"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                            <div class="col-md-12 text-left" for="inputLibro">Libro</div>
+                                            <div class="col-md-12">
+                                                <input type="text" class="form-control has-feedback-left" id="inputLibro" placeholder="Libro" />
+                                                <span class="fa fa-info form-control-feedback left" aria-hidden="true"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                            <div class="col-md-12 text-left" for="sltDepartamento">Departamento</div>
+                                            <div class="col-md-12">
+                                                <select class="form-control" id="sltDepartamento">
+                                                    <option value="0">Seleccione Departamento</option>
+                                                    @foreach (var item in ViewBag.Departamentos)
+                                                    {
+                                                        <option value="@item.IdDepartamento">@item.Departamento</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                            <div class="col-md-12 text-left" for="sltMunicipio">Municipio</div>
+                                            <div class="col-md-12">
+                                                <select class="form-control" id="sltMunicipio">
+                                                    <option value="0">Seleccione Municipio</option>
+                                                    
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                            <div class="col-md-12 text-left" for="inputDireccion">Dirección</div>
+                                            <div class="col-md-12">
+                                                <input type="text" class="form-control has-feedback-right" id="inputDireccion" placeholder="Dirección" />
+                                                <span class="fa fa-info-circle form-control-feedback right" aria-hidden="true"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                            <div class="col-md-12 text-left" for="inputLugarInstitucionProcedencia">Institución de Procedencia</div>
+                                            <div class="col-md-12">
+                                                <input type="text" class="form-control has-feedback-left" id="inputLugarInstitucionProcedencia" placeholder="Institución de Procedencia" />
+                                                <span class="fa fa-info form-control-feedback left" aria-hidden="true"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                            <div class="col-md-12 text-left" for="inputGradoIngreso">Grado al que Ingresa</div>
+                                            <div class="col-md-12">
+                                                <select class="form-control" id="inputGradoIngreso">
+                                                    <option value="0">Grado al que ingresa</option>
+                                                    @foreach (var item in ViewBag.Grados)
+                                                    {
+                                                    <option value="@item.idGrado">@item.descripcion</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                            <div class="col-md-12 text-left" for="sltResponsable">Responsable</div>
+                                            <div class="col-md-12">
+                                                <select class="form-control" id="sltResponsable">
+                                                    <option value="0">Seleccione Responsable</option>
+                                                    @foreach (var item in ViewBag.Representantes)
+                                                    {
+                                                        <option value="@item.idResponsable">@item.nombres @item.apellidos </option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                            <div class="col-md-12 text-left" for="inputCorreoElectronico">Correo Electrónico</div>
+                                            <div class="col-md-12">
+                                                <input type="email" class="form-control has-feedback-left" id="inputCorreoElectronico" placeholder="ejemplo@ejemplo.com" />
+                                                <span class="fa fa-info form-control-feedback left" aria-hidden="true"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                            <div class="col-md-12 text-left" for="sltStatus">Estado</div>
+                                            <div class="col-md-12">
+                                                <select class="form-control" id="sltStatus">
+                                                    <option value="A">Activo</option>
+                                                    <option value="S">Suspendido</option>
+                                                </select>
+                                            </div>
+                                        </div>
 
                                         <br />
 
@@ -424,6 +440,39 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL-->
+<!--MODAL-->
+<div id="mdCambioEstado" class="modal fade draggable-modal modalx" tabindex="-1" data-backdrop="static" data-keyboard="false" role="alertdialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div id="modal-content" class="modal-content">
+            <div class="modal-header" id="modalHeader">
+                <h5 id="modalHeader" class="text-center" style="margin-bottom: 0px;"> Suspender / Eliminar</h5>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                        <div class="col-md-12 text-left">Al eliminar el estudiante desparecerá del listado. Al suspender un estudiante, quedará inactivo y no se podrá realizar ninguna otra acción con este.</div>
+                        
+                    </div>
+                </div>
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                        <select class="form-control" id="sltUStatus">
+                            <option value="S">Suspendido</option>
+                            <option value="E">Eliminado</option>
+                        </select>
+                    </div>
+                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-circle btn-primary btn-group-lg" id="btnCambioEstado" onclick="CambiarEstado();" data-dismiss="modal">Cambiar Estado</button>
+                <button type="button" class="btn btn-circle btn-secondary btn-group-lg" id="btnCerrar" data-dismiss="modal">Cancelar</button>
+
             </div>
         </div>
     </div>

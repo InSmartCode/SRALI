@@ -1,0 +1,254 @@
+﻿
+@{
+    ViewBag.Title = "Parametros";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="~/Content/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+<link href="~/Content/vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
+<link href="~/Content/vendors/alertifyjs/css/alertify.css" rel="stylesheet" />
+<link href="~/Content/vendors/bootstrap-fileinput-master/css/fileinput.css" rel="stylesheet" />
+
+
+<style>
+    .kv-avatar .krajee-default.file-preview-frame, .kv-avatar .krajee-default.file-preview-frame:hover {
+        margin: 0;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+        text-align: center;
+    }
+
+    .kv-avatar {
+        display: inline-block;
+    }
+
+        .kv-avatar .file-input {
+            display: table-cell;
+            width: 413px;
+        }
+
+    .kv-reqd {
+        color: red;
+        font-family: monospace;
+        font-weight: normal;
+    }
+</style>
+
+
+
+
+<div class="">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2><i class="fa fa-bars"></i> General <small> Opciones del Sistema</small></h2>
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- required for floating -->
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs tabs-left">
+                            <li class="active">
+                                <a href="#home" data-toggle=""> General </a>
+                            </li>
+                            <li>
+                                <a href="#profile" data-toggle=""> Opciones del Sistema </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="home">
+                                <div class="clearfix">
+                                    <div class="actions">
+                                        <div class="inputs pull-right">
+                                            <button id="btnEdit" class="btn btn-round btn-danger btn-sm" onclick="Editar();" disabled><i class="fa fa-edit"></i> Modificar</button>
+                                        </div>
+                                        <div class="inputs pull-right">
+                                            <button id="btnNew" class="btn btn-round btn-primary btn-sm" onclick="Nuevo();"><i class="fa fa-plus-circle"></i> Nuevo</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="table table-striped table-bordered table-hover table-sm" id="tblopciones" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr class="headings">
+                                                    <th class="column-title">#</th>
+                                                    <th class="column-title">Nombre Modulo</th>
+                                                    <th class="column-title">Descripción Módulo</th>
+                                                    <th class="column-title" hidden>Id Módulo Padre</th>
+                                                    <th class="column-title">Módulo Padre</th>
+                                                    <th class="column-title">URL</th>
+                                                    <th class="column-title">Ícono</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in ViewBag.Opciones)
+                                                {
+                                                    <tr class="even pointer">
+                                                        <td>@item.id</td>
+                                                        <td>@item.nombreModulo</td>
+                                                        <td>@item.descripcionModulo</td>
+                                                        <td hidden>@item.idPadre</td>
+                                                        <td>@item.Padre</td>
+                                                        <td>@item.nombreVista</td>
+                                                        <td>@item.nombreIconoMenu</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--MODAL-->
+<div id="mdAddOpcion" class="modal fade draggable-modal modalx" tabindex="-1" data-backdrop="static" data-keyboard="false" role="alertdialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div id="modal-content" class="modal-content">
+            <div class="modal-header" id="modalHeader">
+                <h5 id="modalHeader" class="text-center" style="margin-bottom: 0px;">Agregar Módulo</h5>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                        <div class="col-md-12 text-left" for="inputModulo">Módulo</div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control has-feedback-right" id="inputModulo" placeholder="Módulo" />
+                            <span class="fa fa-info-circle form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                        <div class="col-md-12 text-left" for="inputDescripcion"> Descripción</div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control has-feedback-right" id="inputDescripcion" placeholder="Descripción" />
+                            <span class="fa fa-info-circle form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                        <div class="col-md-12 text-left" for="slctPadre"> Módulo Padre</div>
+                        <div class="col-md-12">
+                            <select class="form-control" id="slctPadre" name="slctPadre">
+                                <option value="0">N/A</option>
+                                @foreach (var item in ViewBag.OpcionesPadres)
+                                {
+                                <option value="@item.id">@item.nombreModulo</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                        <div class="col-md-12 text-left" for="inputUrl"> URL</div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control has-feedback-right" id="inputUrl" placeholder="URL" />
+                            <span class="fa fa-info-circle form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-circle btn-primary btn-group-lg" id="btnGuardar" onclick="Guardar();" data-dismiss="modal">Guardar</button>
+                <button type="button" class="btn btn-circle btn-secondary btn-group-lg" id="btnCerrar" data-dismiss="modal">Cancelar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="mdUpdateOpcion" class="modal fade draggable-modal modalx" tabindex="-1" data-backdrop="static" data-keyboard="false" role="alertdialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div id="modal-content" class="modal-content">
+            <div class="modal-header" id="modalHeader">
+                <h5 id="modalHeader" class="text-center" style="margin-bottom: 0px;">Modificar Módulo</h5>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                        <div class="col-md-12 text-left" for="inputUpdModulo">Módulo</div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control has-feedback-right" id="inputUpdModulo" placeholder="Módulo" />
+                            <span class="fa fa-info-circle form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                        <div class="col-md-12 text-left" for="inputUpdDescripcion"> Descripción</div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control has-feedback-right" id="inputUpdDescripcion" placeholder="Descripción" />
+                            <span class="fa fa-info-circle form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                        <div class="col-md-12 text-left" for="slctUpdPadre"> Módulo Padre</div>
+                        <div class="col-md-12">
+                            <select class="form-control" id="slctUpdPadre" name="slctUpdPadre">
+                                <option value="0">N/A</option>
+                                @foreach (var item in ViewBag.OpcionesPadres)
+                                {
+                                <option value="@item.id">@item.nombreModulo</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                        <div class="col-md-12 text-left" for="inputUpdUrl"> URL</div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control has-feedback-right" id="inputUpdUrl" placeholder="URL" />
+                            <span class="fa fa-info-circle form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-circle btn-primary btn-group-lg" id="btnModificar" onclick="Modificar();" data-dismiss="modal">Modificar</button>
+                <button type="button" class="btn btn-circle btn-secondary btn-group-lg" id="btnCerrar" data-dismiss="modal">Cancelar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @*@Scripts.Render("~/Scripts/RegistroVisitas")*@
+    <!--<script src="../build/js/custom.min.js"></script>-->
+
+    <script src="~/Content/vendors/moment/min/moment.min.js"></script>
+    <script src="~/Content/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/Content/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
+    <script src="~/Content/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/vendors/dropzone/dist/min/dropzone.min.js"></script>
+    <script src="~/Content/vendors/alertifyjs/alertify.js"></script>
+
+    <script src="~/Content/vendors/bootstrap-fileinput-master/js/fileinput.js"></script>
+    <script src="~/Content/vendors/bootstrap-fileinput-master/js/locales/es.js"></script>
+    <script src="~/Resources/js/Sistema/OpcionesSistema.js"></script>
+}
