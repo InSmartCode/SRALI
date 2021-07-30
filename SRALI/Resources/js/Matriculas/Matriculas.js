@@ -14,7 +14,7 @@ function CallBack() {
         IdExpediente = $(this).find('td:first').html();
         IdAlumno = $(this).find('td:nth-child(2)').html();
         IdGrado = $(this).find('td:nth-child(4)').html();
-        AnioEscolar = $(this).find('td:nth-child(6)').html();
+        InAnioEscolar = $(this).find('td:nth-child(6)').html();
         TipoIngreso = $(this).find('td:nth-child(7)').html();
         Turno = $(this).find('td:nth-child(9)').html();
         Monto = $(this).find('td:nth-child(11)').html();
@@ -33,7 +33,7 @@ function CallBack() {
 
 function limpiarDatos() {
     $("#Grado").val("0");
-    $("#AnioEscolar").val("");
+    $("#InAnioEscolar").val($("#AnioEscolar").val());
     $("#TipoIngreso").val("0");
     $("#Turno").val("0");
     $("#Monto").val("");
@@ -76,14 +76,14 @@ function Nuevo() {
 
 
 function Editar() {
-    if (IdAsignatura == 0 || IdAsignatura == "" || IdAsignatura == "undefined" || IdAsignatura == "No data available in table") {
+    if (InAnioEscolar == 0 || InAnioEscolar == "" || InAnioEscolar == "undefined" || InAnioEscolar == "No data available in table") {
         alertify.error("Debe de seleccionar un Materia");
     } else {
         $('#save').prop("hidden", true);
         $('#update').prop("hidden", false);
 
         $("#Grado").val(IdGrado);
-        $("#AnioEscolar").val(AnioEscolar);
+        $("#InAnioEscolar").val(InAnioEscolar);
         $("#TipoIngreso").val(TipoIngreso);
         $("#Turno").val(Turno);
         $("#Monto").val(Monto);
@@ -177,7 +177,7 @@ $('#tblMatriculas tbody').on('click', 'tr', function () {
     IdExpediente = $(this).find('td:first').html();
     IdAlumno = $(this).find('td:nth-child(2)').html();
     IdGrado = $(this).find('td:nth-child(4)').html();
-    AnioEscolar = $(this).find('td:nth-child(6)').html();
+    InAnioEscolar = $(this).find('td:nth-child(6)').html();
     TipoIngreso = $(this).find('td:nth-child(7)').html();
     Turno = $(this).find('td:nth-child(9)').html();
     Monto = $(this).find('td:nth-child(11)').html();
@@ -272,7 +272,7 @@ $("#save").on("click", function () {
         //idExpediente: $("#IdExpediente").val(),
         idAlumno: CodAlumno //$("#Estudiante").val()
         , idGrado: $("#Grado").val()
-        , AnioEscolar: $("#AnioEscolar").val()
+        , AnioEscolar: $("#InAnioEscolar").val()
         , TipoIngreso: $("#TipoIngreso").val()
         , Turno: $("#Turno").val()
         , Monto: $("#Monto").val()
@@ -394,7 +394,7 @@ $("#update").on("click", function () {
         idExpediente: IdExpediente
          , idAlumno: CodAlumno//$("#Estudiante").val()
          , idGrado: $("#Grado").val()
-         , AnioEscolar: $("#AnioEscolar").val()
+         , AnioEscolar: $("#InAnioEscolar").val()
          , TipoIngreso: $("#TipoIngreso").val()
          , Turno: $("#Turno").val()
          , Monto: $("#Monto").val()

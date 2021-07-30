@@ -1,0 +1,17 @@
+﻿
+
+@model IEnumerable<SRALI.Models.tbl_AnioEscolar>
+
+    <select class="form-control" id="AnioEscolar">
+        @foreach (var item in Model)
+        {
+            if (item.Estado == "A")
+            {
+                <option value="@item.IdAnioEscolar" selected>@item.Nombre</option>
+            }
+            else
+            {
+                <option value="@item.IdAnioEscolar">@item.Nombre</option>
+            }
+        }
+    </select>

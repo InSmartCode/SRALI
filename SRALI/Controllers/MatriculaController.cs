@@ -35,6 +35,7 @@ namespace SRALI.Controllers
         {
             if (CheckSession())
             {
+                ViewBag.Periodos = (from b in db.tbl_AnioEscolar select b).ToList();
                 ViewBag.Alumnos = (from b in db.tblEstudiante select b).ToList();
                 ViewBag.Grados = (from b in db.tblGrado select b).ToList();
                 return View();

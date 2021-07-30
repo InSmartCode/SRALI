@@ -126,7 +126,13 @@
                 <div class="row form-group form-md-line-input has-info">
                     <div class="col-md-4 text-left">Año Escolar:</div>
                     <div class="col-md-8">
-                        <input id="AnioEscolar" class="form-control" placeholder="Año Escolar" />
+                        @*<input id="InAnioEscolar" class="form-control" placeholder="Año Escolar" />*@
+                        <select class="form-control" id="InAnioEscolar">
+                            @foreach (var item in ViewBag.Periodos)
+                            {
+                                <option value="@item.IdAnioEscolar">@item.Nombre</option>
+                            }
+                        </select>
                     </div>
                 </div>
                 <div class="row form-group form-md-line-input has-info">

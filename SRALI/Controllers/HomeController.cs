@@ -50,6 +50,12 @@ namespace SRALI.Controllers
         }
 
 
+        [ChildActionOnly]
+        public ActionResult Periodos()
+        {
+            var Periodos = (from b in db.tbl_AnioEscolar select b).ToList();
+            return PartialView(Periodos.ToList());
+        }
 
         public ActionResult About()
         {

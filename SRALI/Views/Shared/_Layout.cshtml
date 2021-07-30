@@ -135,7 +135,7 @@
                                 </div>
                             </li>
 
-                            <li role="presentation" class="nav-item dropdown open">
+                            <li role="presentation" class="nav-item dropdown open" style="padding-left: 15px;">
                                 <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
                                     <i class="fa fa-envelope-o"></i>
                                     <span class="badge bg-green">6</span>
@@ -199,6 +199,20 @@
                                     </li>
                                 </ul>
                             </li>
+
+                                                       
+                            <li class="nav-item dropdown open" style="padding-left: 15px;">
+                                @try {
+                                Html.RenderAction("Periodos", "Home");
+
+                                }
+                                catch(Exception ex)
+                                {
+
+                                }
+                                
+                            </li>
+
                         </ul>
                     </nav>
                 </div>
