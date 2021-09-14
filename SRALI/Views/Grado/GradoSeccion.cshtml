@@ -1,0 +1,323 @@
+﻿@{
+    ViewBag.Title = "Grados y Secciones";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Content/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="~/Content/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+<link href="~/Content/vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
+<link href="~/Content/vendors/alertifyjs/css/alertify.css" rel="stylesheet" />
+
+<div class="">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <h2><i class="fa fa-bars"></i> Grados y Secciones <small> Grados y Secciones</small></h2>
+
+            <div class="x_content">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="well col-md-12">
+                                <div class="x_title">
+                                    <h2><i class="fa fa-list-alt"></i> Grados</h2>
+                                    <div class="clearfix">
+                                        <div class="inputs pull-right">
+                                            <button class="btn btn-round btn-primary btn-sm" id="btnPeriodo" onclick="NuevoPeriodo();" disabled><i class="fa fa-plus-circle"></i> Agregar Período</button>
+                                            <button class="btn btn-round btn-primary btn-sm" id="btnPeriodo" onclick="NuevoGrado();"><i class="fa fa-plus-circle"></i> Nuevo Grado</button>
+                                        </div>
+                                    </div>
+                                </div>                                
+                                <br />
+                                <table class="table  table-bordered table-hover table-sm" id="tblGrados" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr class="headings">
+                                            <th class="column-title" hidden>#</th>
+                                            <th class="column-title">Grado</th>
+                                            <th class="column-title">Nivel Escolar</th>
+                                            <th class="column-title">Clave</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in ViewBag.Grados)
+                                        {
+                                        <tr>
+                                            <td hidden>@item.idGrado</td>
+                                            <td>@item.descripcion</td>
+                                            <td>@item.nivelEscolar</td>
+                                            <td>@item.clave</td>
+                                        </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="well col-md-12">
+                                <div class="x_title">
+                                    <h2><i class="fa fa-list-alt"></i> Secciones</h2>
+                                    <div class="clearfix">
+                                        <div class="inputs pull-right">
+                                            <button class="btn btn-round btn-primary btn-sm" id="btnSeccion" onclick="NuevaSeccion();"><i class="fa fa-plus-circle"></i> Nueva Sección</button>
+                                        </div>
+                                    </div>
+                                        
+                                </div>
+                                    <br />
+                                    <table class="table table-striped table-bordered table-hover table-sm" id="tblSecciones" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr class="headings">
+                                                <th class="column-title" hidden>#</th>
+                                                <th class="column-title">Sección</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ViewBag.Secciones)
+                                            {
+                                            <tr>
+                                                <td hidden>@item.idSeccion</td>
+                                                <td>@item.nombreSeccion</td>
+                                            </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="well col-md-6">
+                        <div class="x_title">
+                            <h2><i class="fa fa-list-alt"></i> Secciones asignadas</h2>
+                            <div class="clearfix">
+                                <div class="inputs pull-right">
+                                    <button class="btn btn-round btn-danger btn-sm" id="btnEliminar" onclick="Eliminar();"><i class="fa fa-trash"></i> Eliminar Sección</button>
+                                </div>
+                                <div class="inputs pull-right">
+                                    <button class="btn btn-round btn-primary btn-sm" id="btnNuevo" onclick="Nuevo();" disabled><i class="fa fa-plus-circle"></i> Asignar Sección</button>
+                                </div>
+                            </div>
+                        </div>
+                        <br /><br />
+                        <table class="table table-striped table-bordered table-hover table-sm" id="tblSeccAsignadas" cellspacing="0" width="100%">
+                            <thead>
+                                <tr class="headings">
+                                    <th class="column-title" hidden>#</th>
+                                    <th class="column-title" hidden>IdGrado</th>
+                                    <th class="column-title">Grado</th>
+                                    <th class="column-title" hidden>IdSeccion</th>
+                                    <th class="column-title">Seccion</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="modalAsignarSeccion" class="modal fade draggable-modal modalx" tabindex="-1" data-backdrop="static" data-keyboard="false" role="alertdialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div id="modal-content" class="modal-content">
+            <div class="modal-header">
+                <h4 id="modalHeader" class="text-center" style="margin-bottom: 0px;"> Asignar sección al grado seleccionado</h4>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-6 col-xs-12 form-group has-feedback">
+                        <div class="col-md-12 text-left" for="Num">Grado</div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control has-feedback-left" id="txtgrado" disabled />
+                            <span class="fa fa-life-saver form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-6 col-xs-12 xdisplay_inputx form-group has-feedback">
+                        <div class="col-md-12 text-left" for="Fecha">Sección</div>
+                    </div>
+                    <div class="col-md-12">
+                        <select class="form-control" id="selSeccion">
+                            <option value="0">Seleccione Sección</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="GuardarSeccionPorGrado()"> Asignar</button>
+                <button type="button" class="btn btn-primary" id="cancel" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalEliminarSeccion" class="modal fade draggable-modal modalx" tabindex="-1" data-backdrop="static" data-keyboard="false" role="alertdialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div id="modal-content" class="modal-content">
+            <div class="modal-header">
+                <h4 id="modalHeader" class="text-center" style="margin-bottom: 0px;"> Eliminar sección al grado seleccionado</h4>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-6 col-xs-12 form-group has-feedback">
+                        <div class="col-md-12">
+                            Si hay estudiantes en esta sección no podrá ser eliminada. Asegúrese que la sección esté completamente vacía.
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-6 col-xs-12 form-group has-feedback">
+                        <div class="col-md-12 text-left" for="Num">Grado</div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control has-feedback-left" id="txtElimgrado" disabled />
+                            <span class="fa fa-life-saver form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-6 col-xs-12 form-group has-feedback">
+                        <div class="col-md-12 text-left" for="Num">Sección</div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control has-feedback-left" id="txtElimSeccion" disabled />
+                            <span class="fa fa-life-saver form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="EliminarSeccionPorGrado()"> Eliminar</button>
+                <button type="button" class="btn btn-primary" id="cancel" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<div id="modalPeriodos" class="modal fade draggable-modal modalx" tabindex="-1" data-backdrop="static" data-keyboard="false" role="alertdialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div id="modal-content" class="modal-content">
+            <div class="modal-header">
+                <h4 id="modalHeader" class="text-center" style="margin-bottom: 0px;"> Períodos Por Grado</h4>
+            </div>
+            <div class="modal-body modal-lg" id="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-6 col-xs-12 form-group has-feedback">
+                        <div class="col-md-12">
+                            Se muestran cuántos períodos tiene el grado seleccionado
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-6 col-xs-12 form-group has-feedback">
+                        <div class="col-md-12 text-left" for="txtPeriodoGrado">Grado</div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control has-feedback-left" id="txtPeriodoGrado" disabled />
+                            <span class="fa fa-life-saver form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-6 col-xs-12 xdisplay_inputx form-group has-feedback">
+                        <div class="col-md-12 text-left" for="selperiodo">Seleccione el período a asignar</div>
+                    </div>
+                    <div class="col-md-12">
+                        <select class="form-control" id="selperiodo">
+                        </select>
+                    </div>
+                    <div class="col-md-12">
+                        <br /><br />
+                        <div class="col-md-12 text-left">Estos son los períodos que este grado tiene:</div>
+                        <table class="table table-striped table-bordered table-hover table-sm" id="tblPeriodos" cellspacing="0" width="100%">
+                            <thead>
+                                <tr class="headings">
+                                    <th class="column-title" hidden>#</th>
+                                    <th class="column-title">Período</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td hidden></td>
+                                    <td></td>
+                                </tbody>
+                        </table>
+                    </div>                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="AgregarPeriodoXGrado()"> Asignar Período</button>
+                <button type="button" class="btn btn-danger" onclick="EliminarPeriodoXGrado()"> Eliminar Período</button>
+                <button type="button" class="btn btn-primary" id="cancel" data-dismiss="modal">Salir</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="modalCrearGrado" class="modal fade draggable-modal modalx" tabindex="-1" data-backdrop="static" data-keyboard="false" role="alertdialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div id="modal-content" class="modal-content">
+            <div class="modal-header">
+                <h4 id="modalHeader" class="text-center" style="margin-bottom: 0px;"> Crear Grado</h4>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-6 col-xs-12 form-group has-feedback">
+                        <div class="col-md-12 text-left" for="txtcreagrado">Grado</div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control has-feedback-left" id="txtcreagrado" />
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-6 col-xs-12 form-group has-feedback">
+                        <div class="col-md-12 text-left" for="txtcreaclave">Clave</div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control has-feedback-left" id="txtcreaclave" />
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-6 col-xs-12 xdisplay_inputx form-group has-feedback">
+                        <div class="col-md-12 text-left" for="selNivel">Nivel Escolar</div>
+                    </div>
+                    <div class="col-md-12">
+                        <select class="form-control" id="selNivel">
+                            <option value="0">Seleccione Nivel Escolar</option>
+                            <option value="Miscellaneous">Miscellaneous</option>
+                            <option value="Parvularia">Parvularia</option>
+                            <option value="Primer Ciclo">Primer Ciclo</option>
+                            <option value="Segundo Ciclo">Segundo Ciclo</option>
+                            <option value="Tercer Ciclo">Tercer Ciclo</option>
+                            <option value="Bachillerato">Bachillerato</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="CrearGrado()"> Crear Grado</button>
+                <button type="button" class="btn btn-primary" id="cancel" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalCrearSeccion" class="modal fade draggable-modal modalx" tabindex="-1" data-backdrop="static" data-keyboard="false" role="alertdialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div id="modal-content" class="modal-content">
+            <div class="modal-header">
+                <h4 id="modalHeader" class="text-center" style="margin-bottom: 0px;"> Crear Sección</h4>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-6 col-xs-12 form-group has-feedback">
+                        <div class="col-md-12 text-left" for="txtcreaseccion">Sección</div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control has-feedback-left" id="txtcreaseccion" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="CrearSeccion()"> Crear Sección</button>
+                <button type="button" class="btn btn-primary" id="cancel" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+<script src="~/Content/vendors/moment/min/moment.min.js"></script>
+<script src="~/Content/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+<script src="~/Content/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
+<script src="~/Content/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/Content/vendors/dropzone/dist/min/dropzone.min.js"></script>
+<script src="~/Content/vendors/alertifyjs/alertify.js"></script>
+
+<script src="~/Resources/js/Grados/GradoSeccion.js"></script>
+}

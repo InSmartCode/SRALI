@@ -149,9 +149,60 @@ function Nuevo() {
     $('#update').prop("hidden", true);
 
     limpiarDatos();
-
+    LoadMaxId();
     $('.nav-tabs a[href="#profile"]').tab('show');
 }
+
+function LoadMaxId() {
+    $.ajax({
+        type: "POST",
+        traditional: true,
+        url: '/Estudiantes/MaxIdLoad',
+        contentType: "application/json; charset=utf-8",
+        //data: JSON.stringify(datos),
+        success: function (resultado) {
+            if (resultado.Status == 0) {
+                $("#inputCodigo").val(resultado.maxIdNumber);
+                codEstudiante = $("#inputCodigo").val();
+            } else {
+                alertify.error(resultado.Msj);
+            }
+        },
+        error: function () {
+            alertify.error('Ocurrió un error al cargar el id. Se recomienda actualizar la página.');            
+        }
+
+    });
+
+}
+
+//al escribir en el nombre tomará la inicial del texto.
+$(function() {
+    $('#inputNombres').keyup(function () {
+        var letter = $(this).val().match(/^([A-Za-z])/);
+
+        // Si se encuentra una letra
+        if(letter !== null) {
+            // Cambiar a mayusculas
+            letter = letter[0].toUpperCase();
+            $("#inputCodigo").val(letter + codEstudiante);
+            first = letter;
+        }
+    });
+});
+//al escribir en el apellido tomará la inicial del texto.
+$(function () {
+    $('#inputPrimerApellido').keyup(function () {
+        var lastletter = $(this).val().match(/^([A-Za-z])/);
+
+        // Si se encuentra una letra
+        if (lastletter !== null) {
+            // Cambiar a mayusculas
+            lastletter = lastletter[0].toUpperCase();
+            $("#inputCodigo").val(first + lastletter + codEstudiante);
+        }
+    });
+});
 
 function Editar() {
     LoadAllMunicipalities();
@@ -211,6 +262,8 @@ function Import() {
 }
 
 var IdEstudiante = "";
+var codEstudiante = "";
+var first = "";
 var ultimaFila = null;
 var colorOriginalPAR = "#ffffff";
 var colorOriginalIMPAR = "#ffe35c";

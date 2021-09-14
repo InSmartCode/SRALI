@@ -1,0 +1,120 @@
+﻿@{
+    ViewBag.Title = "Secciones";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="~/Content/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+<link href="~/Content/vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
+<link href="~/Content/vendors/alertifyjs/css/alertify.css" rel="stylesheet" />
+
+
+<div class="">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2><i class="fa fa-bars"></i> Grados y Secciones <small>Crear Secciones</small></h2>
+                <div class="clearfix">
+                    <div class="actions">
+                        <div class="inputs pull-right">
+                            <button class="btn btn-round btn-danger btn-sm" onclick="Eliminar();" hidden><i class="fa fa-trash"></i> Eliminar</button>
+                        </div>
+
+                        <div class="inputs pull-right">
+                            <button class="btn btn-round btn-warning btn-sm" onclick="Editar();"><i class="fa fa-edit"></i> Modificar</button>
+                        </div>
+
+                        <div class="inputs pull-right">
+                            <button class="btn btn-round btn-primary btn-sm" onclick="Nuevo();"><i class="fa fa-plus-circle"></i> Nuevo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="x_content">
+                <table class="table table-striped table-bordered table-hover table-sm" id="tblSecciones" cellspacing="0">
+                    <thead>
+                        <tr class="headings">
+                            <th class="column-title">Correlativo</th>
+                            <th class="column-title">Sección</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.Seccion)
+                        {
+                        <tr class="even pointer">
+                            <td>@item.idSeccion</td>
+                            <td>@item.nombreSeccion</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL-->
+<div id="modalSeccion" class="modal fade draggable-modal modalx" tabindex="-1" data-backdrop="static" data-keyboard="false" role="alertdialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div id="modal-content" class="modal-content">
+            <div class="modal-header" id="modalHeader">
+                <h5 id="modalHeader" class="text-center" style="margin-bottom: 0px;">Nueva Sección</h5>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                        <div class="col-md-12 text-left" for="inputParametro">Sección</div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control has-feedback-right" id="inputSeccion" placeholder="Sección" />
+                            <span class="fa fa-info-circle form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-circle btn-primary btn-group-lg" id="btnGuardar" onclick="Guardar();" data-dismiss="modal">Agregar</button>
+                <button type="button" class="btn btn-circle btn-secondary btn-group-lg" id="btnCerrar" data-dismiss="modal">Cancelar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL-->
+<div id="modalEditSeccion" class="modal fade draggable-modal modalx" tabindex="-1" data-backdrop="static" data-keyboard="false" role="alertdialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div id="modal-content" class="modal-content">
+            <div class="modal-header" id="modalHeader">
+                <h5 id="modalHeader" class="text-center" style="margin-bottom: 0px;">Editar Sección</h5>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                        <div class="col-md-12 text-left" for="inputEditSeccion">Sección</div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control has-feedback-right" id="inputEditSeccion" placeholder="Sección" />
+                            <span class="fa fa-info-circle form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-circle btn-primary btn-group-lg" id="btnEditar" onclick="Modificar();" data-dismiss="modal">Guardar Cambio</button>
+                <button type="button" class="btn btn-circle btn-secondary btn-group-lg" id="btnCerrar" data-dismiss="modal">Cancelar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    @*@Scripts.Render("~/Scripts/RegistroVisitas")*@
+
+<script src="~/Content/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/Content/vendors/alertifyjs/alertify.js"></script>
+<script src="~/Resources/js/Grados/Seccion.js"></script>
+}
+
+

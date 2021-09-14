@@ -543,6 +543,22 @@ namespace SRALI.Controllers
             }
         }
 
+        [HttpPost]
+        public JsonResult MaxIdLoad()
+        {
+            var result = new JsonResult();
+            try
+            {
+                var idnumber = (from e in db.tblEstudiante select e.idAlumno).Max() + 1;                
+                result.Data = new { maxIdNumber = idnumber, Status = 0, JsonRequestBehavior.AllowGet };
+                return result;
+            }
+            catch (Exception ex)
+            {
+                result.Data = new { Status = 1, Msj = "Error al cargar el Id del alumno. Actualice la página.", JsonRequestBehavior.AllowGet };
+                return result;
+            }
+        }
 
     }
 }
