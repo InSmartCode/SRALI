@@ -590,7 +590,7 @@ namespace SRALI.Controllers
                 var realid = Convert.ToInt32(iddetalle);
 
                 //validamos si ya está creada esta asignación
-                var yaexiste = (from gs in db.tbl_AsignaturaXPeriodoYGrado where gs.IdPeriodoXGrado == realid select gs).Count();
+                var yaexiste = (from gs in db.tbl_AsignaturaXGrado where gs.IdPeriodoXGrado == realid select gs).Count();
 
                 if (yaexiste == 0)
                 {

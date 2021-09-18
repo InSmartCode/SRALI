@@ -1,9 +1,14 @@
 ﻿
 $(document).ready(function () {
     $('#tblMaterias').DataTable();
+    $('#PeriodosXGrado').DataTable();
+    $('#tblMateriasPorGrado').DataTable();
 
     //pureba desde el repositorio fdf
     limpiarDatos();
+
+
+    $('#btnNew').prop("disabled", true);
 });
 
 
@@ -13,10 +18,9 @@ function CallBack() {
     $('#tblMaterias tbody').on('click', 'tr', function () {
 
         IdAsignatura = $(this).find('td:first').html();
-        IdGrado = $(this).find('td:nth-child(2)').html();
-        Descripcion = $(this).find('td:nth-child(3)').html();
-        NombreAsignatura = $(this).find('td:nth-child(4)').html();
-        Hora = $(this).find('td:nth-child(5)').html();
+        NombreAsignatura = $(this).find('td:nth-child(2)').html();
+        Clave = $(this).find('td:nth-child(3)').html();
+        Hora = $(this).find('td:nth-child(4)').html();
 
         if (ultimaFila != null) {
             ultimaFila.css('background-color', colorOriginalPAR);
@@ -33,7 +37,7 @@ function CallBack() {
 function limpiarDatos() {
     $("#IdAsignatura").val("");
     $("#sltGrado").val("0");
-    $("#Descripcion").val("");
+    $("#Clave").val("");
     $("#NombreAsignatura").val("");
     $("#sltHora").val("0");
 }
@@ -57,8 +61,8 @@ function Editar() {
         $('#update').prop("hidden", false);
 
         $("#IdAsignatura").val(IdAsignatura);
-        $("#sltGrado").val(IdGrado);
-        $("#Descripcion").val(Descripcion);
+        //$("#sltGrado").val(IdGrado);
+        $("#Clave").val(Clave);
         $("#NombreAsignatura").val(NombreAsignatura); 
         $("sltHora").val(Hora);
 
@@ -140,11 +144,10 @@ function Eliminar() {
                             $('#tblMaterias tbody').empty();
                             $.each(result.Materias, function (i, item) {
                                 /* Vamos agregando a nuestra tabla las filas necesarias */
-                                $('#tblMaterias tbody').append("<tr class='even pointer'><td>" + item.idAsignatura + "</td><td hidden>"
-                                    + item.idGrado + "</td><td>"
-                                    + item.descripcion + "</td><td>"
+                                $('#tblMaterias tbody').append("<tr class='even pointer'><td>" + item.idAsignatura + "</td><td>"
                                     + item.nombreAsignatura + "</td><td>"
-                                    + item.hora + "</td></tr>");
+                                    + item.clave + "</td><td>"
+                                    + getHour(item.hora) + "</td></tr>");
                             });
                             CallBack();
                         } else {
@@ -152,11 +155,10 @@ function Eliminar() {
                             $('#tblMaterias tbody').empty();
                             $.each(result.Materias, function (i, item) {
                                 /* Vamos agregando a nuestra tabla las filas necesarias */
-                                $('#tblMaterias tbody').append("<tr class='even pointer'><td>" + item.idAsignatura + "</td><td hidden>"
-                                    + item.idGrado + "</td><td>"
-                                    + item.descripcion + "</td><td>"
+                                $('#tblMaterias tbody').append("<tr class='even pointer'><td>" + item.idAsignatura + "</td><td>"
                                     + item.nombreAsignatura + "</td><td>"
-                                    + item.hora + "</td></tr>");
+                                    + item.clave + "</td><td>"
+                                    + getHour(item.hora) + "</td></tr>");
                             });
                             CallBack();
                             alertify.error("Ha ocurrido un error al Eliminar el Materia, es posible que este asignado a un Materia");
@@ -184,11 +186,11 @@ var colorOriginalIMPAR = "#ffe35c";
 
 $('#tblMaterias tbody').on('click', 'tr', function () {
 
+
     IdAsignatura = $(this).find('td:first').html();
-    IdGrado = $(this).find('td:nth-child(2)').html();
-    Descripcion = $(this).find('td:nth-child(3)').html();
-    NombreAsignatura = $(this).find('td:nth-child(4)').html();
-    Hora = $(this).find('td:nth-child(5)').html();
+    NombreAsignatura = $(this).find('td:nth-child(2)').html();
+    Clave = $(this).find('td:nth-child(3)').html();
+    Hora = $(this).find('td:nth-child(4)').html();
 
 
     if (ultimaFila != null) {
@@ -206,8 +208,9 @@ $("#save").on("click", function () {
 
     datos = {
         //IdAsignatura: $("#IdAsignatura").val(),
-        idGrado: $("#sltGrado").val()
-        , nombreAsignatura: $("#NombreAsignatura").val(),
+        //idGrado: $("#sltGrado").val()
+        nombreAsignatura: $("#NombreAsignatura").val(),
+        clave: $("#Clave").val(),
         hora: $("#sltHora").val()
     }
     $.ajax({
@@ -223,11 +226,10 @@ $("#save").on("click", function () {
                 $('#tblMaterias tbody').empty();
                 $.each(result.Materias, function (i, item) {
                     /* Vamos agregando a nuestra tabla las filas necesarias */
-                    $('#tblMaterias tbody').append("<tr class='even pointer'><td>" + item.idAsignatura + "</td><td hidden>"
-                        + item.idGrado + "</td><td>"
-                        + item.descripcion + "</td><td>"
+                    $('#tblMaterias tbody').append("<tr class='even pointer'><td>" + item.idAsignatura + "</td><td>"
                         + item.nombreAsignatura + "</td><td>"
-                        + item.hora + "</td></tr>");
+                        + item.clave + "</td><td>"
+                        + getHour(item.hora) + "</td></tr>");
                 });
                 CallBack();
             } else {
@@ -235,11 +237,10 @@ $("#save").on("click", function () {
                 $('#tblMaterias tbody').empty();
                 $.each(result.Materias, function (i, item) {
                     /* Vamos agregando a nuestra tabla las filas necesarias */
-                    $('#tblMaterias tbody').append("<tr class='even pointer'><td>" + item.idAsignatura + "</td><td hidden>"
-                        + item.idGrado + "</td><td>"
-                        + item.descripcion + "</td><td>"
+                    $('#tblMaterias tbody').append("<tr class='even pointer'><td>" + item.idAsignatura + "</td><td>"
                         + item.nombreAsignatura + "</td><td>"
-                        + item.hora + "</td></tr>");
+                        + item.clave + "</td><td>"
+                        + getHour(item.hora) + "</td></tr>");
                 });
                 CallBack();
                 alertify.error("Ha ocurrido un error al agregar el Materia");
@@ -257,9 +258,10 @@ $("#save").on("click", function () {
 $("#update").on("click", function () {
     datos = {
         idAsignatura: $("#IdAsignatura").val()
-        , idGrado: $("#sltGrado").val()
-        , nombreAsignatura: $("#NombreAsignatura").val(),
-        hora: $("#sltHora").val()
+        //, idGrado: $("#sltGrado").val()
+        , nombreAsignatura: $("#NombreAsignatura").val()
+        ,clave: $("#Clave").val()
+        ,hora: $("#sltHora").val()
     }
     $.ajax({
         type: "POST",
@@ -274,11 +276,10 @@ $("#update").on("click", function () {
                 $('#tblMaterias tbody').empty();
                 $.each(result.Materias, function (i, item) {
                     /* Vamos agregando a nuestra tabla las filas necesarias */
-                    $('#tblMaterias tbody').append("<tr class='even pointer'><td>" + item.idAsignatura + "</td><td hidden>"
-                        + item.idGrado + "</td><td>"
-                        + item.descripcion + "</td><td>"
+                    $('#tblMaterias tbody').append("<tr class='even pointer'><td>" + item.idAsignatura + "</td><td>"
                         + item.nombreAsignatura + "</td><td>"
-                        + item.hora + "</td></tr>");
+                        + item.clave + "</td><td>"
+                        + getHour(item.hora) + "</td></tr>");
                 });
                 CallBack();
             } else {
@@ -286,11 +287,10 @@ $("#update").on("click", function () {
                 $('#tblMaterias tbody').empty();
                 $.each(result.Materias, function (i, item) {
                     /* Vamos agregando a nuestra tabla las filas necesarias */
-                    $('#tblMaterias tbody').append("<tr class='even pointer'><td>" + item.idAsignatura + "</td><td hidden>"
-                        + item.idGrado + "</td><td>"
-                        + item.descripcion + "</td><td>"
+                    $('#tblMaterias tbody').append("<tr class='even pointer'><td>" + item.idAsignatura + "</td><td>"
                         + item.nombreAsignatura + "</td><td>"
-                        + item.hora + "</td></tr>");
+                        + item.clave + "</td><td>"
+                        + getHour(item.hora) + "</td></tr>");
                 });
                 CallBack();
                 alertify.error("Ha ocurrido un error al agregar el Materia");
@@ -307,10 +307,312 @@ $("#update").on("click", function () {
 });
 
 
-
+function getHour(id) {
+    switch(id){
+        case "1":
+            return "8:00am - 9:00am";
+            break;
+        case"2":
+            return "9:00am - 10:00am";
+            break;
+        case"3":
+            return "10:00am - 11:00am";
+            break;
+        case"4":
+            return "11:00am - 12:00m";
+            break;
+        case"5":
+            return "12:00m - 1:00pm";
+            break;
+        case"6":
+            return "1:00pm - 2:00pm";
+            break;
+        case"7":
+            return "2:00pm - 3:00pm";
+            break;
+        case"8":
+            return "3:00pm - 4:00pm";
+            break;
+        case "9":
+            return "4:00pm - 5:00pm";
+            break;
+        default:
+            return "";
+    }
+}
 
 
 function Import() {
     $('#modalHeaderImp').html('Importar Materias');
     $('#modalImportData').modal('show');
 }
+
+
+$('#tblMateriasPorGrado tbody').on('click', 'tr', function () {
+
+    IdMateriaXGrado = $(this).find('td:first').html();
+    IdAsignaturaMG = $(this).find('td:nth-child(2)').html();
+
+    if (ultimaFila != null) {
+        ultimaFila.css('background-color', colorOriginalPAR);
+    }
+
+    $(this).css('background-color', '#ffe35c');
+    ultimaFila = $(this);
+
+    $('#btnEdit').prop("disabled", false);
+
+});
+
+function CallBackMG() {
+    $('#tblMateriasPorGrado').DataTable();
+
+    $('#tblMateriasPorGrado tbody').on('click', 'tr', function () {
+
+        IdMateriaXGrado = $(this).find('td:first').html();
+        IdAsignaturaMG = $(this).find('td:nth-child(2)').html();
+
+        if (ultimaFila != null) {
+            ultimaFila.css('background-color', colorOriginalPAR);
+        }
+
+        $(this).css('background-color', '#ffe35c');
+        ultimaFila = $(this);
+
+        $('#btnNew').prop("disabled", false);
+
+    });
+}
+
+$('#PeriodosXGrado tbody').on('click', 'tr', function () {
+
+    IdPeriodosXGrado = $(this).find('td:first').html();
+    //IdAsignaturaMG = $(this).find('td:nth-child(2)').html();
+    
+    if (ultimaFila != null) {
+        ultimaFila.css('background-color', colorOriginalPAR);
+    }
+
+    $(this).css('background-color', '#ffe35c');
+    ultimaFila = $(this);
+
+    $('#btnNew').prop("disabled", false);
+
+    GetMateriasXGrado();
+});
+
+function GetMateriasXGrado() {
+    $.ajax({
+        type: "POST",
+        traditional: true,//con el formDate este se comenta
+        url: "/Materia/GetAsignaturaPorGrado",
+        contentType: "application/json; charset=utf-8",//con el formDate este se comenta
+        data: JSON.stringify({ IdGradoPeriodo: IdPeriodosXGrado }),
+        success: function (result) {
+            if (result.Res) {
+                alertify.success("Sincronización Realizada con Éxito");
+                $('#tblMateriasPorGrado').DataTable().destroy();
+                $('#tblMateriasPorGrado tbody').empty();
+                $.each(result.asignaturas, function (i, item) {
+                    /* Vamos agregando a nuestra tabla las filas necesarias */
+                    $('#tblMateriasPorGrado tbody').append("<tr class='even pointer'><td>" + item.IdMateriaXGrado + "</td><td hidden>"
+                        + item.IdAsignatura + "</td><td>"
+                        + item.nombreAsignatura + "</td></tr>");
+                });
+                CallBackMG();
+            } else {
+                $('#tblMateriasPorGrado').DataTable().destroy();
+                $('#tblMateriasPorGrado tbody').empty();
+                $.each(result.asignaturas, function (i, item) {
+                    /* Vamos agregando a nuestra tabla las filas necesarias */
+                    $('#tblMateriasPorGrado tbody').append("<tr class='even pointer'><td>" + item.IdMateriaXGrado + "</td><td hidden>"
+                        + item.IdAsignatura + "</td><td>"
+                        + item.nombreAsignatura + "</td></tr>");
+                });
+                CallBackMG();
+                alertify.error("Ha ocurrido un error al sincronizar");
+            }
+            $('.nav-tabs a[href="#home"]').tab('show');
+        },
+        error: function () {
+            alertify.error("Ha ocurrido un error");
+            $('.nav-tabs a[href="#home"]').tab('show');
+        }
+    });
+}
+
+function btnNew() {
+    $('#saveMG').prop("hidden", false);
+    $('#updateMG').prop("hidden", true);
+
+    limpiarDatosMG();
+
+    $('#modalHeaderMG').html('Asignar Materia');
+    $('#modalMateriaXGrado').modal('show');
+}
+
+function limpiarDatosMG() {
+    $("#IdGradoXMateria").val(IdPeriodosXGrado);
+    $("#sltMaterias").val("0");
+}
+
+function btnEdit() {
+    if (IdPeriodosXGrado == 0 || IdPeriodosXGrado == "" || IdPeriodosXGrado == "undefined") {
+        alertify.error("Debe de seleccionar un Materia");
+    } else {
+        $('#saveMG').prop("hidden", true);
+        $('#updateMG').prop("hidden", false);
+
+        $("#IdGradoXMateria").val(IdPeriodosXGrado);
+        $("sltMaterias").val(IdAsignaturaMG);
+
+        $('#modalHeaderMG').html('Actualizar Materia al Grado');
+        $('#modalMateriaXGrado').modal('show');
+    }
+}
+
+function btnDel() {
+
+    if (IdAsignatura == 0 || IdAsignatura == "") {
+        alertify.error("Debe de seleccionar un Materia");
+    } else {
+        alertify.confirm("Advertencia", "¿Desea continuar en Elimnar la Materia?",
+            function () {
+                $.ajax({
+                    type: "POST",
+                    traditional: true,//con el formDate este se comenta
+                    url: "/Materia/DeleteAsignaturaPorGrado",
+                    contentType: "application/json; charset=utf-8",//con el formDate este se comenta
+                    data: JSON.stringify({ IdMateriaXGrado: IdGradoXMateria, IdPeriodoXGrado: IdPeriodosXGrado }),
+                    success: function (result) {
+                        if (result.Res) {
+                            alertify.success("Materia Eliminada.");
+                            $('#tblMateriasPorGrado').DataTable().destroy();
+                            $('#tblMateriasPorGrado tbody').empty();
+                            $.each(result.asignaturas, function (i, item) {
+                                /* Vamos agregando a nuestra tabla las filas necesarias */
+                                $('#tblMateriasPorGrado tbody').append("<tr class='even pointer'><td>" + item.IdMateriaXGrado + "</td><td hidden>"
+                                    + item.IdAsignatura + "</td><td>"
+                                    + item.nombreAsignatura + "</td></tr>");
+                            });
+                            CallBackMG();
+                        } else {
+                            $('#tblMateriasPorGrado').DataTable().destroy();
+                            $('#tblMateriasPorGrado tbody').empty();
+                            $.each(result.asignaturas, function (i, item) {
+                                /* Vamos agregando a nuestra tabla las filas necesarias */
+                                $('#tblMateriasPorGrado tbody').append("<tr class='even pointer'><td>" + item.IdMateriaXGrado + "</td><td hidden>"
+                                    + item.IdAsignatura + "</td><td>"
+                                    + item.nombreAsignatura + "</td></tr>");
+                            });
+                            CallBackMG();
+                            alertify.error("Ha ocurrido un error al Eliminar la Materia, es posible que este asignado a un Grado");
+                        }
+                        //$('#modalMateria').modal('hide');
+                        IdAsignatura = "";
+                    },
+                    error: function () {
+                        alertify.error("Ha ocurrido un error");
+                        //$('#modalMateria').modal('hide');
+                    }
+                });
+            },
+            function () {
+                //alertify.error('Cancel');
+            });
+    }
+}
+
+
+$("#saveMG").on("click", function () {
+
+    datos = {
+        IdPeriodoXGrado: IdPeriodosXGrado,
+        IdAsignatura: $("#sltMaterias").val()
+    }
+    $.ajax({
+        type: "POST",
+        traditional: true,//con el formDate este se comenta
+        url: "/Materia/AddAsignaturaPorGrado",
+        contentType: "application/json; charset=utf-8",//con el formDate este se comenta
+        data: JSON.stringify(datos),
+        success: function (result) {
+            if (result.Res) {
+                alertify.success("Materia Agregada.");
+                $('#tblMateriasPorGrado').DataTable().destroy();
+                $('#tblMateriasPorGrado tbody').empty();
+                $.each(result.asignaturas, function (i, item) {
+                    /* Vamos agregando a nuestra tabla las filas necesarias */
+                    $('#tblMateriasPorGrado tbody').append("<tr class='even pointer'><td>" + item.IdMateriaXGrado + "</td><td hidden>"
+                        + item.IdAsignatura + "</td><td>"
+                        + item.nombreAsignatura + "</td></tr>");
+                });
+                CallBackMG();
+            } else {
+                $('#tblMateriasPorGrado').DataTable().destroy();
+                $('#tblMateriasPorGrado tbody').empty();
+                $.each(result.asignaturas, function (i, item) {
+                    /* Vamos agregando a nuestra tabla las filas necesarias */
+                    $('#tblMateriasPorGrado tbody').append("<tr class='even pointer'><td>" + item.IdMateriaXGrado + "</td><td hidden>"
+                        + item.IdAsignatura + "</td><td>"
+                        + item.nombreAsignatura + "</td></tr>");
+                });
+                CallBackMG();
+                alertify.error("Ha ocurrido un error al agregar el Materia");
+            }
+            $('#modalMateria').modal('hide');
+            IdAsignatura = "";
+        },
+        error: function () {
+            alertify.error("Ha ocurrido un error");
+            $('#modalMateria').modal('hide');
+        }
+    });
+});
+
+$("#updateMG").on("click", function () {
+    datos = {
+        IdMateriaXGrado: $("#IdAsignatura").val(),
+        IdPeriodoXGrado: IdPeriodosXGrado,
+        IdAsignatura: $("#sltMaterias").val()
+    }
+    $.ajax({
+        type: "POST",
+        traditional: true,//con el formDate este se comenta
+        url: "/Materia/AddAsignaturaPorGrado",
+        contentType: "application/json; charset=utf-8",//con el formDate este se comenta
+        data: JSON.stringify(datos),
+        success: function (result) {
+            if (result.Res) {
+                alertify.success("Materia Actualizado.");
+                $('#tblMateriasPorGrado').DataTable().destroy();
+                $('#tblMateriasPorGrado tbody').empty();
+                $.each(result.asignaturas, function (i, item) {
+                    /* Vamos agregando a nuestra tabla las filas necesarias */
+                    $('#tblMateriasPorGrado tbody').append("<tr class='even pointer'><td>" + item.IdMateriaXGrado + "</td><td hidden>"
+                        + item.IdAsignatura + "</td><td>"
+                        + item.nombreAsignatura + "</td></tr>");
+                });
+                CallBackMG();
+            } else {
+                $('#tblMateriasPorGrado').DataTable().destroy();
+                $('#tblMateriasPorGrado tbody').empty();
+                $.each(result.asignaturas, function (i, item) {
+                    /* Vamos agregando a nuestra tabla las filas necesarias */
+                    $('#tblMateriasPorGrado tbody').append("<tr class='even pointer'><td>" + item.IdMateriaXGrado + "</td><td hidden>"
+                        + item.IdAsignatura + "</td><td>"
+                        + item.nombreAsignatura + "</td></tr>");
+                });
+                CallBackMG();
+                alertify.error("Ha ocurrido un error al agregar el Materia");
+            }
+            $('#modalMateria').modal('hide');
+            IdAsignatura = "";
+        },
+        error: function () {
+            alertify.error("Ha ocurrido un error");
+            $('#modalMateria').modal('hide');
+        }
+    });
+
+});
