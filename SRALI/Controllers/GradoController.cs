@@ -317,8 +317,7 @@ namespace SRALI.Controllers
                 return RedirectToAction("Index");
             }
         }
-
-
+        
         public ActionResult Seccion()
         {
             if (CheckSession())
@@ -365,6 +364,7 @@ namespace SRALI.Controllers
                 return result;
             }
         }
+
         public JsonResult EditarSeccion(string idseccion, string seccion)
         {
             var result = new JsonResult();
@@ -400,7 +400,6 @@ namespace SRALI.Controllers
                 return RedirectToAction("LogOut", "Access");
             }
         }
-
 
         public JsonResult SeccionPorGrado(string grado)
         {
@@ -486,8 +485,7 @@ namespace SRALI.Controllers
                 return result;
             }
         }
-
-
+        
         public JsonResult EliminarSeccionPorGrado(string idGradoSeccion, string idgrado)
         {
             var result = new JsonResult();
@@ -537,8 +535,6 @@ namespace SRALI.Controllers
             }
         }
         
-
-
         public JsonResult AgregarPeriodoPorGrado(string grado, string periodo)
         {
             var result = new JsonResult();
@@ -657,6 +653,133 @@ namespace SRALI.Controllers
                 result.Data = new { Status = 1, Msj = "Error:" + ex.Message, JsonRequestBehavior.AllowGet };
                 return result;
             }
-        }               
+        }
+
+
+
+
+        //----------------------------- PERIODOS --------------------------\\
+        //----------------------------- PERIODOS --------------------------\\
+        //----------------------------- PERIODOS --------------------------\\
+
+        public ActionResult Periodo()
+        {
+            if (CheckSession())
+            {
+                ViewBag.Periodos = (from b in db.tbl_Periodo select b).ToList();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LogOut", "Access");
+            }
+        }
+
+        public JsonResult CrearPeriodos(string periodo, string descripcion)
+        {
+            var result = new JsonResult();
+            try
+            {
+                var Msj = "";
+                var Status = 0;
+                var regexiste = (from p in db.tbl_Periodo where p.Periodo == periodo select p).Count();
+                if (regexiste > 0)
+                {
+                    Msj = "Por favor revise. El período ya existe";
+                    Status = 1;
+                }
+                else
+                {
+                    var pe = new tbl_Periodo();
+                    pe.Periodo = periodo;
+                    pe.Descripcion = descripcion;
+                    pe.fechaCreacion = DateTime.Now;
+                    pe.creadoPor = Session["IdUsurio"].ToString();
+                    db.tbl_Periodo.Add(pe);
+                    db.SaveChanges();
+                    Msj = "Nuevo período creado.";
+                    Status = 0;
+                }
+
+
+                var listado = (from g in db.tbl_Periodo select g).ToList();
+                result.Data = new { Status = Status, ListadoPeriodos = listado, Msj = Msj, JsonRequestBehavior.AllowGet };
+                return result;
+            }
+            catch (Exception ex)
+            {
+                result.Data = new { Status = 1, Msj = "Error:" + ex.Message, JsonRequestBehavior.AllowGet };
+                return result;
+            }
+        }
+        
+        public JsonResult EditarPeriodos(string idperiodo, string periodo, string descripcion)
+        {
+            var result = new JsonResult();
+            try
+            {
+                var Msj = "";
+                var Status = 0;
+                var idreal = Convert.ToInt32(idperiodo);
+                var regexiste = (from p in db.tbl_Periodo where p.Periodo == periodo && p.IdPeriodo != idreal select p).Count();
+                if (regexiste > 0)
+                {
+                    Msj = "Por favor revise, duplicidad. Ya existe un período que coincide con '" + periodo + "'";
+                    Status = 1;
+                }
+                else
+                {
+                    var reg = (from p in db.tbl_Periodo where p.IdPeriodo == idreal select p).FirstOrDefault();
+                    reg.Periodo = periodo;
+                    reg.Descripcion = descripcion;
+                    db.SaveChanges();
+                    Msj = "Cambios guardados correctamente.";
+                    Status = 0;
+                }
+
+                var listado = (from g in db.tbl_Periodo select g).ToList();
+                result.Data = new { Status = Status, ListadoPeriodos = listado, Msj = Msj, JsonRequestBehavior.AllowGet };
+                return result;
+            }
+            catch (Exception ex)
+            {
+                result.Data = new { Status = 1, Msj = "Error:" + ex.Message, JsonRequestBehavior.AllowGet };
+                return result;
+            }
+        }
+
+        public JsonResult EliminarPeriodos(string idperiodo)
+        {
+            var result = new JsonResult();
+            try
+            {
+                var Msj = "";
+                var Status = 0;
+                var idreal = Convert.ToInt32(idperiodo);
+                var regexiste = (from p in db.tbl_PeriodoXGrado where p.IdPeriodo == idreal select p).Count();
+                if (regexiste > 0)
+                {
+                    Msj = "Error. Este período está asignado a un grado.";
+                    Status = 1;
+                }
+                else
+                {
+                    var reg = (from p in db.tbl_Periodo where p.IdPeriodo == idreal select p).FirstOrDefault();
+                    db.tbl_Periodo.Remove(reg);
+                    db.SaveChanges();
+                    Msj = "Período Eliminado.";
+                    Status = 0;
+                }
+
+                var listado = (from g in db.tbl_Periodo select g).ToList();
+                result.Data = new { Status = Status, ListadoPeriodos = listado, Msj = Msj, JsonRequestBehavior.AllowGet };
+                return result;
+            }
+            catch (Exception ex)
+            {
+                result.Data = new { Status = 1, Msj = "Error:" + ex.Message, JsonRequestBehavior.AllowGet };
+                return result;
+            }
+        }
     }
 }

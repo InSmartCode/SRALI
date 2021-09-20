@@ -1,0 +1,173 @@
+﻿@{
+    ViewBag.Title = "Periodos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="~/Content/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+<link href="~/Content/vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
+<link href="~/Content/vendors/alertifyjs/css/alertify.css" rel="stylesheet" />
+
+
+<div class="">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2><i class="fa fa-bars"></i> Grados y Secciones <small>Administración de Períodos</small></h2>
+                <div class="clearfix">
+                    <div class="actions">
+                        <div class="inputs pull-right"> 
+                            <button id="btnDelete" class="btn btn-round btn-danger btn-sm" onclick="EliminarModal();" disabled><i class="fa fa-trash"></i> Eliminar</button>
+                        </div>
+                        <div class="inputs pull-right">
+                            <button id="btnEdit" class="btn btn-round btn-warning btn-sm" onclick="EditarModal();" disabled><i class="fa fa-edit"></i> Modificar</button>
+                        </div>
+                        <div class="inputs pull-right">
+                            <button id="btnNew" class="btn btn-round btn-primary btn-sm" onclick="NuevoModal();"><i class="fa fa-plus-circle"></i> Nuevo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="x_content">
+                <table class="table table-striped table-bordered table-hover table-sm" id="tblperiodos" cellspacing="0">
+                    <thead>
+                        <tr class="headings">
+                            <th class="column-title" hidden>Correlativo</th>
+                            <th class="column-title">Período</th>
+                            <th class="column-title">Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.Periodos)
+                        {
+                        <tr class="even pointer">
+                            <td hidden>@item.IdPeriodo</td>
+                            <td>@item.Periodo</td>
+                            <td>@item.Descripcion</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL AGREGAR-->
+<div id="modalPeriodo" class="modal fade draggable-modal modalx" tabindex="-1" data-backdrop="static" data-keyboard="false" role="alertdialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div id="modal-content" class="modal-content">
+            <div class="modal-header" id="modalHeader">
+                <h5 id="modalHeader" class="text-center" style="margin-bottom: 0px;">Nuevo Período</h5>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                        <div class="col-md-12 text-left" for="inputPeriodo">Período</div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control has-feedback-right" id="inputPeriodo" placeholder="Período" />
+                            <span class="fa fa-info-circle form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                        <div class="col-md-12 text-left" for="inputDescripcion">Descripción</div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control has-feedback-right" id="inputDescripcion" placeholder="Descripción" />
+                            <span class="fa fa-info-circle form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-circle btn-primary btn-group-lg" id="btnGuardar" onclick="Guardar();" data-dismiss="modal">Agregar</button>
+                <button type="button" class="btn btn-circle btn-secondary btn-group-lg" id="btnCerrar" data-dismiss="modal">Cancelar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL EDITAR-->
+<div id="modalEditPeriodo" class="modal fade draggable-modal modalx" tabindex="-1" data-backdrop="static" data-keyboard="false" role="alertdialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div id="modal-content" class="modal-content">
+            <div class="modal-header" id="modalHeader">
+                <h5 id="modalHeader" class="text-center" style="margin-bottom: 0px;">Editar Período</h5>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                        <div class="col-md-12 text-left" for="inputEditPeriodo">Período</div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control has-feedback-right" id="inputEditPeriodo" placeholder="Período" />
+                            <span class="fa fa-info-circle form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                        <div class="col-md-12 text-left" for="inputEditDescripcion">Descripción</div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control has-feedback-right" id="inputEditDescripcion" placeholder="Descripción" />
+                            <span class="fa fa-info-circle form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-circle btn-primary btn-group-lg" id="btnEditar" onclick="Modificar();" data-dismiss="modal">Guardar Cambio</button>
+                <button type="button" class="btn btn-circle btn-secondary btn-group-lg" id="btnCerrar" data-dismiss="modal">Cancelar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--MODAL ELIMINAR-->
+<div id="modalDeletePeriodo" class="modal fade draggable-modal modalx" tabindex="-1" data-backdrop="static" data-keyboard="false" role="alertdialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div id="modal-content" class="modal-content">
+            <div class="modal-header" id="modalHeader">
+                <h5 id="modalHeader" class="text-center" style="margin-bottom: 0px;">Eliminar Período</h5>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                        <div class="col-md-12 text-left" for="inputDeletePeriodo">Período</div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control has-feedback-right" id="inputDeletePeriodo" placeholder="Período" disabled/>
+                            <span class="fa fa-info-circle form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                        <div class="col-md-12 text-left" for="inputDeleteDescripcion">Descripción</div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control has-feedback-right" id="inputDeleteDescripcion" placeholder="Descripción" disabled/>
+                            <span class="fa fa-info-circle form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-circle btn-primary btn-group-lg" id="btnEditar" onclick="Eliminar();" data-dismiss="modal">Eliminar Período</button>
+                <button type="button" class="btn btn-circle btn-secondary btn-group-lg" id="btnCerrar" data-dismiss="modal">Cancelar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @*@Scripts.Render("~/Scripts/RegistroVisitas")*@
+
+<script src="~/Content/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/Content/vendors/alertifyjs/alertify.js"></script>
+<script src="~/Resources/js/Grados/Periodo.js"></script>
+}
+
+
