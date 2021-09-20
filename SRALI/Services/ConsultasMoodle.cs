@@ -126,15 +126,15 @@ namespace SRALI.Services
                         {
                         }
 
-                        tblAsigatura materia = new tblAsigatura();
-                        if (Convert.ToInt32(reader.GetString(0)) == 0)
-                        {
-                            materia.idGrado = Convert.ToInt32(reader.GetString(0)) + 1;
-                        }
-                        else
-                        {
-                            materia.idGrado = Convert.ToInt32(reader.GetString(0));
-                        }
+                        tbl_Asignatura materia = new tbl_Asignatura();
+                        //if (Convert.ToInt32(reader.GetString(0)) == 0)
+                        //{
+                        //    materia.idGrado = Convert.ToInt32(reader.GetString(0)) + 1;
+                        //}
+                        //else
+                        //{
+                        //    materia.idGrado = Convert.ToInt32(reader.GetString(0));
+                        //}
                         //materia.idGrado =Convert.ToInt32(reader.GetString(0));
                         materia.nombreAsignatura = reader.GetString(1);
                         materia.clave = reader.GetString(2);
@@ -142,22 +142,22 @@ namespace SRALI.Services
                         materia.creadoPor = "SyncManual";
                         materia.fechaCreacion = DateTime.Now;
 
-                        var OldRegister = (from g in db.tblAsigatura where g.clave == materia.clave select g).FirstOrDefault();
+                        var OldRegister = (from g in db.tbl_Asignatura where g.clave == materia.clave select g).FirstOrDefault();
                         if (OldRegister == null)
                         {
-                            db.tblAsigatura.Add(materia);
+                            db.tbl_Asignatura.Add(materia);
                             db.SaveChanges();
                         }
                         else
                         {
-                            if (Convert.ToInt32(reader.GetString(0)) == 0)
-                            {
-                                OldRegister.idGrado = Convert.ToInt32(reader.GetString(0)) + 1;
-                            }
-                            else
-                            {
-                                OldRegister.idGrado = Convert.ToInt32(reader.GetString(0));
-                            }
+                            //if (Convert.ToInt32(reader.GetString(0)) == 0)
+                            //{
+                            //    OldRegister.idGrado = Convert.ToInt32(reader.GetString(0)) + 1;
+                            //}
+                            //else
+                            //{
+                            //    OldRegister.idGrado = Convert.ToInt32(reader.GetString(0));
+                            //}
                             OldRegister.nombreAsignatura = reader.GetString(1);
                             OldRegister.clave = clave;
                             OldRegister.actualizadoPor = "";

@@ -37,7 +37,7 @@ namespace SRALI.Controllers
             if (CheckSession())
             {
                 ViewBag.Alumnos = (from b in db.tblEstudiante select b).ToList();
-                ViewBag.Colegiaturas = db.SP_GET_EXPEDIENTES_POR_ALUMNO(0).ToList();//0 -> All 
+                ViewBag.Colegiaturas = db.SP_GET_MATRICULAS_POR_ALUMNO(0).ToList();//0 -> All 
                 ViewBag.Fecha = DateTime.Now.ToString("dd-MM-yyyy");
                 return View();
             }

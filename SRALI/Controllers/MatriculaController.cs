@@ -47,13 +47,13 @@ namespace SRALI.Controllers
         }
 
 
-        public JsonResult AddExpediente(tblExpediente Expediente)
+        public JsonResult AddExpediente(tbl_Matricula Expediente)
         {
             JsonResult jr = new JsonResult();
             try
              {
 
-                var OldExpediente = (from p in db.tblExpediente where p.idExpediente == Expediente.idExpediente select p).FirstOrDefault();
+                var OldExpediente = (from p in db.tbl_Matricula where p.idMatricula == Expediente.idMatricula select p).FirstOrDefault();
 
                 if (OldExpediente == null)
                 {
@@ -61,7 +61,7 @@ namespace SRALI.Controllers
                     Expediente.creadoPor = Session["IdUsurio"].ToString();
                     if (ModelState.IsValid)
                     {
-                        db.tblExpediente.Add(Expediente);
+                        db.tbl_Matricula.Add(Expediente);
                         db.SaveChanges();
                     }
                 }
@@ -82,14 +82,14 @@ namespace SRALI.Controllers
                     }
                 }
 
-                var Expedientes = db.SP_GET_EXPEDIENTES_POR_ALUMNO(Expediente.idAlumno).ToList();
+                var Expedientes = db.SP_GET_MATRICULAS_POR_ALUMNO(Expediente.idAlumno).ToList();
 
                 jr.Data = new { Expedientes = Expedientes, Res = true };
                 return jr;
             }
             catch (Exception ex)
             {
-                var Expedientes = db.SP_GET_EXPEDIENTES_POR_ALUMNO(Expediente.idAlumno).ToList();
+                var Expedientes = db.SP_GET_MATRICULAS_POR_ALUMNO(Expediente.idAlumno).ToList();
                 jr.Data = new { Expedientes = Expedientes, Res = false };
                 return jr;
             }
@@ -100,7 +100,7 @@ namespace SRALI.Controllers
             JsonResult jr = new JsonResult();
             try
             {
-                var Expedientes = db.SP_GET_EXPEDIENTES_POR_ALUMNO(idAlumno).ToList();
+                var Expedientes = db.SP_GET_MATRICULAS_POR_ALUMNO(idAlumno).ToList();
 
                 jr.Data = new { Expedientes = Expedientes, Res = true };
                 return jr;

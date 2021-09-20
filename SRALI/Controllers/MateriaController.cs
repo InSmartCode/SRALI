@@ -40,8 +40,10 @@ namespace SRALI.Controllers
         {
             if(CheckSession())
             {
+                ViewBag.PeriodosXGrado = db.SP_GET_PeriodosXGrados().ToList();
                 ViewBag.Grados = (from b in db.tblGrado select b).ToList();
-                ViewBag.Materias = db.SP_ObtenerMaterias().ToList();
+                //ViewBag.Materias = db.SP_ObtenerMaterias().ToList();
+                ViewBag.Materias = (from b in db.tbl_Asignatura select b).ToList();
                 return View();
             }
             else
@@ -50,13 +52,13 @@ namespace SRALI.Controllers
             }
         }
 
-        public JsonResult AddMateria(tblAsigatura Materia)
+        public JsonResult AddMateria(tbl_Asignatura Materia)
         {
             JsonResult jr = new JsonResult();
             try
             {
 
-                var OldMateria = (from p in db.tblAsigatura where p.idAsignatura == Materia.idAsignatura select p).FirstOrDefault();
+                var OldMateria = (from p in db.tbl_Asignatura where p.idAsignatura == Materia.idAsignatura select p).FirstOrDefault();
 
                 if (OldMateria == null)
                 {
@@ -64,12 +66,12 @@ namespace SRALI.Controllers
                     Materia.creadoPor = Session["IdUsurio"].ToString();
                     if (ModelState.IsValid)
                     {
-                        db.tblAsigatura.Add(Materia);
+                        db.tbl_Asignatura.Add(Materia);
                         db.SaveChanges();
                     }
                 }
 
-                var Materias = db.SP_ObtenerMaterias().ToList();
+                var Materias = (from b in db.tbl_Asignatura select b).ToList();
 
                 jr.Data = new { Materias = Materias, Res = true };
                 return jr;
@@ -83,27 +85,28 @@ namespace SRALI.Controllers
         }
 
 
-        public JsonResult UpdateMateria(tblAsigatura Materia)
+        public JsonResult UpdateMateria(tbl_Asignatura Materia)
         {
             JsonResult jr = new JsonResult();
             try
             {
-                var OldMateria = (from p in db.tblAsigatura where p.idAsignatura == Materia.idAsignatura select p).FirstOrDefault();
+                var OldMateria = (from p in db.tbl_Asignatura where p.idAsignatura == Materia.idAsignatura select p).FirstOrDefault();
 
-                OldMateria.idGrado = Materia.idGrado;
+                //OldMateria.idGrado = Materia.idGrado;
                 OldMateria.nombreAsignatura = Materia.nombreAsignatura;
+                OldMateria.clave = Materia.clave;
                 OldMateria.hora = Materia.hora;
                 OldMateria.actualizadoPor = Session["IdUsurio"].ToString();
                 OldMateria.fechaActualizado = DateTime.Now;
 
                 db.SaveChanges();
-                var Materias = db.SP_ObtenerMaterias().ToList();
+                var Materias = (from b in db.tbl_Asignatura select b).ToList();
                 jr.Data = new { Materias = Materias, Res = true };
                 return jr;
             }
             catch (Exception ex)
             {
-                var Materias = db.SP_ObtenerMaterias().ToList();
+                var Materias = (from b in db.tbl_Asignatura select b).ToList();
                 jr.Data = new { Materias = Materias, Res = false };
                 return jr;
             }
@@ -114,18 +117,18 @@ namespace SRALI.Controllers
             JsonResult jr = new JsonResult();
             try
             {
-                var OldMateria = (from p in db.tblAsigatura where p.idAsignatura == idAsignatura select p).FirstOrDefault();
+                var OldMateria = (from p in db.tbl_Asignatura where p.idAsignatura == idAsignatura select p).FirstOrDefault();
 
 
-                db.tblAsigatura.Remove(OldMateria);
+                db.tbl_Asignatura.Remove(OldMateria);
                 db.SaveChanges();
-                var Materias = db.SP_ObtenerMaterias().ToList();
+                var Materias = (from b in db.tbl_Asignatura select b).ToList();
                 jr.Data = new { Materias = Materias, Res = true };
                 return jr;
             }
             catch (Exception ex)
             {
-                var Materias = db.SP_ObtenerMaterias().ToList();
+                var Materias = (from b in db.tbl_Asignatura select b).ToList();
                 jr.Data = new { Materias = Materias, Res = false };
                 return jr;
             }
@@ -140,7 +143,7 @@ namespace SRALI.Controllers
             if (CheckSession())
             {
                 ViewBag.Grados = (from b in db.tblGrado select b).ToList();
-                ViewBag.Asignaturas = (from b in db.tblAsigatura select b).ToList();
+                ViewBag.Asignaturas = (from b in db.tbl_Asignatura select b).ToList();
                 //ViewBag.Maestros = (from b in db.tblUsuario where b.idPerfil==6 select b).ToList();
                 ViewBag.Maestros = (from b in db.tblMaestro select b).ToList();
                 ViewBag.Materias = db.SP_ObtenerMaterias().ToList();
@@ -298,23 +301,23 @@ namespace SRALI.Controllers
                 {
                     try
                     {
-                        tblAsigatura registro = new tblAsigatura();
-                        registro.idGrado = Convert.ToInt32(sheet.GetCellValueAsString(idRow, 2));
+                        tbl_Asignatura registro = new tbl_Asignatura();
+                        //registro.idGrado = Convert.ToInt32(sheet.GetCellValueAsString(idRow, 2));
                         registro.nombreAsignatura = sheet.GetCellValueAsString(idRow, 3);
                         registro.clave = sheet.GetCellValueAsString(idRow, 4);
                         registro.hora = sheet.GetCellValueAsString(idRow, 5);
                         registro.creadoPor = "ImportacionXLSX";
                         registro.fechaCreacion = DateTime.Now;
 
-                        var OldItem = (from p in db.tblAsigatura where p.clave == registro.clave select p).FirstOrDefault();
+                        var OldItem = (from p in db.tbl_Asignatura where p.clave == registro.clave select p).FirstOrDefault();
                         if (OldItem == null)
                         {
-                            db.tblAsigatura.Add(registro);
+                            db.tbl_Asignatura.Add(registro);
                             db.SaveChanges();
                         }
                         else
                         {
-                            OldItem.idGrado = Convert.ToInt32(sheet.GetCellValueAsString(idRow, 2));
+                            //OldItem.idGrado = Convert.ToInt32(sheet.GetCellValueAsString(idRow, 2));
                             OldItem.nombreAsignatura = sheet.GetCellValueAsString(idRow, 3);
                             OldItem.clave = sheet.GetCellValueAsString(idRow, 4);
                             OldItem.hora = sheet.GetCellValueAsString(idRow, 5);
@@ -354,6 +357,80 @@ namespace SRALI.Controllers
             }
         }
 
+
+
+        public JsonResult GetAsignaturaPorGrado(int IdGradoPeriodo)
+        {
+            JsonResult jr = new JsonResult();
+            try
+            {
+                var asignaturas = db.SP_GET_AsiganturaPeriodosXGrados(IdGradoPeriodo).ToList();
+
+                jr.Data = new { asignaturas = asignaturas, Res = true };
+                return jr;
+            }
+            catch (Exception ex)
+            {
+                jr.Data = new { asignaturas = "", Res = false };
+                return jr;
+            }
+        }
+
+        public JsonResult AddAsignaturaPorGrado(tbl_AsignaturaXGrado GradoPeriodo)
+        {
+            JsonResult jr = new JsonResult();
+            try
+            {
+                var OldRegister = (from p in db.tbl_AsignaturaXGrado where p.IdPeriodoXGrado == GradoPeriodo.IdPeriodoXGrado select p).FirstOrDefault();
+
+                if (OldRegister == null)
+                {
+                    //GradoPeriodo.fechaCreacion = DateTime.Now;
+                    //GradoPeriodo.creadoPor = Session["IdUsurio"].ToString();
+                    if (ModelState.IsValid)
+                    {
+                        db.tbl_AsignaturaXGrado.Add(GradoPeriodo);
+                        db.SaveChanges();
+                    }
+                }
+                else
+                {
+                    OldRegister.IdAsignatura = GradoPeriodo.IdAsignatura;
+                    db.SaveChanges();
+                }
+
+                var asignaturas = db.SP_GET_AsiganturaPeriodosXGrados(GradoPeriodo.IdPeriodoXGrado).ToList();
+
+                jr.Data = new { asignaturas = asignaturas, Res = true };
+                return jr;
+            }
+            catch (Exception ex)
+            {
+                jr.Data = new { asignaturas = "", Res = false };
+                return jr;
+            }
+        }
+
+        public JsonResult DeleteAsignaturaPorGrado(int IdMateriaXGrado, int IdPeriodoXGrado)
+        {
+            JsonResult jr = new JsonResult();
+            try
+            {
+                var OldMateria = (from p in db.tbl_AsignaturaXGrado where p.IdMateriaXGrado == IdMateriaXGrado select p).FirstOrDefault();
+
+                db.tbl_AsignaturaXGrado.Remove(OldMateria);
+                db.SaveChanges();
+                var asignaturas = db.SP_GET_AsiganturaPeriodosXGrados(IdPeriodoXGrado).ToList();
+                jr.Data = new { asignaturas = asignaturas, Res = true };
+                return jr;
+            }
+            catch (Exception ex)
+            {
+                var asignaturas = db.SP_GET_AsiganturaPeriodosXGrados(IdPeriodoXGrado).ToList();
+                jr.Data = new { asignaturas = asignaturas, Res = false };
+                return jr;
+            }
+        }
 
 
 

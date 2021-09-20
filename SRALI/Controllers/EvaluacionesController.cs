@@ -37,7 +37,7 @@ namespace SRALI.Controllers
             if (CheckSession())
             {
                 ViewBag.Grados = (from b in db.tblGrado select b).ToList();
-                ViewBag.Materias = (from b in db.tblAsigatura select b).ToList();
+                ViewBag.Materias = (from b in db.tbl_Asignatura select b).ToList();
                 return View();
             }
             else
@@ -67,7 +67,7 @@ namespace SRALI.Controllers
                 else
                 {
                     OldEvaluacion.idAsignatura = Evaluacion.idAsignatura;
-                    OldEvaluacion.NumEvaluacion = Evaluacion.NumEvaluacion;
+                    //OldEvaluacion.NumEvaluacion = Evaluacion.NumEvaluacion;
                     OldEvaluacion.Descripcion = Evaluacion.Descripcion;
                     OldEvaluacion.Porcentaje = Evaluacion.Porcentaje;
                     OldEvaluacion.fechaCreacion = DateTime.Now;
@@ -78,14 +78,14 @@ namespace SRALI.Controllers
                     }
                 }
 
-                var Evaluacions = (from p in db.tbl_Evaluacion where p.IdEvaluacion == Evaluacion.IdEvaluacion select new { p.IdEvaluacion, p.idAsignatura, p.NumEvaluacion, p.Descripcion, p.Porcentaje }).ToList();
+                var Evaluacions = (from p in db.tbl_Evaluacion where p.IdEvaluacion == Evaluacion.IdEvaluacion select new { p.IdEvaluacion, p.idAsignatura,  p.Descripcion, p.Porcentaje }).ToList();
 
                 jr.Data = new { Evaluacions = Evaluacions, Res = true };
                 return jr;
             }
             catch (Exception ex)
             {
-                var Evaluacions = (from p in db.tbl_Evaluacion where p.IdEvaluacion == Evaluacion.IdEvaluacion select new { p.IdEvaluacion, p.idAsignatura, p.NumEvaluacion, p.Descripcion, p.Porcentaje }).ToList();
+                var Evaluacions = (from p in db.tbl_Evaluacion where p.IdEvaluacion == Evaluacion.IdEvaluacion select new { p.IdEvaluacion, p.idAsignatura,  p.Descripcion, p.Porcentaje }).ToList();
                 jr.Data = new { Evaluacions = Evaluacions, Res = false };
                 return jr;
             }
@@ -96,7 +96,7 @@ namespace SRALI.Controllers
             JsonResult jr = new JsonResult();
             try
             {
-                var Evaluacions = (from p in db.tbl_Evaluacion where p.idAsignatura == idAsignatura select new { p.IdEvaluacion, p.idAsignatura, p.NumEvaluacion, p.Descripcion, p.Porcentaje }).ToList();
+                var Evaluacions = (from p in db.tbl_Evaluacion where p.idAsignatura == idAsignatura select new { p.IdEvaluacion, p.idAsignatura,  p.Descripcion, p.Porcentaje }).ToList();
 
                 jr.Data = new { Evaluacions = Evaluacions, Res = true };
                 return jr;
@@ -113,12 +113,12 @@ namespace SRALI.Controllers
             JsonResult jr = new JsonResult();
             try
             {
-                var Asigaturas = (from p in db.tblAsigatura
-                                  join g in db.tblGrado on p.idGrado equals g.idGrado
-                                  where p.idGrado == IdGrado
-                                  select new { p.idAsignatura, p.idGrado, g.descripcion, g.nivelEscolar, p.nombreAsignatura, p.hora }).ToList();
+                //var Asigaturas = (from p in db.tbl_Asignatura
+                //                  join g in db.tblGrado on p.idGrado equals g.idGrado
+                //                  where p.idGrado == IdGrado
+                //                  select new { p.idAsignatura, p.idGrado, g.descripcion, g.nivelEscolar, p.nombreAsignatura, p.hora }).ToList();
 
-                jr.Data = new { Asigaturas = Asigaturas, Res = true };
+                //jr.Data = new { Asigaturas = Asigaturas, Res = true };
                 return jr;
             }
             catch (Exception ex)

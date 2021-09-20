@@ -12,65 +12,170 @@
 <link href="~/Content/vendors/alertifyjs/css/alertify.css" rel="stylesheet" />
 
 
-<div class="">
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_panel">
-            <div class="x_title">
-                <h2><i class="fa fa-bars"></i> Materias <small>Mantenimiento</small></h2>
-                <div class="clearfix">
-                    <div class="actions">
-                        <div class="actions">
-                            <div class="inputs pull-right">
-                                <button class="btn btn-round btn-info btn-sm" onclick="Import()"><i class="fa fa-upload"></i> Importar</button>
-                            </div>
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+            <h2><i class="fa fa-bars"></i> Materias <small>Administración</small></h2>
+            <div class="x_content">
+                <div class="row table-responsive">
+                    <div class="x_panel col-md-12">
+                        <div class="x_title">
+                            <h2><i class="fa fa-list-alt"></i> Materias  <small>Mantenimiento</small></h2></h2>
+                            <div class="clearfix">
+                                <div class="actions">
+                                    <div class="actions">
+                                        <div class="inputs pull-right">
+                                            <button class="btn btn-round btn-info btn-sm" onclick="Import()"><i class="fa fa-upload"></i> Importar</button>
+                                        </div>
 
-                            <div class="inputs pull-right">
-                                <button class="btn btn-round btn-danger btn-sm" onclick="Sync();"><i class="fa fa-refresh"></i> Sincronizar de Moodle</button>
-                            </div>
+                                        <div class="inputs pull-right">
+                                            <button class="btn btn-round btn-danger btn-sm" onclick="Sync();"><i class="fa fa-refresh"></i> Sincronizar de Moodle</button>
+                                        </div>
 
-                            <div class="inputs pull-right">
-                                <button class="btn btn-round btn-danger btn-sm" onclick="Eliminar();"><i class="fa fa-trash"></i> Eliminar</button>
-                            </div>
+                                        <div class="inputs pull-right" hidden>
+                                            <button class="btn btn-round btn-danger btn-sm" onclick="Eliminar();"><i class="fa fa-trash"></i> Eliminar</button>
+                                        </div>
 
-                            <div class="inputs pull-right">
-                                <button class="btn btn-round btn-warning btn-sm" onclick="Editar();"><i class="fa fa-edit"></i> Modificar</button>
-                            </div>
+                                        <div class="inputs pull-right">
+                                            <button class="btn btn-round btn-warning btn-sm" onclick="Editar();"><i class="fa fa-edit"></i> Modificar</button>
+                                        </div>
 
-                            <div class="inputs pull-right">
-                                <button class="btn btn-round btn-primary btn-sm" onclick="Nuevo();"><i class="fa fa-plus-circle"></i> Nuevo</button>
+                                        <div class="inputs pull-right">
+                                            <button class="btn btn-round btn-primary btn-sm" onclick="Nuevo();"><i class="fa fa-plus-circle"></i> Nuevo</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="x_content">
-                    <table class="table table-striped table-bordered table-hover table-sm" id="tblMaterias" cellspacing="0">
-                        <thead>
-                            <tr class="headings">
-                                <th class="column-title">#</th>
-                                <th class="column-title" hidden>idGrado</th>
-                                <th class="column-title">Grado</th>
-                                <th class="column-title">Materia</th>
-                                <th class="column-title">Horario</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in ViewBag.Materias)
-                            {
-                                <tr class="even pointer">
-                                    <td>@item.idAsignatura</td>
-                                    <td hidden>@item.idGrado</td>
-                                    <td>@item.descripcion</td>
-                                    <td>@item.nombreAsignatura</td>
-                                    <td>@item.hora</td>
+                            <br /><br />
+                            <table class="table table-bordered table-hover table-sm" id="tblMaterias" cellspacing="0">
+                                <thead>
+                                    <tr class="headings">
+                                        <th class="column-title">#</th>
+                                        <th class="column-title">Materia</th>
+                                        <th class="column-title">Clave</th>
+                                        <th class="column-title" >Horario</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in ViewBag.Materias)
+                                    {
+                                    <tr class="even pointer">
+                                        <td>@item.idAsignatura</td>
+                                        <td>@item.nombreAsignatura</td>
+                                        <td>@item.clave</td>
+                                        <td >@item.hora</td>
+                                        @*@if (item.hora == "1")
+                                        {
+                                            <td>8:00am - 9:00am</td>
+                                        }
+                                        else if (item.hora == "2")
+                                        {
+                                            <td>9:00am - 10:00am</td>
+                                        }
+                                        else if (item.hora == "3")
+                                        {
+                                            <td>10:00am - 11:00am</td>
+                                        }
+                                        else if (item.hora == "4")
+                                        {
+                                            <td>11:00am - 12:00m</td>
+                                        }
+                                        else if (item.hora == "5")
+                                        {
+                                            <td>12:00m - 1:00pm</td>
+                                        }
+                                        else if (item.hora == "6")
+                                        {
+                                            <td>1:00pm - 2:00pm</td>
+                                        }
+                                        else if (item.hora == "7")
+                                        {
+                                            <td>2:00pm - 3:00pm</td>
+                                        }
+                                        else if (item.hora == "8")
+                                        {
+                                            <td>3:00pm - 4:00pm</td>
+                                        }
+                                        else if (item.hora == "9")
+                                        {
+                                            <td>4:00pm - 5:00pm</td>
+                                        }
+                                        else if (item.hora == "")
+                                        {
+                                            <td>S/N</td>
+                                        }*@
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    <br /><br />
+                    <div class="x_panel col-md-5">
+                        <h2><i class="fa fa-list-alt"></i> (PeriodoX)Grado</h2>
+                        <table class="table table-bordered table-hover table-sm" id="PeriodosXGrado" cellspacing="0">
+                            <thead>
+                                <tr class="headings">
+                                    <th class="column-title">#</th>
+                                    <th class="column-title">Grado</th>
+                                    <th class="column-title">Seccion</th>
+                                    <th class="column-title">Nivel Escolar</th>
+                                    <th class="column-title">Periodo</th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.PeriodosXGrado)
+                                {
+                                    <tr>
+                                        <td>@item.IdPeriodoXGrado</td>
+                                        <td>@item.descripcion</td>
+                                        <td>@item.nombreSeccion</td>
+                                        <td>@item.nivelEscolar</td>
+                                        <td>@item.Periodo</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="x_panel col-md-7">
+                        <div class="x_title">
+                            <h2><i class="fa fa-list-alt"></i> Materias Asignadas por Grado</h2>
+                            <div class="clearfix">
+                                <div class="actions">
+                                    <div class="inputs pull-right">
+                                        <button class="btn btn-round btn-danger btn-sm" onclick="btnDel();" id="btnDel" disabled><i class="fa fa-trash"></i> Eliminar</button>
+                                    </div>
+
+                                    <div class="inputs pull-right">
+                                        <button class="btn btn-round btn-warning btn-sm" onclick="btnEdit();" id="btnEdit" disabled><i class="fa fa-edit"></i> Modificar</button>
+                                    </div>
+
+                                    <div class="inputs pull-right">
+                                        <button class="btn btn-round btn-primary btn-sm" onclick="btnNew();" id="btnNew" disabled><i class="fa fa-plus-circle"></i> Nuevo</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br /><br />
+                        <table class="table table-bordered table-hover table-sm" id="tblMateriasPorGrado" cellspacing="0">
+                            <thead>
+                                <tr class="headings">
+                                    <th class="column-title">#</th>
+                                    <th class="column-title" hidden>Materia</th>
+                                    <th class="column-title">Materia</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
 
                 </div>
+
+                   
+
             </div>
-        </div>
     </div>
+</div>
 
 
     <div id="modalMateria" class="modal fade draggable-modal modalx" tabindex="-1" data-backdrop="static" data-keyboard="false" role="alertdialog" aria-hidden="true">
@@ -87,7 +192,7 @@
                         </div>
                     </div>
 
-                    <div class="row form-group form-md-line-input has-inf">
+                    <div class="row form-group form-md-line-input has-inf" hidden>
                         <div class="col-md-4 text-left">Grado:</div>
                         <div class="col-md-8">
                             <select class="form-control" id="sltGrado">
@@ -99,16 +204,16 @@
                             </select>
                         </div>
                     </div>
-                    <div class="row form-group form-md-line-input has-info" hidden>
-                        <div class="col-md-4 text-left">Descripcion:</div>
-                        <div class="col-md-8">
-                            <input id="Descripcion" class="form-control" placeholder="Descripcion" />
-                        </div>
-                    </div>
                     <div class="row form-group form-md-line-input has-info">
                         <div class="col-md-4 text-left">Nombre Asignatura:</div>
                         <div class="col-md-8">
                             <input id="NombreAsignatura" class="form-control" placeholder="Nombre Asignatura" />
+                        </div>
+                    </div>
+                    <div class="row form-group form-md-line-input has-info">
+                        <div class="col-md-4 text-left">Clave:</div>
+                        <div class="col-md-8">
+                            <input id="Clave" class="form-control" placeholder="Clave" />
                         </div>
                     </div>
                     <div class="row form-group form-md-line-input has-info">
@@ -171,6 +276,47 @@
             </div>
         </div>
     </div>
+
+
+<div id="modalMateriaXGrado" class="modal fade draggable-modal modalx" tabindex="-1" data-backdrop="static" data-keyboard="false" role="alertdialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div id="modal-content" class="modal-content">
+            <div class="modal-header">
+                <h4 id="modalHeaderMG" class="text-center" style="margin-bottom: 0px;"></h4>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <div class="row form-group form-md-line-input has-info">
+                    <div class="col-md-4 text-left">IdGradoXMateria:</div>
+                    <div class="col-md-8">
+                        <input id="IdGradoXMateria" class="form-control" placeholder="IdGradoXMateria" disabled/>
+                    </div>
+                </div>
+                <div class="row form-group form-md-line-input has-inf">
+                    <div class="col-md-4 text-left">Materia:</div>
+                    <div class="col-md-8">
+                        <select class="form-control" id="sltMaterias">
+                            <option value="0">Seleccione Materia</option>
+                            @foreach (var item in ViewBag.Materias)
+                            {
+                                <option value="@item.idAsignatura">@item.nombreAsignatura - @item.clave </option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" id="updateMG" data-dismiss="modal">Actualizar</button>
+                <button type="button" class="btn btn-success" id="saveMG" data-dismiss="modal">Guardar</button>
+                <button type="button" class="btn btn-primary" id="cancel" data-dismiss="modal">Cancelar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
     @section Scripts{
         @*@Scripts.Render("~/Scripts/RegistroVisitas")*@
